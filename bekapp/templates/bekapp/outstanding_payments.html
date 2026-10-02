@@ -1,0 +1,157 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+Outstanding Payments | Bakery Management
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/outstanding-payments.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="outstanding-payments-page">
+
+    <div class="container">
+
+        <div class="outstanding-payments-header">
+
+            <div class="outstanding-header-top">
+
+                <div>
+                    <h1>Outstanding Payments</h1>
+
+                    <p>
+                        View sales with unpaid or partially paid balances.
+                    </p>
+                </div>
+
+                <a
+                    href="{% url 'cashier_dashboard' %}"
+                    class="outstanding-back-button"
+                >
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="outstanding-payments-card">
+
+            {% if outstanding_sales %}
+
+                <div class="outstanding-table-wrapper">
+
+                    <table class="outstanding-table">
+
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Sale</th>
+                                <th>Total</th>
+                                <th>Paid</th>
+                                <th>Outstanding</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for item in outstanding_sales %}
+
+                                <tr>
+
+                                    <td>
+                                        {{ item.sale.sale_date|date:"Y-m-d H:i" }}
+                                    </td>
+
+                                    <td>
+                                        <span class="outstanding-sale-number">
+                                            {{ item.sale.sale_number }}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        {{ item.sale.total_amount }} ETB
+                                    </td>
+
+                                    <td>
+                                        {{ item.paid_amount }} ETB
+                                    </td>
+
+                                    <td>
+                                        <span class="outstanding-amount">
+                                            {{ item.remaining_amount }} ETB
+                                        </span>
+                                    </td>
+
+                                    <td>
+
+                                        {% if item.sale.payment_status == 'PARTIAL' %}
+
+                                            <span class="outstanding-status partial">
+                                                Partially Paid
+                                            </span>
+
+                                        {% else %}
+
+                                            <span class="outstanding-status unpaid">
+                                                Unpaid
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+                                    <td>
+
+                                        <a
+                                            href="{% url 'sale_detail' sale_id=item.sale.id %}"
+                                            class="outstanding-action-button"
+                                        >
+                                            View Sale
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="outstanding-empty">
+
+                    <i class="fas fa-circle-check"></i>
+
+                    <h3>No Outstanding Payments</h3>
+
+                    <p>
+                        All sales have been fully paid.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

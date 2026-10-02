@@ -1,0 +1,321 @@
+/* =========================================================
+   SALES LIST PAGE
+========================================================= */
+
+.sale-list-page {
+    padding: 50px 0 70px;
+    background: #f7f9fb;
+    min-height: 70vh;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.sale-list-header {
+    margin-bottom: 30px;
+}
+
+.sale-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.sale-list-header h1 {
+    margin: 0 0 8px;
+    color: #17324d;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.sale-list-header p {
+    margin: 0;
+    color: #6b7785;
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.sale-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   NEW SALE BUTTON
+========================================================= */
+
+.sale-new-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: #159a96;
+    color: #ffffff;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.sale-new-button:hover {
+    background: #117d7a;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.sale-back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: #ffffff;
+    color: #17324d;
+    border: 1px solid #dfe5e8;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.sale-back-button:hover {
+    background: #f1f7f7;
+    border-color: #159a96;
+    color: #117d7a;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   TABLE CARD
+========================================================= */
+
+.sale-table-card {
+    background: #ffffff;
+    border: 1px solid #e5e9ed;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(23, 50, 77, 0.06);
+    overflow: hidden;
+}
+
+.sale-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+/* =========================================================
+   SALES TABLE
+========================================================= */
+
+.sale-table {
+    width: 100%;
+    min-width: 1100px;
+    border-collapse: collapse;
+}
+
+.sale-table thead {
+    background: #f1f7f7;
+}
+
+.sale-table th {
+    padding: 15px 18px;
+    color: #17324d;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid #dfe7e8;
+}
+
+.sale-table td {
+    padding: 15px 18px;
+    color: #536170;
+    font-size: 14px;
+    border-bottom: 1px solid #edf0f2;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.sale-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.sale-table tbody tr:hover {
+    background: #f9fbfb;
+}
+
+.sale-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   SALE NUMBER
+========================================================= */
+
+.sale-number {
+    color: #159a96;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   SALE TOTAL
+========================================================= */
+
+.sale-total {
+    color: #17324d;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   PAYMENT STATUS
+========================================================= */
+
+.sale-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.sale-status.paid {
+    background: #e7f7f4;
+    color: #117d7a;
+}
+
+.sale-status.partial {
+    background: #fff6df;
+    color: #9a6a00;
+}
+
+.sale-status.unpaid {
+    background: #fdecec;
+    color: #b42318;
+}
+
+.sale-status.refunded {
+    background: #f0edf8;
+    color: #654c9f;
+}
+
+
+/* =========================================================
+   VIEW SALE BUTTON
+========================================================= */
+
+.sale-view-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    background: #159a96;
+    color: #ffffff;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.sale-view-button:hover {
+    background: #117d7a;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.sale-empty {
+    padding: 70px 25px;
+    text-align: center;
+}
+
+.sale-empty i {
+    margin-bottom: 18px;
+    color: #159a96;
+    font-size: 42px;
+}
+
+.sale-empty h3 {
+    margin: 0 0 8px;
+    color: #17324d;
+    font-size: 22px;
+}
+
+.sale-empty p {
+    margin: 0 0 20px;
+    color: #6b7785;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .sale-list-page {
+        padding: 35px 0 50px;
+    }
+
+    .sale-header-top {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .sale-list-header h1 {
+        font-size: 27px;
+    }
+
+    .sale-header-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .sale-new-button,
+    .sale-back-button {
+        width: 100%;
+    }
+
+    .sale-table {
+        min-width: 1050px;
+    }
+
+}
+

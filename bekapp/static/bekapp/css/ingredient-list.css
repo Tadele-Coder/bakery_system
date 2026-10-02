@@ -1,0 +1,271 @@
+/* =========================================================
+   INGREDIENT LIST
+   ========================================================= */
+
+.ingredient-list-page {
+    padding: 1rem 0 2rem;
+}
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.ingredient-list-page h1 {
+    margin: 0;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #17324d;
+}
+
+.ingredient-list-page .text-muted {
+    font-size: 0.95rem;
+}
+
+/* =========================================================
+   ADD INGREDIENT BUTTON
+   ========================================================= */
+
+.ingredient-list-page .btn-primary {
+    background-color: #159a96;
+    border-color: #159a96;
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.65rem 1rem;
+}
+
+.ingredient-list-page .btn-primary:hover {
+    background-color: #117d7a;
+    border-color: #117d7a;
+}
+
+/* =========================================================
+   MAIN CARD
+   ========================================================= */
+
+.ingredient-list-page .card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+}
+
+.ingredient-list-page .card-body {
+    padding: 1rem;
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.ingredient-list-page .table {
+    margin-bottom: 0;
+}
+
+.ingredient-list-page .table thead th {
+    background-color: #f5f8f8;
+    color: #17324d;
+    font-size: 0.85rem;
+    font-weight: 700;
+    white-space: nowrap;
+    border-bottom: 2px solid #e3eaea;
+}
+
+.ingredient-list-page .table tbody td {
+    padding: 0.85rem 0.75rem;
+    vertical-align: middle;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.ingredient-list-page .table tbody tr {
+    border-bottom: 1px solid #edf1f1;
+}
+
+.ingredient-list-page .table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.ingredient-list-page .table tbody tr:hover {
+    background-color: #f8fbfb;
+}
+
+/* =========================================================
+   INGREDIENT NAME
+   ========================================================= */
+
+.ingredient-list-page .table tbody td strong {
+    color: #17324d;
+    font-weight: 700;
+}
+
+/* =========================================================
+   STATUS BADGES
+   ========================================================= */
+
+.ingredient-list-page .badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.45rem 0.65rem;
+    border-radius: 20px;
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.ingredient-list-page .fa-box-open {
+    color: #159a96;
+}
+
+.ingredient-list-page h4 {
+    color: #17324d;
+    font-weight: 700;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767.98px) {
+
+    .ingredient-list-page {
+        padding: 0.75rem 0 1.5rem;
+    }
+
+    .ingredient-list-page .container {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    /* Header */
+
+    .ingredient-list-page h1 {
+        font-size: 1.4rem;
+    }
+
+    .ingredient-list-page .text-muted {
+        font-size: 0.85rem;
+    }
+
+    .ingredient-list-page .d-flex {
+        align-items: flex-start !important;
+        gap: 0.75rem;
+    }
+
+    /* Add Button */
+
+    .ingredient-list-page .btn-primary {
+        flex-shrink: 0;
+        padding: 0.55rem 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    /* Card */
+
+    .ingredient-list-page .card-body {
+        padding: 0.5rem;
+    }
+
+    /* Table */
+
+    .ingredient-list-page .table thead th,
+    .ingredient-list-page .table tbody td {
+        font-size: 0.8rem;
+        padding: 0.7rem 0.6rem;
+    }
+
+    .ingredient-list-page .table tbody td strong {
+        font-size: 0.8rem;
+    }
+
+    /* Badges */
+
+    .ingredient-list-page .badge {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.55rem;
+    }
+}
+
+/* =========================================================
+   SMALL MOBILE DEVICES
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .ingredient-list-page h1 {
+        font-size: 1.3rem;
+    }
+
+    .ingredient-list-page .btn-primary {
+        padding: 0.5rem 0.65rem;
+        font-size: 0.8rem;
+    }
+
+    .ingredient-list-page .btn-primary i {
+        margin-right: 0.15rem;
+    }
+}
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+.ingredient-list-page .table .btn-outline-primary {
+    color: #159a96;
+    border-color: #159a96;
+    background-color: transparent;
+    font-weight: 600;
+    border-radius: 7px;
+    padding: 0.4rem 0.7rem;
+    white-space: nowrap;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.ingredient-list-page .table .btn-outline-primary:hover {
+    color: #ffffff;
+    background-color: #159a96;
+    border-color: #159a96;
+}
+
+.ingredient-list-page .table .btn-outline-primary i {
+    margin-right: 0.25rem;
+}
+
+/* =========================================================
+   MOBILE ACTION BUTTON
+   ========================================================= */
+
+@media (max-width: 767.98px) {
+
+    .ingredient-list-page .table .btn-outline-primary {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.78rem;
+    }
+
+    .ingredient-list-page .table .btn-outline-primary i {
+        margin-right: 0.15rem;
+    }
+}
+
+.ingredient-list-page .btn-outline-primary {
+    color: #159a96;
+    border-color: #159a96;
+    background-color: transparent;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.65rem 1rem;
+}
+
+.ingredient-list-page .btn-outline-primary:hover {
+    color: #ffffff;
+    background-color: #159a96;
+    border-color: #159a96;
+}
+
+.ingredient-list-page .btn-outline-primary i {
+    margin-right: 0.3rem;
+}

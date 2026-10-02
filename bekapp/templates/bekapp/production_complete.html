@@ -1,0 +1,301 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Complete Production | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/production-complete.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="production-complete">
+
+    <div class="container-fluid">
+
+        <!-- Page Header -->
+        <div class="production-complete-header">
+
+            <div>
+
+                <span class="dashboard-label">
+                    PRODUCTION MANAGEMENT
+                </span>
+
+                <h1>
+                    Complete Production
+                </h1>
+
+                <p>
+                    Enter the actual quantities produced for each product.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Production Information -->
+        <div class="production-complete-card">
+
+            <div class="production-complete-card-header">
+
+                <h2>
+                    Production Information
+                </h2>
+
+            </div>
+
+            <div class="production-info">
+
+                <div class="row g-4">
+
+                    <!-- Production Date -->
+                    <div class="col-12 col-md-4">
+
+                        <div class="production-info-box">
+
+                            <strong>
+                                Production Date
+                            </strong>
+
+                            <p>
+                                {{ production.production_date|date:"d M Y" }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Status -->
+                    <div class="col-12 col-md-4">
+
+                        <div class="production-info-box">
+
+                            <strong>
+                                Status
+                            </strong>
+
+                            <p>
+
+                                <span
+                                    class="production-status status-{{ production.status|lower }}"
+                                >
+                                    {{ production.get_status_display }}
+                                </span>
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Created By -->
+                    <div class="col-12 col-md-4">
+
+                        <div class="production-info-box">
+
+                            <strong>
+                                Created By
+                            </strong>
+
+                            <p>
+                                {{ production.created_by.username }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Actual Production -->
+        <div class="production-complete-card">
+
+            <div class="production-complete-card-header">
+
+                <div>
+
+                    <h2>
+                        Actual Production
+                    </h2>
+
+                    <p>
+                        Enter the quantity actually produced for each product.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="production-complete-body">
+
+                {% if stock_error %}
+
+                    <div class="production-stock-error">
+
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        <div>
+
+                            <strong>
+                                Cannot complete production
+                            </strong>
+
+                            <p>
+                                {{ stock_error }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+                <form method="post">
+
+                    {% csrf_token %}
+
+
+                    {% for item in production.items.all %}
+
+                        <div class="production-complete-item">
+
+                            <div class="production-complete-item-header">
+
+                                <h3>
+                                    {{ item.product.name }}
+                                </h3>
+
+                            </div>
+
+
+                            <div class="row g-3">
+
+                                <!-- Planned Quantity -->
+                                <div class="col-12 col-md-6">
+
+                                    <label class="form-label">
+                                        Planned Quantity
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        value="{{ item.planned_quantity }}"
+                                        readonly
+                                    >
+
+                                </div>
+
+
+                                <!-- Actual Quantity -->
+                                <div class="col-12 col-md-6">
+
+                                    <label class="form-label">
+                                        Actual Quantity
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        name="actual_quantity_{{ item.id }}"
+                                        class="form-control"
+                                        min="0"
+                                        step="0.01"
+                                        value="{{ item.actual_quantity }}"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <!-- Notes -->
+                                <div class="col-12">
+
+                                    <label class="form-label">
+                                        Production Notes
+                                    </label>
+
+                                    <textarea
+                                        name="item_notes_{{ item.id }}"
+                                        class="form-control"
+                                        rows="3"
+                                        placeholder="Optional notes about the actual production..."
+                                    >{{ item.notes }}</textarea>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% empty %}
+
+                        <div class="production-complete-empty">
+
+                            <i class="fa-solid fa-box-open"></i>
+
+                            <h3>
+                                No Production Items
+                            </h3>
+
+                            <p>
+                                This production record does not contain any products.
+                            </p>
+
+                        </div>
+
+                    {% endfor %}
+
+
+                    <!-- Actions -->
+                    <div class="production-complete-actions">
+
+                        <a
+                            href="{% url 'production_detail' production.id %}"
+                            class="btn btn-outline-secondary"
+                        >
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Cancel
+                        </a>
+
+
+                        {% if production.items.all %}
+
+                            <button
+                                type="submit"
+                                class="btn btn-bakery"
+                            >
+                                <i class="fa-solid fa-check"></i>
+                                Complete Production
+                            </button>
+
+                        {% endif %}
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

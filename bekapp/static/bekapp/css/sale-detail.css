@@ -1,0 +1,472 @@
+/* =========================================================
+   SALE DETAIL
+========================================================= */
+
+.sale-detail {
+    padding: 30px 0 60px;
+    background: #f7f9fb;
+    min-height: 75vh;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.sale-detail-header {
+    margin-bottom: 30px;
+}
+
+.sale-detail-header h1 {
+    margin: 8px 0 8px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #17324d;
+}
+
+.sale-detail-header p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.95rem;
+}
+
+
+/* =========================================================
+   MAIN CARDS
+========================================================= */
+
+.sale-detail-card {
+    margin-bottom: 22px;
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.sale-detail-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 22px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.sale-detail-card-header h2 {
+    margin: 0 0 5px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #17324d;
+}
+
+.sale-detail-card-header p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+
+/* =========================================================
+   SALE STATUS
+========================================================= */
+
+.sale-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    padding: 7px 13px;
+    border-radius: 20px;
+    background: #e8f7f6;
+    color: #117d7a;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   CARD BODY
+========================================================= */
+
+.sale-detail-body {
+    padding: 22px;
+}
+
+
+/* =========================================================
+   SALE INFORMATION
+========================================================= */
+
+.sale-info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+}
+
+.sale-info-item {
+    padding: 16px;
+    background: #f7f9fb;
+    border: 1px solid #e5eaee;
+    border-radius: 12px;
+}
+
+.sale-info-item span {
+    display: block;
+    margin-bottom: 6px;
+    color: #6c757d;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.sale-info-item strong {
+    display: block;
+    color: #17324d;
+    font-size: 0.98rem;
+    font-weight: 700;
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   SALE ITEMS
+========================================================= */
+
+.sale-items-body {
+    padding: 0 22px;
+}
+
+.sale-item {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 20px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.sale-item:last-child {
+    border-bottom: none;
+}
+
+.sale-item-main strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #17324d;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.sale-item-main span {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.sale-item-pricing {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sale-item-pricing span {
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+.sale-item-pricing strong {
+    color: #159a96;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.sale-empty {
+    padding: 25px 0;
+    color: #6c757d;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+
+/* =========================================================
+   SALE SUMMARY
+========================================================= */
+
+.sale-summary-body {
+    padding: 22px;
+}
+
+.sale-summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 13px 0;
+    border-bottom: 1px solid #edf0f2;
+}
+
+.sale-summary-row span {
+    color: #6c757d;
+    font-size: 0.95rem;
+}
+
+.sale-summary-row strong {
+    color: #17324d;
+    font-size: 0.98rem;
+    font-weight: 700;
+    text-align: right;
+}
+
+.sale-summary-total {
+    margin-top: 8px;
+    padding-top: 18px;
+    border-bottom: none;
+    border-top: 2px solid #e9ecef;
+}
+
+.sale-summary-total span {
+    color: #17324d;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.sale-summary-total strong {
+    color: #159a96;
+    font-size: 1.4rem;
+}
+
+
+/* =========================================================
+   PAYMENT HISTORY
+========================================================= */
+
+.sale-payments-body {
+    padding: 0 22px;
+}
+
+.sale-payment {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.sale-payment:last-child {
+    border-bottom: none;
+}
+
+.sale-payment-main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sale-payment-main strong {
+    color: #17324d;
+    font-size: 0.98rem;
+    font-weight: 700;
+}
+
+.sale-payment-main span {
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+.sale-payment-right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.sale-payment-right span {
+    padding: 5px 9px;
+    border-radius: 15px;
+    background: #f1f3f5;
+    color: #495057;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.sale-payment-right strong {
+    color: #159a96;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.sale-detail-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.sale-detail-actions .btn {
+    min-height: 50px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+
+/* =========================================================
+   BAKERY BUTTON
+========================================================= */
+
+.sale-detail-actions .btn-bakery {
+    background: #159a96;
+    border-color: #159a96;
+    color: #ffffff;
+}
+
+.sale-detail-actions .btn-bakery:hover {
+    background: #117d7a;
+    border-color: #117d7a;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.sale-detail-actions .btn-outline-secondary {
+    border-color: #ced4da;
+    color: #495057;
+    background: #ffffff;
+}
+
+.sale-detail-actions .btn-outline-secondary:hover {
+    background: #f1f3f5;
+    color: #343a40;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 768px) {
+
+    .sale-detail {
+        padding: 50px 0 80px;
+    }
+
+
+    .sale-detail-header h1 {
+        font-size: 2.3rem;
+    }
+
+
+    .sale-detail-card-header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 26px 30px;
+    }
+
+
+    .sale-status {
+        align-self: auto;
+    }
+
+
+    .sale-detail-body {
+        padding: 30px;
+    }
+
+
+    .sale-info-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+
+    .sale-items-body,
+    .sale-payments-body {
+        padding: 0 30px;
+    }
+
+
+    .sale-item {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+    }
+
+
+    .sale-item-pricing {
+        align-items: flex-end;
+        text-align: right;
+    }
+
+
+    .sale-summary-body {
+        padding: 25px 30px;
+    }
+
+
+    .sale-payment {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+    }
+
+
+    .sale-payment-right {
+        justify-content: flex-end;
+    }
+
+
+    .sale-detail-actions {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+
+    .sale-detail-actions .btn {
+        min-width: 170px;
+    }
+
+}
+
+
+/* =========================================================
+   LARGE SCREENS
+========================================================= */
+
+@media (min-width: 1200px) {
+
+    .sale-detail-card {
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 24px;
+    }
+
+
+    .sale-detail-actions {
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}

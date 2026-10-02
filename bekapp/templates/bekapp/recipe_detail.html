@@ -1,0 +1,254 @@
+{% extends 'bekapp/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ recipe.product.name }} Recipe | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/recipe-detail.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="recipe-detail-page">
+
+    <div class="container-fluid">
+
+        <!-- Page Header -->
+        <div class="recipe-detail-header">
+
+            <div>
+                <span class="recipe-label">
+                    RECIPE DETAILS
+                </span>
+
+                <h1>
+                    {{ recipe.product.name }}
+                </h1>
+
+                <p>
+                    View the recipe instructions and required ingredients.
+                </p>
+            </div>
+
+            <div class="recipe-header-actions">
+
+                <a
+                    href="{% url 'recipe_list' %}"
+                    class="recipe-back-button"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Back to Recipes
+                </a>
+
+                <a
+                    href="{% url 'recipe_edit' recipe.id %}"
+                    class="recipe-edit-button"
+                >
+                    <i class="fa-solid fa-pen"></i>
+                    Edit Recipe
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Recipe Information -->
+        <div class="row g-4">
+
+            <!-- Product / Description -->
+            <div class="col-12 col-lg-5">
+
+                <div class="recipe-info-card">
+
+                    <div class="recipe-card-header">
+
+                        <div class="recipe-card-icon">
+                            <i class="fa-solid fa-bread-slice"></i>
+                        </div>
+
+                        <div>
+                            <span>PRODUCT</span>
+                            <h2>
+                                {{ recipe.product.name }}
+                            </h2>
+                        </div>
+
+                    </div>
+
+
+                    <div class="recipe-info-content">
+
+                        <div class="info-item">
+
+                            <span class="info-label">
+                                Description
+                            </span>
+
+                            {% if recipe.description %}
+                                <p>
+                                    {{ recipe.description }}
+                                </p>
+                            {% else %}
+                                <p class="empty-value">
+                                    No recipe description provided.
+                                </p>
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span class="info-label">
+                                Ingredients
+                            </span>
+
+                            <strong class="ingredient-total">
+                                {{ recipe.ingredients.all|length }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span class="info-label">
+                                Created
+                            </span>
+
+                            <p>
+                                {{ recipe.created_at|date:"d M Y, H:i" }}
+                            </p>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span class="info-label">
+                                Last Updated
+                            </span>
+
+                            <p>
+                                {{ recipe.updated_at|date:"d M Y, H:i" }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Ingredients -->
+            <div class="col-12 col-lg-7">
+
+                <div class="recipe-ingredients-card">
+
+                    <div class="recipe-card-header">
+
+                        <div class="recipe-card-icon">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+
+                        <div>
+                            <span>RECIPE INGREDIENTS</span>
+                            <h2>
+                                Ingredients
+                            </h2>
+                        </div>
+
+                    </div>
+
+
+                    {% if recipe.ingredients.all %}
+
+                        <div class="table-responsive">
+
+                            <table class="ingredients-table">
+
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Ingredient</th>
+                                        <th>Quantity</th>
+                                        <th>Unit</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    {% for item in recipe.ingredients.all %}
+
+                                        <tr>
+
+                                            <td>
+                                                {{ forloop.counter }}
+                                            </td>
+
+                                            <td>
+                                                <strong>
+                                                    {{ item.ingredient.name }}
+                                                </strong>
+                                            </td>
+
+                                            <td>
+                                                <span class="quantity-value">
+                                                    {{ item.quantity }}
+                                                </span>
+                                            </td>
+
+                                            <td>
+                                                {{ item.ingredient.unit }}
+                                            </td>
+
+                                        </tr>
+
+                                    {% endfor %}
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="empty-ingredients">
+
+                            <div class="empty-icon">
+                                <i class="fa-solid fa-box-open"></i>
+                            </div>
+
+                            <h3>
+                                No Ingredients
+                            </h3>
+
+                            <p>
+                                No ingredients have been added to this recipe yet.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

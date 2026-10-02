@@ -1,0 +1,161 @@
+{% extends 'bekapp/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Products | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'bekapp/css/cashier-product-list.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="cashier-products-page">
+
+    <div class="container-fluid">
+
+        <!-- Page Header -->
+        <div class="products-page-header">
+
+            <div>
+                <span class="products-label">PRODUCTS</span>
+
+                <h1>Bakery Products</h1>
+
+                <p>
+                    View available bakery products and their current prices.
+                </p>
+            </div>
+
+            <div class="products-header-action">
+                <a href="{% url 'cashier_dashboard' %}" class="back-dashboard-btn">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+            </div>
+
+        </div>
+
+
+        <!-- Products Section -->
+        <div class="products-section">
+
+            <div class="products-section-header">
+
+                <div>
+                    <span class="products-label">AVAILABLE PRODUCTS</span>
+
+                    <h2>Product List</h2>
+                </div>
+
+                <div class="product-count">
+                    {{ products|length }} Products
+                </div>
+
+            </div>
+
+
+            {% if products %}
+
+                <div class="table-responsive">
+
+                    <table class="products-table">
+
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for product in products %}
+
+                                <tr>
+
+                                    <td>
+                                        <div class="product-name-cell">
+
+                                            {% if product.image %}
+                                                <img
+                                                    src="{{ product.image.url }}"
+                                                    alt="{{ product.name }}"
+                                                    class="product-image"
+                                                >
+                                            {% else %}
+                                                <div class="product-image-placeholder">
+                                                    <i class="fa-solid fa-box-open"></i>
+                                                </div>
+                                            {% endif %}
+
+                                            <span>{{ product.name }}</span>
+
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        {{ product.category.name }}
+                                    </td>
+
+                                    <td>
+                                        {% if product.description %}
+                                            {{ product.description }}
+                                        {% else %}
+                                            —
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            {{ product.price|floatformat:2 }} ETB
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        <span class="available-badge">
+                                            <i class="fa-solid fa-circle-check"></i>
+                                            Available
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-products">
+
+                    <div class="empty-products-icon">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>
+
+                    <h3>No Products Available</h3>
+
+                    <p>
+                        There are currently no available bakery products.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,321 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+
+    {% if editing %}
+        Edit Product | Bakery Management System
+    {% else %}
+        Add Product | Bakery Management System
+    {% endif %}
+
+{% endblock %}
+
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/product-form.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="product-form-page">
+
+    <div class="container">
+
+        <!-- PAGE HEADER -->
+        <div class="product-form-header">
+
+            <div>
+
+                <span class="page-label">
+                    PRODUCT MANAGEMENT
+                </span>
+
+                {% if editing %}
+
+                    <h1>
+                        Edit Product
+                    </h1>
+
+                    <p>
+                        Update the bakery product information and selling price.
+                    </p>
+
+                {% else %}
+
+                    <h1>
+                        Add Product
+                    </h1>
+
+                    <p>
+                        Create a new bakery product and record its selling price.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- FORM CARD -->
+        <div class="product-form-card">
+
+            <div class="product-form-card-header">
+
+                <div class="form-card-icon">
+                    <i class="fa-solid fa-box-open"></i>
+                </div>
+
+                <div>
+
+                    {% if editing %}
+
+                        <h2>
+                            Edit Product Information
+                        </h2>
+
+                        <p>
+                            Update the details of this bakery product.
+                        </p>
+
+                    {% else %}
+
+                        <h2>
+                            Product Information
+                        </h2>
+
+                        <p>
+                            Enter the details of the new bakery product.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- FORM -->
+            <form method="post">
+
+                {% csrf_token %}
+
+
+                <!-- FORM ERRORS -->
+                {% if form.non_field_errors %}
+
+                    <div class="form-error-box">
+
+                        {% for error in form.non_field_errors %}
+
+                            <p>
+                                {{ error }}
+                            </p>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+
+                <!-- PRODUCT NAME -->
+                <div class="form-group">
+
+                    <label for="{{ form.name.id_for_label }}">
+                        Product Name
+                    </label>
+
+                    {{ form.name }}
+
+                    {% if form.name.errors %}
+
+                        <div class="field-error">
+
+                            {% for error in form.name.errors %}
+                                {{ error }}
+                            {% endfor %}
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- CATEGORY -->
+                <div class="form-group">
+
+                    <label for="{{ form.category.id_for_label }}">
+                        Category
+                    </label>
+
+                    {{ form.category }}
+
+                    {% if form.category.errors %}
+
+                        <div class="field-error">
+
+                            {% for error in form.category.errors %}
+                                {{ error }}
+                            {% endfor %}
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- SELLING PRICE -->
+                <div class="form-group">
+
+                    <label for="{{ form.price.id_for_label }}">
+                        Selling Price
+                    </label>
+
+                    {{ form.price }}
+
+                    <small class="form-help">
+                        Enter the current selling price of this product in ETB.
+                    </small>
+
+                    {% if form.price.errors %}
+
+                        <div class="field-error">
+
+                            {% for error in form.price.errors %}
+                                {{ error }}
+                            {% endfor %}
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- PRODUCT STATUS -->
+                <div class="form-group checkbox-group">
+
+                    <div class="checkbox-wrapper">
+
+                        {{ form.is_available }}
+
+                        <label for="{{ form.is_available.id_for_label }}">
+                            Product is available
+                        </label>
+
+                    </div>
+
+                    <small class="form-help">
+                        Uncheck this option if the product is currently unavailable.
+                    </small>
+
+                    {% if form.is_available.errors %}
+
+                        <div class="field-error">
+
+                            {% for error in form.is_available.errors %}
+                                {{ error }}
+                            {% endfor %}
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+                <div class="form-group">
+
+                    <label for="{{ form.description.id_for_label }}">
+                        Description
+                    </label>
+
+                    {{ form.description }}
+
+                    {% if form.description.errors %}
+
+                        <div class="field-error">
+
+                            {% for error in form.description.errors %}
+                                {{ error }}
+                            {% endfor %}
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- FORM ACTIONS -->
+                <div class="form-actions">
+
+                    <a
+                        href="{% url 'product_list' %}"
+                        class="cancel-btn"
+                    >
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Cancel
+
+                    </a>
+
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                    >
+
+                        {% if editing %}
+
+                            <i class="fa-solid fa-floppy-disk"></i>
+
+                            Save Changes
+
+                        {% else %}
+
+                            <i class="fa-solid fa-plus"></i>
+
+                            Create Product
+
+                        {% endif %}
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- BACK LINK -->
+        <div class="back-link-wrapper">
+
+            <a href="{% url 'product_list' %}" class="back-link">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back to Products
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

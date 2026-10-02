@@ -1,0 +1,342 @@
+/* =========================================================
+   PRODUCTION DETAIL
+========================================================= */
+
+.production-detail {
+    padding: 55px 0;
+    background: #f7f9fb;
+    min-height: 75vh;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.production-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
+.production-detail-header h1 {
+    margin: 8px 0;
+    color: #17324d;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.production-detail-header p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+.production-detail-header .dashboard-label {
+    display: inline-block;
+    color: #159a96;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   DETAIL CARD
+========================================================= */
+
+.production-detail-card {
+    margin-bottom: 25px;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #e5eeee;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+}
+
+.production-detail-card-header {
+    padding: 20px 25px;
+    background: #ffffff;
+    border-bottom: 1px solid #e9eeee;
+}
+
+.production-detail-card-header h2 {
+    margin: 0;
+    color: #17324d;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   PRODUCTION INFORMATION
+========================================================= */
+
+.production-info {
+    padding: 25px;
+}
+
+.production-info-box {
+    height: 100%;
+    padding: 18px;
+    background: #f7f9fb;
+    border: 1px solid #edf2f2;
+    border-radius: 10px;
+}
+
+.production-info-box strong {
+    display: block;
+    margin-bottom: 7px;
+    color: #6c757d;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.production-info-box p {
+    margin: 0;
+    color: #17324d;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   STATUS BADGES
+========================================================= */
+
+.production-status {
+    display: inline-block;
+    padding: 6px 13px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.status-planned {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-in_progress {
+    background: #cff4fc;
+    color: #055160;
+}
+
+.status-completed {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.status-cancelled {
+    background: #f8d7da;
+    color: #842029;
+}
+
+
+/* =========================================================
+   PRODUCTION ITEMS TABLE
+========================================================= */
+
+.production-items-table {
+    width: 100%;
+    margin: 0;
+}
+
+.production-items-table thead th {
+    padding: 15px 20px;
+    background: #f7f9fb;
+    border-bottom: 1px solid #e3e9e9;
+    color: #17324d;
+    font-size: 0.82rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.production-items-table tbody td {
+    padding: 17px 20px;
+    color: #495057;
+    vertical-align: middle;
+    border-bottom: 1px solid #edf1f1;
+}
+
+.production-items-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.production-items-table tbody tr:hover {
+    background: #f9fcfc;
+}
+
+
+/* =========================================================
+   PRODUCT NAME
+========================================================= */
+
+.production-product-name {
+    color: #159a96;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   QUANTITIES
+========================================================= */
+
+.production-quantity {
+    color: #17324d;
+    font-weight: 600;
+}
+
+.production-actual {
+    color: #159a96;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   NOTES
+========================================================= */
+
+.production-item-notes {
+    color: #6c757d;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.production-detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 25px 0;
+}
+
+.btn-bakery {
+    padding: 10px 18px;
+    background: #159a96;
+    border: 1px solid #159a96;
+    border-radius: 8px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.btn-bakery:hover {
+    background: #117d7a;
+    border-color: #117d7a;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.production-detail-empty {
+    padding: 45px 20px !important;
+    text-align: center;
+    color: #6c757d;
+}
+
+.production-detail-empty i {
+    margin-bottom: 12px;
+    color: #159a96;
+    font-size: 2rem;
+}
+
+.production-detail-empty h3 {
+    margin-bottom: 6px;
+    color: #17324d;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.production-detail-empty p {
+    margin: 0;
+    color: #6c757d;
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .production-detail {
+        padding: 35px 0;
+    }
+
+    .production-detail-header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 25px;
+    }
+
+    .production-detail-header h1 {
+        font-size: 1.65rem;
+    }
+
+    .production-detail-card-header {
+        padding: 17px 20px;
+    }
+
+    .production-info {
+        padding: 18px;
+    }
+
+    .production-items-table {
+        min-width: 700px;
+    }
+
+    .production-detail-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .production-detail-actions .btn {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .production-detail {
+        padding: 25px 0;
+    }
+
+    .production-detail-header h1 {
+        font-size: 1.45rem;
+    }
+
+    .production-detail-header p {
+        font-size: 0.9rem;
+    }
+
+    .production-info-box {
+        padding: 15px;
+    }
+
+    .production-detail-card-header h2 {
+        font-size: 1.1rem;
+    }
+}
+
+.production-detail-actions form {
+    margin: 0;
+}
+
+.production-detail-actions form .btn {
+    min-height: 44px;
+}

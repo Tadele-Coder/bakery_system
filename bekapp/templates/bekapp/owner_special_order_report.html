@@ -1,0 +1,515 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+Special Order Report | Bakery Management
+{% endblock %}
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/owner-special-order-report.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="owner-special-order-report">
+
+    <div class="container">
+
+
+        <!-- =====================================================
+             REPORT HEADER
+        ====================================================== -->
+        
+        <div class="special-order-business-header">
+
+            {% if business_settings %}
+
+                {% if business_settings.logo %}
+                    <img
+                        src="{{ business_settings.logo.url }}"
+                        alt="{{ business_settings.business_name }}"
+                        class="special-order-business-logo"
+                    >
+                {% endif %}
+
+                <h1>
+                    {{ business_settings.business_name }}
+                </h1>
+
+                {% if business_settings.phone %}
+                    <div>
+                        <i class="fa-solid fa-phone"></i>
+                        {{ business_settings.phone }}
+                    </div>
+                {% endif %}
+
+                {% if business_settings.email %}
+                    <div>
+                        <i class="fa-solid fa-envelope"></i>
+                        {{ business_settings.email }}
+                    </div>
+                {% endif %}
+
+                {% if business_settings.address %}
+                    <div>
+                        <i class="fa-solid fa-location-dot"></i>
+                        {{ business_settings.address }}
+                    </div>
+                {% endif %}
+
+            {% endif %}
+
+            <span class="reports-label">
+                OWNER REPORTS
+            </span>
+
+            <h2>
+                Special Order Report
+            </h2>
+
+            <p>
+                Review special orders, event dates,
+                customer information, order amounts,
+                deposits, balances, and statuses.
+            </p>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             REPORT PERIOD
+        ====================================================== -->
+
+        <div class="special-order-report-period">
+
+            <strong>
+                Report Period:
+            </strong>
+
+            <span>
+                {{ start_date }}
+            </span>
+
+            <span>
+                to
+            </span>
+
+            <span>
+                {{ end_date }}
+            </span>
+
+        </div>
+
+
+        <!-- =====================================================
+             REPORT ACTIONS
+        ====================================================== -->
+          
+
+        <div class="special-order-report-actions">
+
+            <a
+                href="{% url 'owner_special_order_report_csv' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                class="special-order-export-button"
+            >
+                <i class="fa-solid fa-file-csv"></i>
+                CSV
+            </a>
+
+            <a
+                href="{% url 'owner_special_order_report_excel' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                class="special-order-export-button"
+            >
+                <i class="fa-solid fa-file-excel"></i>
+                Excel
+            </a>
+
+            <a
+                href="{% url 'owner_special_order_report_pdf' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                class="special-order-export-button"
+            >
+                <i class="fa-solid fa-file-pdf"></i>
+                PDF
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             SUMMARY CARDS
+        ====================================================== -->
+
+        <div class="row g-4">
+
+
+            <!-- Number of Orders -->
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <div class="special-order-summary-card">
+
+                    <span>
+                        Number of Orders
+                    </span>
+
+                    <h3>
+                        {{ orders_count }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- Total Amount -->
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <div class="special-order-summary-card">
+
+                    <span>
+                        Total Amount
+                    </span>
+
+                    <h3>
+                        {{ total_amount|floatformat:2 }} ETB
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- Total Deposit -->
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <div class="special-order-summary-card">
+
+                    <span>
+                        Total Deposit
+                    </span>
+
+                    <h3>
+                        {{ total_deposit|floatformat:2 }} ETB
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- Total Balance -->
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <div class="special-order-summary-card">
+
+                    <span>
+                        Outstanding Balance
+                    </span>
+
+                    <h3>
+                        {{ total_balance|floatformat:2 }} ETB
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             STATUS SUMMARY
+        ====================================================== -->
+
+        <div class="special-order-status-card">
+
+            <div class="special-order-status-header">
+
+                <h2>
+                    Order Status Summary
+                </h2>
+
+            </div>
+
+            <div class="row g-3">
+
+
+                <div class="col-6 col-md-4 col-lg-2">
+
+                    <div class="status-item">
+
+                        <span>
+                            Pending
+                        </span>
+
+                        <strong>
+                            {{ pending_count }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-6 col-md-4 col-lg-2">
+
+                    <div class="status-item">
+
+                        <span>
+                            Confirmed
+                        </span>
+
+                        <strong>
+                            {{ confirmed_count }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-6 col-md-4 col-lg-2">
+
+                    <div class="status-item">
+
+                        <span>
+                            In Production
+                        </span>
+
+                        <strong>
+                            {{ in_production_count }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-6 col-md-4 col-lg-2">
+
+                    <div class="status-item">
+
+                        <span>
+                            Ready
+                        </span>
+
+                        <strong>
+                            {{ ready_count }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-6 col-md-4 col-lg-2">
+
+                    <div class="status-item">
+
+                        <span>
+                            Completed
+                        </span>
+
+                        <strong>
+                            {{ completed_count }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-6 col-md-4 col-lg-2">
+
+                    <div class="status-item">
+
+                        <span>
+                            Cancelled
+                        </span>
+
+                        <strong>
+                            {{ cancelled_count }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             SPECIAL ORDER TABLE
+        ====================================================== -->
+
+        <div class="special-order-report-table-card">
+
+            <div class="special-order-report-table-header">
+
+                <h2>
+                    Special Orders
+                </h2>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table special-order-report-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Order Number
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Event
+                            </th>
+
+                            <th>
+                                Event Date
+                            </th>
+
+                            <th>
+                                Pickup Time
+                            </th>
+
+                            <th>
+                                Products
+                            </th>
+
+                            <th>
+                                Total
+                            </th>
+
+                            <th>
+                                Deposit
+                            </th>
+
+                            <th>
+                                Balance
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for order in special_orders %}
+
+                        <tr>
+
+                            <td>
+                                {{ order.order_number }}
+                            </td>
+
+                            <td>
+                                {{ order.customer.name }}
+                            </td>
+
+                            <td>
+                                {{ order.get_event_type_display }}
+                            </td>
+
+                            <td>
+                                {{ order.event_date|date:"d M Y" }}
+                            </td>
+
+                            <td>
+                                {% if order.pickup_time %}
+                                    {{ order.pickup_time|time:"H:i" }}
+                                {% else %}
+                                    —
+                                {% endif %}
+                            </td>
+
+                            <td>
+
+                                {% for item in order.items.all %}
+
+                                    {{ item.product.name }}
+                                    × {{ item.quantity|floatformat:0 }}
+
+                                    {% if not forloop.last %}
+                                        ,
+                                    {% endif %}
+
+                                {% empty %}
+
+                                    —
+
+                                {% endfor %}
+
+                            </td>
+
+                            <td>
+                                {{ order.total_amount|floatformat:2 }}
+                            </td>
+
+                            <td>
+                                {{ order.deposit_amount|floatformat:2 }}
+                            </td>
+
+                            <td>
+                                <strong>
+                                    {{ order.report_balance|floatformat:2 }}
+                                </strong>
+                            </td>
+
+                            <td>
+                                {{ order.get_status_display }}
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="10"
+                                class="text-center"
+                            >
+                                No special orders found for
+                                this period.
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+{% endblock %}

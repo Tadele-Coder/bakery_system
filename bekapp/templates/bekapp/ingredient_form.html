@@ -1,0 +1,199 @@
+{% extends "bekapp/base.html" %}
+{% load static %}
+
+{% block title %}
+{{ page_title }} | Bakery Management
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/ingredient-form.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="ingredient-form-page">
+
+    <div class="container py-4">
+
+        <div class="ingredient-form-header">
+
+            <div>
+                <h1>{{ page_title }}</h1>
+
+                <p>
+                    Record a bakery ingredient and its stock information.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="card ingredient-form-card">
+
+            <div class="card-body">
+
+                <form method="post">
+
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <div class="row g-3">
+
+                        <div class="col-12">
+
+                            <label
+                                for="{{ form.name.id_for_label }}"
+                                class="form-label"
+                            >
+                                Ingredient Name
+                            </label>
+
+                            {{ form.name }}
+
+                            {% if form.name.errors %}
+                                <div class="text-danger form-error">
+                                    {{ form.name.errors }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="col-12 col-md-6">
+
+                            <label
+                                for="{{ form.unit.id_for_label }}"
+                                class="form-label"
+                            >
+                                Unit
+                            </label>
+
+                            {{ form.unit }}
+
+                            {% if form.unit.errors %}
+                                <div class="text-danger form-error">
+                                    {{ form.unit.errors }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="col-12 col-md-6">
+
+                            <label
+                                for="{{ form.cost_per_unit.id_for_label }}"
+                                class="form-label"
+                            >
+                                Cost per Unit
+                            </label>
+
+                            {{ form.cost_per_unit }}
+
+                            {% if form.cost_per_unit.errors %}
+                                <div class="text-danger form-error">
+                                    {{ form.cost_per_unit.errors }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="col-12 col-md-6">
+
+                            <label
+                                for="{{ form.current_stock.id_for_label }}"
+                                class="form-label"
+                            >
+                                Current Stock
+                            </label>
+
+                            {{ form.current_stock }}
+
+                            {% if form.current_stock.errors %}
+                                <div class="text-danger form-error">
+                                    {{ form.current_stock.errors }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="col-12 col-md-6">
+
+                            <label
+                                for="{{ form.minimum_stock.id_for_label }}"
+                                class="form-label"
+                            >
+                                Minimum Stock
+                            </label>
+
+                            {{ form.minimum_stock }}
+
+                            {% if form.minimum_stock.errors %}
+                                <div class="text-danger form-error">
+                                    {{ form.minimum_stock.errors }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="col-12">
+
+                            <div class="form-check">
+
+                                {{ form.is_active }}
+
+                                <label
+                                    class="form-check-label"
+                                    for="{{ form.is_active.id_for_label }}"
+                                >
+                                    Active Ingredient
+                                </label>
+
+                            </div>
+
+                            {% if form.is_active.errors %}
+                                <div class="text-danger form-error">
+                                    {{ form.is_active.errors }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                    <div class="ingredient-form-actions">
+
+                        <a
+                            href="{% url 'ingredient_list' %}"
+                            class="btn btn-secondary"
+                        >
+                            <i class="fas fa-arrow-left"></i>
+                            Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            <i class="fas fa-save"></i>
+                            {{ submit_text }}
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

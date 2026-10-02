@@ -1,0 +1,348 @@
+/* =========================================================
+   OWNER SPECIAL ORDER REPORT
+========================================================= */
+
+.owner-special-order-report {
+    min-height: 70vh;
+    padding: 45px 0 70px;
+}
+
+
+/* =========================================================
+   REPORT HEADER
+========================================================= */
+
+.special-order-report-header {
+    margin-bottom: 30px;
+}
+
+.special-order-report-header h1 {
+    margin: 0 0 8px;
+    color: #17324d;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.special-order-report-header p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 15px;
+}
+
+.reports-label {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #159a96;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   REPORT PERIOD
+========================================================= */
+
+.special-order-report-period {
+    margin-bottom: 20px;
+    padding: 18px 22px;
+    background: #ffffff;
+    border: 1px solid #e5e9ed;
+    border-radius: 10px;
+    color: #6c757d;
+}
+
+.special-order-report-period strong {
+    color: #17324d;
+}
+
+.special-order-report-period span {
+    margin: 0 5px;
+}
+
+
+/* =========================================================
+   REPORT ACTIONS
+========================================================= */
+
+.special-order-report-actions {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.special-order-export-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: #159a96;
+    border: 1px solid #159a96;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.special-order-export-button:hover {
+    background: #117d7a;
+    border-color: #117d7a;
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.special-order-export-button:focus-visible {
+    outline: 2px solid #159a96;
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.special-order-summary-card {
+    height: 100%;
+    padding: 22px;
+    background: #ffffff;
+    border: 1px solid #e5e9ed;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(23, 50, 77, 0.05);
+}
+
+.special-order-summary-card span {
+    display: block;
+    margin-bottom: 6px;
+    color: #6c757d;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.special-order-summary-card h3 {
+    margin: 0;
+    color: #17324d;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   STATUS SUMMARY
+========================================================= */
+
+.special-order-status-card {
+    margin-top: 30px;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #e5e9ed;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(23, 50, 77, 0.05);
+}
+
+.special-order-status-header {
+    margin-bottom: 20px;
+}
+
+.special-order-status-header h2 {
+    margin: 0;
+    color: #17324d;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.status-item {
+    height: 100%;
+    padding: 15px;
+    background: #f8fafb;
+    border: 1px solid #e5e9ed;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.status-item span {
+    display: block;
+    margin-bottom: 5px;
+    color: #6c757d;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-item strong {
+    color: #17324d;
+    font-size: 21px;
+}
+
+
+/* =========================================================
+   TABLE CARD
+========================================================= */
+
+.special-order-report-table-card {
+    margin-top: 30px;
+    background: #ffffff;
+    border: 1px solid #e5e9ed;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(23, 50, 77, 0.05);
+    overflow: hidden;
+}
+
+.special-order-report-table-header {
+    padding: 24px;
+    border-bottom: 1px solid #e5e9ed;
+}
+
+.special-order-report-table-header h2 {
+    margin: 0;
+    color: #17324d;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.special-order-report-table {
+    margin: 0;
+}
+
+.special-order-report-table th {
+    white-space: nowrap;
+    color: #17324d;
+    font-size: 13px;
+    font-weight: 700;
+    background: #f8fafb;
+}
+
+.special-order-report-table td {
+    white-space: nowrap;
+    color: #495057;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+
+/* =========================================================
+   MOBILE RESPONSIVE
+========================================================= */
+
+@media (max-width: 576px) {
+
+    .owner-special-order-report {
+        padding: 35px 15px 55px;
+    }
+
+    .special-order-report-header h1 {
+        font-size: 27px;
+    }
+
+    .special-order-report-header p {
+        font-size: 14px;
+    }
+
+    .special-order-report-period {
+        padding: 16px 18px;
+    }
+
+    .special-order-report-actions {
+        justify-content: stretch;
+    }
+
+    .special-order-export-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .special-order-summary-card {
+        padding: 20px;
+    }
+
+    .special-order-summary-card h3 {
+        font-size: 21px;
+    }
+
+    .special-order-status-card {
+        padding: 20px;
+    }
+
+    .special-order-status-header h2 {
+        font-size: 20px;
+    }
+
+    .special-order-report-table-header {
+        padding: 20px;
+    }
+
+    .special-order-report-table-header h2 {
+        font-size: 20px;
+    }
+
+    .special-order-report-table th,
+    .special-order-report-table td {
+        font-size: 13px;
+    }
+}
+
+/* =========================================================
+   BUSINESS HEADER
+========================================================= */
+
+.special-order-business-header {
+    text-align: center;
+    margin-bottom: 28px;
+    padding: 24px 20px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.special-order-business-logo {
+    display: block;
+    width: 110px;
+    height: 90px;
+    object-fit: contain;
+    margin: 0 auto 12px;
+}
+
+.special-order-business-header h1 {
+    margin: 0 0 8px;
+    color: #17324d;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.special-order-business-header h2 {
+    margin: 14px 0 6px;
+    color: #17324d;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.special-order-business-header > div {
+    margin-top: 4px;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.special-order-business-header > div i {
+    width: 18px;
+    margin-right: 4px;
+    color: #159a96;
+}
+
+.special-order-business-header .reports-label {
+    display: inline-block;
+    margin-top: 16px;
+}
+

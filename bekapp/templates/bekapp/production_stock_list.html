@@ -1,0 +1,193 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Product Stock | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/production-stock-list.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="production-stock-list">
+
+    <div class="container-fluid">
+
+        <!-- PAGE HEADER -->
+        <div class="production-stock-header">
+
+            <div>
+
+                <span class="dashboard-label">
+                    PRODUCTION MANAGEMENT
+                </span>
+
+                <h1>
+                    Product Stock
+                </h1>
+
+                <p>
+                    Monitor finished bakery products available in stock.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- STOCK TABLE -->
+        <div class="production-stock-table-card">
+
+            <div class="production-stock-table-header">
+
+                <h2>
+                    Finished Product Stock
+                </h2>
+
+            </div>
+
+
+            {% if products %}
+
+                <div class="table-responsive">
+
+                    <table class="production-stock-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Product
+                                </th>
+
+                                <th>
+                                    Produced
+                                </th>
+
+                                <th>
+                                    Sold
+                                </th>
+
+                                <th>
+                                    Available Stock
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for product in products %}
+
+                                <tr>
+
+                                    <!-- PRODUCT -->
+                                    <td>
+
+                                        <strong>
+                                            {{ product.name }}
+                                        </strong>
+
+                                    </td>
+
+
+                                    <!-- PRODUCED -->
+                                    <td>
+
+                                        {{ product.produced_quantity|default:"0"|floatformat:0 }}
+
+                                    </td>
+
+
+                                    <!-- SOLD -->
+                                    <td>
+
+                                        {{ product.sold_quantity|default:"0"|floatformat:0 }}
+
+                                    </td>
+
+
+                                    <!-- AVAILABLE STOCK -->
+                                    <td>
+
+                                        {% if product.available_stock > 0 %}
+
+                                            <span class="stock-value stock-in">
+
+                                                {{ product.available_stock|floatformat:0 }}
+
+                                            </span>
+
+                                        {% else %}
+
+                                            <span class="stock-value stock-out">
+
+                                                0
+
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+            {% else %}
+
+                <div class="empty-stock">
+
+                    <i class="fa-solid fa-box-open"></i>
+
+                    <h3>
+                        No Products Available
+                    </h3>
+
+                    <p>
+                        There are no active products available for stock monitoring.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- BACK TO DASHBOARD -->
+        <div class="back-dashboard-wrapper">
+
+            <a
+                href="{% url 'production_dashboard' %}"
+                class="back-dashboard-link"
+            >
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back to Production Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

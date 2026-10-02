@@ -1,0 +1,393 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Products | Bakery Management System
+{% endblock %}
+
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/product-list.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="products-page">
+
+    <div class="container-fluid">
+
+
+        <!-- PAGE HEADER -->
+        <div class="products-header">
+
+            <div class="products-header-text">
+
+                <span class="products-label">
+                    PRODUCT MANAGEMENT
+                </span>
+
+                <h1>
+                    Products
+                </h1>
+
+                <p>
+                    View and manage bakery products.
+                </p>
+
+            </div>
+
+
+            {% if request.user.role == 'OWNER' or request.user.role == 'PRODUCTION_MANAGER' %}
+
+                <a
+                    href="{% url 'product_create' %}"
+                    class="products-add-button"
+                >
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add Product
+
+                </a>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- PRODUCT CARD -->
+        <div class="products-card">
+
+
+            <!-- CARD HEADER -->
+            <div class="products-card-header">
+
+                <div>
+
+                    <h2>
+                        Product List
+                    </h2>
+
+                    <p>
+                        All bakery products and their current selling prices.
+                    </p>
+
+                </div>
+
+
+                <div class="products-total">
+
+                    <strong>
+                        {{ products|length }}
+                    </strong>
+
+                    Product{{ products|length|pluralize }}
+
+                </div>
+
+            </div>
+
+
+            {% if products %}
+
+
+                <!-- TABLE -->
+                <div class="products-table-wrapper">
+
+                    <table class="products-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Product
+                                </th>
+
+                                <th>
+                                    Category
+                                </th>
+
+                                <th>
+                                    Description
+                                </th>
+
+                                <th>
+                                    Price
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+
+                                {% if request.user.role == 'OWNER' or request.user.role == 'PRODUCTION_MANAGER' %}
+
+                                    <th class="action-column">
+                                        Actions
+                                    </th>
+
+                                {% endif %}
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for product in products %}
+
+                                <tr>
+
+
+                                    <!-- PRODUCT -->
+                                    <td>
+
+                                        <div class="product-title">
+
+                                            <span class="product-icon">
+
+                                                <i class="fa-solid fa-box-open"></i>
+
+                                            </span>
+
+                                            <span>
+                                                {{ product.name }}
+                                            </span>
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <!-- CATEGORY -->
+                                    <td>
+
+                                        {% if product.category %}
+
+                                            <span class="category-name">
+                                                {{ product.category.name }}
+                                            </span>
+
+                                        {% else %}
+
+                                            <span class="no-value">
+                                                No category
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <!-- DESCRIPTION -->
+                                    <td>
+
+                                        {% if product.description %}
+
+                                            <span class="description-text">
+                                                {{ product.description }}
+                                            </span>
+
+                                        {% else %}
+
+                                            <span class="no-value">
+                                                No description
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <!-- PRICE -->
+                                    <td>
+
+                                        <span class="price-value">
+                                            {{ product.price }} ETB
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- STATUS -->
+                                    <td>
+
+                                        {% if product.is_available %}
+
+                                            <span class="available-status">
+
+                                                <i class="fa-solid fa-circle-check"></i>
+
+                                                Available
+
+                                            </span>
+
+                                        {% else %}
+
+                                            <span class="unavailable-status">
+
+                                                <i class="fa-solid fa-circle-xmark"></i>
+
+                                                Unavailable
+
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <!-- ACTIONS -->
+                                    {% if request.user.role == 'OWNER' or request.user.role == 'PRODUCTION_MANAGER' %}
+
+                                        <td class="action-column">
+
+
+                                            <!-- EDIT -->
+                                            <a
+                                                href="{% url 'product_edit' product.id %}"
+                                                class="product-edit-button"
+                                            >
+
+                                                <i class="fa-solid fa-pen-to-square"></i>
+
+                                                Edit
+
+                                            </a>
+
+
+                                            <!-- ACTIVATE / DEACTIVATE -->
+                                            {% if product.is_available %}
+
+                                                <a
+                                                    href="{% url 'product_toggle_status' product.id %}"
+                                                    class="product-status-button deactivate-button"
+                                                >
+
+                                                    <i class="fa-solid fa-toggle-off"></i>
+
+                                                    Deactivate
+
+                                                </a>
+
+                                            {% else %}
+
+                                                <a
+                                                    href="{% url 'product_toggle_status' product.id %}"
+                                                    class="product-status-button activate-button"
+                                                >
+
+                                                    <i class="fa-solid fa-toggle-on"></i>
+
+                                                    Activate
+
+                                                </a>
+
+                                            {% endif %}
+
+
+                                            <!-- DELETE - OWNER ONLY -->
+                                            {% if request.user.role == 'OWNER' %}
+
+                                                <a
+                                                    href="{% url 'product_delete' product.id %}"
+                                                    class="product-delete-button"
+                                                >
+
+                                                    <i class="fa-solid fa-trash"></i>
+
+                                                    Delete
+
+                                                </a>
+
+                                            {% endif %}
+
+
+                                        </td>
+
+                                    {% endif %}
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+            {% else %}
+
+
+                <!-- EMPTY STATE -->
+                <div class="products-empty">
+
+                    <div class="products-empty-icon">
+
+                        <i class="fa-solid fa-box-open"></i>
+
+                    </div>
+
+                    <h3>
+                        No Products Found
+                    </h3>
+
+                    <p>
+                        There are no bakery products recorded yet.
+                    </p>
+
+
+                    {% if request.user.role == 'OWNER' or request.user.role == 'PRODUCTION_MANAGER' %}
+
+                        <a
+                            href="{% url 'product_create' %}"
+                            class="products-add-button"
+                        >
+
+                            <i class="fa-solid fa-plus"></i>
+
+                            Add First Product
+
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- BACK TO DASHBOARD -->
+        <div class="products-back">
+
+            <a
+                href="{% url 'owner_dashboard' %}"
+                class="products-back-link"
+            >
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back to Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

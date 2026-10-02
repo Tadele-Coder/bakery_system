@@ -1,0 +1,316 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Production Details | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/production-detail.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="production-detail">
+
+    <div class="container-fluid">
+
+        <!-- Page Header -->
+        <div class="production-detail-header">
+
+            <div>
+
+                <span class="dashboard-label">
+                    PRODUCTION MANAGEMENT
+                </span>
+
+                <h1>
+                    Production Details
+                </h1>
+
+                <p>
+                    View the complete production record and its items.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Production Information -->
+        <div class="production-detail-card">
+
+            <div class="production-detail-card-header">
+
+                <h2>
+                    Production Information
+                </h2>
+
+            </div>
+
+
+            <div class="production-info">
+
+                <div class="row g-4">
+
+                    <!-- Production Date -->
+                    <div class="col-12 col-md-4">
+
+                        <div class="production-info-box">
+
+                            <strong>
+                                Production Date
+                            </strong>
+
+                            <p>
+                                {{ production.production_date|date:"d M Y" }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Status -->
+                    <div class="col-12 col-md-4">
+
+                        <div class="production-info-box">
+
+                            <strong>
+                                Status
+                            </strong>
+
+                            <p>
+
+                                <span
+                                    class="production-status status-{{ production.status|lower }}"
+                                >
+                                    {{ production.get_status_display }}
+                                </span>
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Created By -->
+                    <div class="col-12 col-md-4">
+
+                        <div class="production-info-box">
+
+                            <strong>
+                                Created By
+                            </strong>
+
+                            <p>
+                                {{ production.created_by.username }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Notes -->
+                    <div class="col-12">
+
+                        <div class="production-info-box">
+
+                            <strong>
+                                Notes
+                            </strong>
+
+                            <p>
+
+                                {% if production.notes %}
+                                    {{ production.notes }}
+                                {% else %}
+                                    —
+                                {% endif %}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Production Items -->
+        <div class="production-detail-card">
+
+            <div class="production-detail-card-header">
+
+                <h2>
+                    Production Items
+                </h2>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table production-items-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Product
+                            </th>
+
+                            <th>
+                                Planned Quantity
+                            </th>
+
+                            <th>
+                                Actual Quantity
+                            </th>
+
+                            <th>
+                                Notes
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for item in production.items.all %}
+
+                        <tr>
+
+                            <td class="production-product-name">
+                                {{ item.product.name }}
+                            </td>
+
+                            <td class="production-quantity">
+                                {{ item.planned_quantity }}
+                            </td>
+
+                            <td class="production-actual">
+                                {{ item.actual_quantity }}
+                            </td>
+
+                            <td class="production-item-notes">
+
+                                {% if item.notes %}
+                                    {{ item.notes }}
+                                {% else %}
+                                    —
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="4"
+                                class="production-detail-empty"
+                            >
+
+                                <i class="fa-solid fa-box-open"></i>
+
+                                <h3>
+                                    No production items
+                                </h3>
+
+                                <p>
+                                    No products have been added to this production record.
+                                </p>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+           
+        <!-- Bottom Actions -->
+        <div class="production-detail-actions">
+
+            {% if production.status == 'PLANNED' %}
+
+                <!-- Start Production -->
+                <form
+                    method="post"
+                    action="{% url 'production_start' production.id %}"
+                >
+
+                    {% csrf_token %}
+
+                    <button
+                        type="submit"
+                        class="btn btn-bakery"
+                    >
+                        <i class="fa-solid fa-play"></i>
+                        Start Production
+                    </button>
+
+                </form>
+
+
+                <!-- Cancel Production -->
+                <a
+                    href="{% url 'production_cancel' production.id %}"
+                    class="btn btn-outline-danger"
+                >
+                    <i class="fa-solid fa-ban"></i>
+                    Cancel Production
+                </a>
+
+            {% elif production.status == 'IN_PROGRESS' %}
+
+                <!-- Complete Production -->
+                <a
+                    href="{% url 'production_complete' production.id %}"
+                    class="btn btn-bakery"
+                >
+                    <i class="fa-solid fa-check"></i>
+                    Complete Production
+                </a>
+
+            {% endif %}
+
+
+            <!-- Back -->
+            <a
+                href="{% url 'production_list' %}"
+                class="btn btn-outline-secondary"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Production
+            </a>
+
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

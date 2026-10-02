@@ -1,0 +1,287 @@
+/* =========================================================
+   INGREDIENT FORM
+   ========================================================= */
+
+.ingredient-form-page {
+    padding: 1rem 0 2rem;
+}
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.ingredient-form-header {
+    margin-bottom: 1.5rem;
+}
+
+.ingredient-form-header h1 {
+    margin: 0;
+    color: #17324d;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.ingredient-form-header p {
+    margin: 0.4rem 0 0;
+    color: #6c757d;
+    font-size: 0.95rem;
+}
+
+/* =========================================================
+   FORM CARD
+   ========================================================= */
+
+.ingredient-form-card {
+    border: none;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+}
+
+.ingredient-form-card .card-body {
+    padding: 1.5rem;
+}
+
+/* =========================================================
+   FORM LABELS
+   ========================================================= */
+
+.ingredient-form-card .form-label {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: #17324d;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* =========================================================
+   FORM INPUTS
+   ========================================================= */
+
+.ingredient-form-card .form-control,
+.ingredient-form-card .form-select {
+    width: 100%;
+    min-height: 46px;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #212529;
+    font-size: 0.95rem;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.ingredient-form-card .form-control:focus,
+.ingredient-form-card .form-select:focus {
+    border-color: #159a96;
+    box-shadow: 0 0 0 0.2rem rgba(21, 154, 150, 0.15);
+    outline: none;
+}
+
+/* =========================================================
+   NUMBER INPUTS
+   ========================================================= */
+
+.ingredient-form-card input[type="number"] {
+    text-align: left;
+}
+
+/* =========================================================
+   CHECKBOX
+   ========================================================= */
+
+.ingredient-form-card .form-check {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: 0.25rem;
+    padding-left: 0;
+}
+
+.ingredient-form-card .form-check-input {
+    float: none;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin: 0 0.55rem 0 0;
+    border: 1px solid #adb5bd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.ingredient-form-card .form-check-input:checked {
+    background-color: #159a96;
+    border-color: #159a96;
+}
+
+.ingredient-form-card .form-check-input:focus {
+    border-color: #159a96;
+    box-shadow: 0 0 0 0.2rem rgba(21, 154, 150, 0.15);
+}
+
+.ingredient-form-card .form-check-label {
+    color: #17324d;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* =========================================================
+   VALIDATION ERRORS
+   ========================================================= */
+
+.ingredient-form-card .form-error {
+    margin-top: 0.35rem;
+    font-size: 0.82rem;
+    line-height: 1.4;
+}
+
+.ingredient-form-card .form-error ul {
+    margin: 0;
+    padding-left: 1rem;
+}
+
+.ingredient-form-card .alert-danger {
+    margin-bottom: 1.25rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+/* =========================================================
+   FORM ACTIONS
+   ========================================================= */
+
+.ingredient-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #e9eeee;
+}
+
+.ingredient-form-actions .btn {
+    min-height: 44px;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Save Button */
+
+.ingredient-form-actions .btn-primary {
+    background-color: #159a96;
+    border-color: #159a96;
+}
+
+.ingredient-form-actions .btn-primary:hover {
+    background-color: #117d7a;
+    border-color: #117d7a;
+}
+
+/* Cancel Button */
+
+.ingredient-form-actions .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.ingredient-form-actions .btn-secondary:hover {
+    background-color: #5c636a;
+    border-color: #5c636a;
+}
+
+/* =========================================================
+   ICON SPACING
+   ========================================================= */
+
+.ingredient-form-actions .btn i {
+    margin-right: 0.35rem;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767.98px) {
+
+    .ingredient-form-page {
+        padding: 0.75rem 0 1.5rem;
+    }
+
+    .ingredient-form-page .container {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .ingredient-form-header {
+        margin-bottom: 1rem;
+    }
+
+    .ingredient-form-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .ingredient-form-header p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    .ingredient-form-card {
+        border-radius: 12px;
+    }
+
+    .ingredient-form-card .card-body {
+        padding: 1rem;
+    }
+
+    .ingredient-form-card .form-label {
+        font-size: 0.85rem;
+    }
+
+    .ingredient-form-card .form-control,
+    .ingredient-form-card .form-select {
+        min-height: 48px;
+        font-size: 0.9rem;
+    }
+
+    .ingredient-form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+        margin-top: 1.5rem;
+    }
+
+    .ingredient-form-actions .btn {
+        width: 100%;
+        min-height: 46px;
+    }
+}
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .ingredient-form-card .card-body {
+        padding: 0.9rem;
+    }
+
+    .ingredient-form-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .ingredient-form-header p {
+        font-size: 0.82rem;
+    }
+
+    .ingredient-form-card .form-control,
+    .ingredient-form-card .form-select {
+        min-height: 47px;
+    }
+}
+

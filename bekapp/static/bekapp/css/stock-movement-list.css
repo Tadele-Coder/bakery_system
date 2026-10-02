@@ -1,0 +1,280 @@
+/* =========================================================
+   STOCK MOVEMENT LIST
+   ========================================================= */
+
+.stock-movement-list-page {
+    padding: 1rem 0 2rem;
+}
+
+.stock-movement-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stock-movement-list-header h1 {
+    margin: 0;
+    color: #17324d;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.stock-movement-list-header p {
+    margin: 0.4rem 0 0;
+    color: #6c757d;
+    font-size: 0.95rem;
+}
+
+.stock-movement-list-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+}
+
+.stock-movement-list-actions .btn {
+    min-height: 42px;
+    padding: 0.6rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.stock-movement-list-actions .btn-primary {
+    background-color: #159a96;
+    border-color: #159a96;
+}
+
+.stock-movement-list-actions .btn-primary:hover {
+    background-color: #117d7a;
+    border-color: #117d7a;
+}
+
+.stock-movement-list-actions .btn-outline-primary {
+    color: #159a96;
+    border-color: #159a96;
+}
+
+.stock-movement-list-actions .btn-outline-primary:hover {
+    color: #ffffff;
+    background-color: #159a96;
+    border-color: #159a96;
+}
+
+.stock-movement-list-actions .btn i {
+    margin-right: 0.3rem;
+}
+
+.stock-movement-list-card {
+    border: none;
+    border-radius: 14px;
+    overflow: hidden;
+    background-color: #ffffff;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+}
+
+.stock-movement-list-card .card-body {
+    padding: 1rem;
+}
+
+.stock-movement-list-card .table {
+    margin-bottom: 0;
+}
+
+.stock-movement-list-card .table thead th {
+    background-color: #f5f8f8;
+    color: #17324d;
+    font-size: 0.85rem;
+    font-weight: 700;
+    white-space: nowrap;
+    border-bottom: 2px solid #e3eaea;
+}
+
+.stock-movement-list-card .table tbody td {
+    padding: 0.85rem 0.75rem;
+    vertical-align: middle;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.stock-movement-list-card .table tbody tr {
+    border-bottom: 1px solid #edf1f1;
+}
+
+.stock-movement-list-card .table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.stock-movement-list-card .table tbody tr:hover {
+    background-color: #f8fbfb;
+}
+
+.stock-movement-list-card .table tbody td strong {
+    color: #17324d;
+    font-weight: 700;
+}
+
+.stock-movement-list-card .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.45rem 0.65rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.stock-movement-list-card .badge i {
+    font-size: 0.7rem;
+}
+
+.stock-movement-empty {
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+.stock-movement-empty > i {
+    margin-bottom: 1rem;
+    color: #159a96;
+}
+
+.stock-movement-empty h4 {
+    margin-bottom: 0.5rem;
+    color: #17324d;
+    font-weight: 700;
+}
+
+.stock-movement-empty p {
+    margin-bottom: 1.25rem;
+    color: #6c757d;
+}
+
+.stock-movement-empty .btn-primary {
+    background-color: #159a96;
+    border-color: #159a96;
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 0.65rem 1rem;
+}
+
+.stock-movement-empty .btn-primary:hover {
+    background-color: #117d7a;
+    border-color: #117d7a;
+}
+
+.stock-movement-empty .btn-primary i {
+    margin-right: 0.3rem;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767.98px) {
+
+    .stock-movement-list-page {
+        padding: 0.75rem 0 1.5rem;
+    }
+
+    .stock-movement-list-page .container {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .stock-movement-list-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .stock-movement-list-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .stock-movement-list-header p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    .stock-movement-list-actions {
+        width: 100%;
+    }
+
+    .stock-movement-list-actions .btn {
+        flex: 1;
+        min-height: 44px;
+        font-size: 0.82rem;
+        padding: 0.55rem 0.65rem;
+    }
+
+    .stock-movement-list-card {
+        border-radius: 12px;
+    }
+
+    .stock-movement-list-card .card-body {
+        padding: 0.5rem;
+    }
+
+    .stock-movement-list-card .table thead th,
+    .stock-movement-list-card .table tbody td {
+        padding: 0.7rem 0.6rem;
+        font-size: 0.8rem;
+    }
+
+    .stock-movement-list-card .badge {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.55rem;
+    }
+
+    .stock-movement-empty {
+        padding: 2.5rem 0.75rem;
+    }
+
+    .stock-movement-empty h4 {
+        font-size: 1.1rem;
+    }
+
+    .stock-movement-empty p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .stock-movement-list-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .stock-movement-list-header p {
+        font-size: 0.82rem;
+    }
+
+    .stock-movement-list-actions {
+        flex-direction: column;
+    }
+
+    .stock-movement-list-actions .btn {
+        width: 100%;
+    }
+
+    .stock-movement-list-card .table thead th,
+    .stock-movement-list-card .table tbody td {
+        font-size: 0.78rem;
+        padding: 0.65rem 0.55rem;
+    }
+
+    .stock-movement-list-card .badge {
+        font-size: 0.68rem;
+    }
+}

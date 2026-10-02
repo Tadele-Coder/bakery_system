@@ -1,0 +1,145 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Cancel Production | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/production-cancel.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="production-cancel">
+
+    <div class="container-fluid">
+
+        <div class="production-cancel-card">
+
+            <div class="production-cancel-icon">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+            </div>
+
+
+            <span class="dashboard-label">
+                PRODUCTION MANAGEMENT
+            </span>
+
+
+            <h1>
+                Cancel Production?
+            </h1>
+
+
+            <p class="production-cancel-message">
+                Are you sure you want to cancel this production record?
+            </p>
+
+
+            <!-- Production Information -->
+            <div class="production-cancel-info">
+
+                <div class="production-cancel-info-row">
+
+                    <span>
+                        Production Date
+                    </span>
+
+                    <strong>
+                        {{ production.production_date|date:"d M Y" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="production-cancel-info-row">
+
+                    <span>
+                        Current Status
+                    </span>
+
+                    <strong>
+
+                        <span
+                            class="production-status status-{{ production.status|lower }}"
+                        >
+                            {{ production.get_status_display }}
+                        </span>
+
+                    </strong>
+
+                </div>
+
+
+                <div class="production-cancel-info-row">
+
+                    <span>
+                        Products
+                    </span>
+
+                    <strong>
+                        {{ production.items.count }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- Warning -->
+            <div class="production-cancel-warning">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+                <p>
+                    This action will change the production status to
+                    <strong>Cancelled</strong>.
+                </p>
+
+            </div>
+
+
+            <!-- Actions -->
+            <div class="production-cancel-actions">
+
+                <a
+                    href="{% url 'production_detail' production.id %}"
+                    class="btn btn-outline-secondary"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Keep Production
+                </a>
+
+
+                <form
+                    method="post"
+                    action="{% url 'production_cancel' production.id %}"
+                >
+
+                    {% csrf_token %}
+
+                    <button
+                        type="submit"
+                        class="btn btn-cancel-production"
+                    >
+                        <i class="fa-solid fa-ban"></i>
+                        Cancel Production
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

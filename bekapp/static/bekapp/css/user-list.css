@@ -1,0 +1,229 @@
+.user-list-page {
+    padding: 32px 0 50px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.page-label {
+    display: inline-block;
+    margin-bottom: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #159a96;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.page-header p {
+    margin: 8px 0 0;
+    color: #6c757d;
+}
+
+.page-header .btn {
+    padding: 11px 18px;
+    font-weight: 600;
+}
+
+.users-card {
+    background: #ffffff;
+    border: 1px solid #e7ecef;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+}
+
+.users-card-header {
+    padding: 22px 24px;
+    border-bottom: 1px solid #e7ecef;
+}
+
+.users-card-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.users-card-header p {
+    margin: 6px 0 0;
+    color: #6c757d;
+    font-size: 0.92rem;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.users-table th {
+    padding: 15px 20px;
+    background: #f8fafb;
+    color: #495057;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.users-table td {
+    padding: 17px 20px;
+    border-top: 1px solid #edf0f2;
+    vertical-align: middle;
+    color: #343a40;
+}
+
+.users-table tbody tr:hover {
+    background: #fafdfd;
+}
+
+.role-badge,
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.role-owner {
+    background: #e8f7f6;
+    color: #117d7a;
+}
+
+.role-cashier {
+    background: #eef5ff;
+    color: #315f91;
+}
+
+.role-production {
+    background: #fff4e6;
+    color: #9a6417;
+}
+
+.status-active {
+    background: #eaf7ef;
+    color: #237a45;
+}
+
+.status-inactive {
+    background: #fbecec;
+    color: #a33a3a;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.action-btn {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: #f1f5f6;
+    color: #117d7a;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    background: #159a96;
+    color: #ffffff;
+}
+
+.action-danger {
+    color: #b13b3b;
+}
+
+.action-danger:hover {
+    background: #b13b3b;
+    color: #ffffff;
+}
+
+.action-success {
+    color: #237a45;
+}
+
+.action-success:hover {
+    background: #237a45;
+    color: #ffffff;
+}
+
+.empty-state {
+    padding: 55px 20px !important;
+    text-align: center;
+    color: #6c757d !important;
+}
+
+.empty-state i {
+    margin-bottom: 12px;
+    font-size: 2rem;
+    color: #159a96;
+}
+
+.empty-state h3 {
+    margin: 0 0 6px;
+    font-size: 1.1rem;
+    color: #343a40;
+}
+
+.empty-state p {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+
+    .user-list-page {
+        padding: 24px 0 40px;
+    }
+
+    .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .page-header .btn {
+        width: 100%;
+    }
+
+    .users-table {
+        min-width: 850px;
+    }
+
+}
+
+.page-header .btn-primary {
+    background-color: #159a96;
+    border-color: #159a96;
+    color: #ffffff;
+}
+
+.page-header .btn-primary:hover {
+    background-color: #117d7a;
+    border-color: #117d7a;
+    color: #ffffff;
+}
+
+.page-header .btn-primary:focus,
+.page-header .btn-primary:active {
+    background-color: #117d7a;
+    border-color: #117d7a;
+    color: #ffffff;
+    box-shadow: 0 0 0 0.2rem rgba(21, 154, 150, 0.25);
+}

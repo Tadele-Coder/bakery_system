@@ -1,0 +1,390 @@
+/* =========================================================
+   SPECIAL ORDER DETAIL
+========================================================= */
+
+.special-order-detail-page {
+    min-height: 75vh;
+    padding: 45px 0 70px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.special-order-detail-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 25px;
+
+    margin-bottom: 35px;
+}
+
+.special-order-label {
+    display: inline-block;
+
+    margin-bottom: 7px;
+
+    color: #159a96;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.special-order-detail-header h1 {
+    margin: 0 0 7px;
+
+    color: #17324d;
+
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.special-order-detail-header p {
+    margin: 0;
+
+    color: #6c757d;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   DETAIL CARDS
+========================================================= */
+
+.detail-card {
+    background: #ffffff;
+
+    border: 1px solid #e3e8ec;
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 5px 20px rgba(23, 50, 77, 0.05);
+}
+
+.detail-card-header {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 17px 22px;
+
+    background: #f7f9fb;
+
+    border-bottom: 1px solid #e3e8ec;
+}
+
+.detail-card-header h2 {
+    margin: 0;
+
+    color: #17324d;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.detail-card-icon {
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e8f7f6;
+
+    color: #159a96;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+}
+
+.detail-card-body {
+    padding: 22px;
+}
+
+.detail-card-body-table {
+    padding: 0;
+}
+
+
+/* =========================================================
+   DETAIL ROWS
+========================================================= */
+
+.detail-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 11px 0;
+
+    border-bottom: 1px solid #eef1f3;
+}
+
+.detail-row:first-child {
+    padding-top: 0;
+}
+
+.detail-row:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.detail-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #6c757d;
+
+    font-size: 13px;
+}
+
+.detail-value {
+    color: #343a40;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-align: right;
+}
+
+.detail-row-total {
+    margin-top: 8px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #dfe5e8;
+}
+
+.detail-value-highlight {
+    color: #159a96;
+
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status-badge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 5px 11px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-confirmed {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-in_production {
+    background: #e8f7f6;
+    color: #117d7a;
+}
+
+.status-ready {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-cancelled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+
+/* =========================================================
+   PRODUCTS TABLE
+========================================================= */
+
+.special-order-items-table {
+    margin: 0;
+
+    width: 100%;
+}
+
+.special-order-items-table thead th {
+    padding: 15px 18px;
+
+    background: #f7f9fb;
+
+    border-bottom: 1px solid #e3e8ec;
+
+    color: #34495e;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.special-order-items-table tbody td {
+    padding: 17px 18px;
+
+    color: #495057;
+
+    font-size: 14px;
+
+    vertical-align: middle;
+}
+
+.special-order-items-table tbody tr {
+    border-bottom: 1px solid #eef1f3;
+}
+
+.special-order-items-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   NOTES
+========================================================= */
+
+.detail-notes {
+    margin: 0;
+
+    color: #495057;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    white-space: pre-line;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.special-order-detail-page .bakery-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 44px;
+
+    padding: 10px 20px;
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.special-order-detail-page .bakery-btn-secondary {
+    background-color: #6c757d;
+
+    color: #ffffff;
+}
+
+.special-order-detail-page .bakery-btn-secondary:hover {
+    background-color: #5c636a;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.special-order-detail-actions {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .special-order-detail-page {
+        padding: 30px 15px 50px;
+    }
+
+    .special-order-detail-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .special-order-detail-header h1 {
+        font-size: 27px;
+    }
+
+    .detail-card-body {
+        padding: 18px;
+    }
+
+    .detail-row {
+        gap: 15px;
+    }
+
+    .special-order-items-table {
+        min-width: 750px;
+    }
+
+    .special-order-detail-actions {
+        flex-direction: column;
+    }
+
+    .special-order-detail-page .bakery-btn {
+        width: 100%;
+    }
+
+}

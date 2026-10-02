@@ -1,0 +1,169 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Completed Production | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/production-completed-list.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="production-completed-list">
+    <div class="container-fluid">
+
+        <!-- PAGE HEADER -->
+        <div class="production-completed-header">
+
+            <div>
+                <span class="dashboard-label">
+                    PRODUCTION MANAGEMENT
+                </span>
+
+                <h1>Completed Production</h1>
+
+                <p>
+                    View production records that have been completed.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- COMPLETED PRODUCTION TABLE -->
+        <div class="production-completed-table-card">
+
+            <div class="production-completed-table-header">
+                <h2>Completed Production Records</h2>
+            </div>
+
+            {% if productions %}
+
+                <div class="table-responsive">
+
+                    <table class="production-completed-table">
+
+                        <thead>
+                            <tr>
+                                <th>Production</th>
+                                <th>Date</th>
+                                <th>Created By</th>
+                                <th>Products</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for production in productions %}
+
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            Production #{{ production.id }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        {{ production.production_date }}
+                                    </td>
+
+                                    <td>
+                                        {% if production.created_by %}
+                                            {{ production.created_by.username }}
+                                        {% else %}
+                                            <span class="text-muted">
+                                                —
+                                            </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        {% for item in production.items.all %}
+
+                                            {{ item.product.name }}
+
+                                            {% if not forloop.last %}
+                                                ,
+                                            {% endif %}
+
+                                        {% empty %}
+
+                                            <span class="text-muted">
+                                                No products
+                                            </span>
+
+                                        {% endfor %}
+                                    </td>
+
+                                    <td>
+
+                                        <span class="production-status status-completed">
+                                            {{ production.get_status_display }}
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <a
+                                            href="{% url 'production_detail' production.id %}"
+                                            class="production-action"
+                                        >
+                                            <i class="fa-solid fa-eye"></i>
+                                            View
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-production">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <h3>No Completed Production</h3>
+
+                    <p>
+                        There are no completed production records yet.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <!-- BACK TO DASHBOARD -->
+        <div class="back-dashboard-wrapper">
+
+            <a
+                href="{% url 'production_dashboard' %}"
+                class="back-dashboard-link"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Production Dashboard
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

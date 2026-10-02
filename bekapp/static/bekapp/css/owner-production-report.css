@@ -1,0 +1,292 @@
+/* =========================================================
+   OWNER PRODUCTION REPORT
+========================================================= */
+
+.owner-production-report {
+    min-height: 70vh;
+    padding: 45px 0 70px;
+}
+
+
+/* =========================================================
+   REPORT HEADER
+========================================================= */
+
+.production-report-header {
+    margin-bottom: 30px;
+}
+
+.production-report-header h1 {
+    margin: 0 0 8px;
+    color: #17324d;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.production-report-header p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 15px;
+}
+
+.reports-label {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #159a96;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   REPORT PERIOD
+========================================================= */
+
+.production-report-period {
+    margin-bottom: 20px;
+    padding: 18px 22px;
+    background: #ffffff;
+    border: 1px solid #e5e9ed;
+    border-radius: 10px;
+    color: #6c757d;
+}
+
+.production-report-period strong {
+    color: #17324d;
+}
+
+.production-report-period span {
+    margin: 0 5px;
+}
+
+
+/* =========================================================
+   REPORT ACTIONS
+========================================================= */
+
+.production-report-actions {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.production-export-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: #159a96;
+    border: 1px solid #159a96;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.production-export-button:hover {
+    background: #117d7a;
+    border-color: #117d7a;
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.production-export-button:focus-visible {
+    outline: 2px solid #159a96;
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.production-summary-card {
+    height: 100%;
+    padding: 22px;
+    background: #ffffff;
+    border: 1px solid #e5e9ed;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(23, 50, 77, 0.05);
+}
+
+.production-summary-card span {
+    display: block;
+    margin-bottom: 6px;
+    color: #6c757d;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.production-summary-card h3 {
+    margin: 0;
+    color: #17324d;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   PRODUCTION TABLE CARD
+========================================================= */
+
+.production-report-table-card {
+    margin-top: 30px;
+    background: #ffffff;
+    border: 1px solid #e5e9ed;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(23, 50, 77, 0.05);
+    overflow: hidden;
+}
+
+.production-report-table-header {
+    padding: 24px;
+    border-bottom: 1px solid #e5e9ed;
+}
+
+.production-report-table-header h2 {
+    margin: 0;
+    color: #17324d;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   PRODUCTION TABLE
+========================================================= */
+
+.production-report-table {
+    margin: 0;
+}
+
+.production-report-table th {
+    white-space: nowrap;
+    color: #17324d;
+    font-size: 13px;
+    font-weight: 700;
+    background: #f8fafb;
+}
+
+.production-report-table td {
+    white-space: nowrap;
+    color: #495057;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+
+/* =========================================================
+   MOBILE RESPONSIVE
+========================================================= */
+
+@media (max-width: 576px) {
+
+    .owner-production-report {
+        padding: 35px 15px 55px;
+    }
+
+    .production-report-header h1 {
+        font-size: 27px;
+    }
+
+    .production-report-header p {
+        font-size: 14px;
+    }
+
+    .production-report-period {
+        padding: 16px 18px;
+    }
+
+    .production-report-actions {
+        justify-content: stretch;
+    }
+
+    .production-export-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .production-summary-card {
+        padding: 20px;
+    }
+
+    .production-summary-card h3 {
+        font-size: 23px;
+    }
+
+    .production-report-table-header {
+        padding: 20px;
+    }
+
+    .production-report-table-header h2 {
+        font-size: 20px;
+    }
+
+    .production-report-table th,
+    .production-report-table td {
+        font-size: 13px;
+    }
+}
+
+/* =========================================================
+   BUSINESS INFORMATION HEADER
+========================================================= */
+
+.production-business-header {
+    text-align: center;
+    margin-bottom: 28px;
+    padding: 24px 20px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.production-business-logo {
+    display: block;
+    width: 110px;
+    height: 90px;
+    object-fit: contain;
+    margin: 0 auto 12px;
+}
+
+.production-business-header h1 {
+    margin: 0 0 8px;
+    color: #17324d;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.production-business-header h2 {
+    margin: 14px 0 6px;
+    color: #17324d;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.production-business-header > div {
+    margin-top: 4px;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.production-business-header > div i {
+    width: 18px;
+    margin-right: 4px;
+    color: #159a96;
+}
+
+.production-business-header .reports-label {
+    display: inline-block;
+    margin-top: 16px;
+}

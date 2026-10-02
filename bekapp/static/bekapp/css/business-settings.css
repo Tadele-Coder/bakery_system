@@ -1,0 +1,222 @@
+/* =========================================================
+   BUSINESS SETTINGS
+========================================================= */
+
+.settings-page {
+    max-width: 900px;
+    padding: 24px 16px 50px;
+}
+
+
+/* =========================================================
+   SETTINGS CARD
+========================================================= */
+
+.settings-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.settings-header {
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.settings-header-label {
+    display: inline-block;
+    margin-bottom: 6px;
+    color: #159a96;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.settings-header h1 {
+    margin: 0 0 6px;
+    color: #17324d;
+    font-size: 1.7rem;
+    font-weight: 700;
+}
+
+.settings-header h1 i {
+    margin-right: 7px;
+    color: #159a96;
+}
+
+.settings-header p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.92rem;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.settings-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-field .form-label {
+    margin-bottom: 7px;
+    color: #17324d;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.settings-field .form-control {
+    min-height: 44px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.settings-field textarea.form-control {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.settings-field .form-control:focus {
+    border-color: #159a96;
+    box-shadow: 0 0 0 3px rgba(21, 154, 150, 0.12);
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo-upload-section {
+    padding-top: 4px;
+}
+
+.logo-preview {
+    margin-top: 12px;
+    padding: 14px;
+    background: #f8fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.logo-preview-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #6c757d;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.settings-logo {
+    display: block;
+    width: 120px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   FORM ERRORS
+========================================================= */
+
+.settings-error {
+    margin-top: 5px;
+    color: #dc3545;
+    font-size: 0.8rem;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.settings-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+.settings-back-button,
+.settings-save-button {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.settings-save-button {
+    background: #159a96;
+    border: 1px solid #159a96;
+    color: #ffffff;
+}
+
+.settings-save-button:hover {
+    background: #117d7a;
+    border-color: #117d7a;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 576px) {
+
+    .settings-page {
+        padding: 18px 12px 40px;
+    }
+
+    .settings-card {
+        padding: 20px 16px;
+        border-radius: 12px;
+    }
+
+    .settings-header h1 {
+        font-size: 1.45rem;
+    }
+
+    .settings-header p {
+        font-size: 0.85rem;
+    }
+
+    .settings-actions {
+        flex-direction: column;
+    }
+
+    .settings-back-button,
+    .settings-save-button {
+        width: 100%;
+    }
+
+    .settings-logo {
+        width: 100px;
+        height: 85px;
+    }
+}

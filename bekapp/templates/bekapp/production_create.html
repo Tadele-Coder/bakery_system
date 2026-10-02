@@ -1,0 +1,402 @@
+{% extends 'bekapp/base.html' %}
+
+{% load static %}
+
+{% block title %}
+
+New Production | Bakery Management System
+
+{% endblock %}
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/production-create.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<section class="production-create">
+
+    <div class="container-fluid">
+
+        <!-- Page Header -->
+
+        <div class="production-create-header">
+
+            <div>
+
+                <span class="dashboard-label">
+                    PRODUCTION MANAGEMENT
+                </span>
+
+                <h1>
+                    New Production
+                </h1>
+
+                <p>
+                    Create a new bakery production record.
+                </p>
+
+            </div>
+
+            <div>
+
+                <a
+                    href="{% url 'production_list' %}"
+                    class="btn btn-outline-secondary"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Back to Production
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Production Form -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- Production Information -->
+
+            <div class="production-form-card">
+
+                <div class="production-form-card-header">
+
+                    <h2>
+                        Production Information
+                    </h2>
+
+                </div>
+
+
+                <div class="production-form-body">
+
+                    <div class="row g-4">
+
+
+                        <!-- Production Date -->
+
+                        <div class="col-12 col-md-4">
+
+                            <label
+                                for="production_date"
+                                class="form-label"
+                            >
+                                Production Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="production_date"
+                                name="production_date"
+                                class="form-control"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Status -->
+
+                        <div class="col-12 col-md-4">
+
+                            <label
+                                for="status"
+                                class="form-label"
+                            >
+                                Status
+                            </label>
+
+                            <select
+                                id="status"
+                                name="status"
+                                class="form-select"
+                                required
+                            >
+
+                                {% for value, label in status_choices %}
+
+                                    <option
+                                        value="{{ value }}"
+                                        {% if value == 'PLANNED' %}
+                                            selected
+                                        {% endif %}
+                                    >
+
+                                        {{ label }}
+
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Notes -->
+
+                        <div class="col-12 col-md-4">
+
+                            <label
+                                for="notes"
+                                class="form-label"
+                            >
+                                Notes
+                            </label>
+
+                            <input
+                                type="text"
+                                id="notes"
+                                name="notes"
+                                class="form-control"
+                                placeholder="Optional notes"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Production Items -->
+
+            <div class="production-form-card">
+
+                <div class="production-form-card-header">
+
+                    <div>
+
+                        <h2>
+                            Production Items
+                        </h2>
+
+                        <p>
+                            Add the products and quantities to produce.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="add-product"
+                        class="btn btn-bakery"
+                    >
+
+                        <i class="fa-solid fa-plus"></i>
+                        Add Product
+
+                    </button>
+
+                </div>
+
+
+                <div class="production-form-body">
+
+                    <div id="product-items">
+
+
+                        <!-- First Product Row -->
+
+                        <div class="production-item-row">
+
+                            <div class="row g-3 align-items-end">
+
+
+                                <!-- Product -->
+
+                                <div class="col-12 col-md-4">
+
+                                    <label class="form-label">
+                                        Product
+                                    </label>
+
+                                    <select
+                                        name="product"
+                                        class="form-select product-select"
+                                    >
+
+                                        <option value="">
+                                            Select Product
+                                        </option>
+
+                                        {% for product in products %}
+
+                                            <option
+                                                value="{{ product.id }}"
+                                                data-has-recipe="{% if product.recipe %}true{% else %}false{% endif %}"
+                                                data-recipe='[
+                                                    {% if product.recipe %}
+                                                        {% for recipe_item in product.recipe.ingredients.all %}
+                                                            {
+                                                                "ingredient": "{{ recipe_item.ingredient.name|escapejs }}",
+                                                                "quantity": "{{ recipe_item.quantity }}",
+                                                                "unit": "{{ recipe_item.ingredient.get_unit_display|escapejs }}"
+                                                            }{% if not forloop.last %},{% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                ]'
+                                            >
+
+                                                {{ product.name }}
+
+                                                {% if product.recipe %}
+
+                                                    — Recipe Available
+
+                                                {% else %}
+
+                                                    — No Recipe
+
+                                                {% endif %}
+
+                                            </option>
+
+                                        {% endfor %}
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- Planned Quantity -->
+
+                                <div class="col-12 col-md-3">
+
+                                    <label class="form-label">
+                                        Planned Quantity
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        name="planned_quantity"
+                                        class="form-control"
+                                        min="0"
+                                        step="0.01"
+                                        placeholder="0"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <!-- Actual Quantity -->
+
+                                <div class="col-12 col-md-3">
+
+                                    <label class="form-label">
+                                        Actual Quantity
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        name="actual_quantity"
+                                        class="form-control"
+                                        min="0"
+                                        step="0.01"
+                                        placeholder="0"
+                                    >
+
+                                </div>
+
+
+                                <!-- Remove Product -->
+
+                                <div class="col-12 col-md-2">
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline-danger remove-product"
+                                    >
+
+                                        <i class="fa-solid fa-trash"></i>
+                                        Remove
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Item Notes -->
+
+                            <div class="row mt-3">
+
+                                <div class="col-12">
+
+                                    <label class="form-label">
+                                        Item Notes
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="item_notes"
+                                        class="form-control"
+                                        placeholder="Optional notes for this product"
+                                    >
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Form Actions -->
+
+            <div class="production-form-actions">
+
+                <a
+                    href="{% url 'production_list' %}"
+                    class="btn btn-outline-secondary"
+                >
+                    Cancel
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-bakery"
+                >
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Save Production
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script src="{% static 'bekapp/js/production-create.js' %}"></script>
+
+{% endblock %}

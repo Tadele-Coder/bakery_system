@@ -1,0 +1,650 @@
+/* =========================================================
+   PRODUCTS PAGE
+========================================================= */
+
+.products-page {
+    padding: 40px 0 60px;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.products-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.products-header-text {
+    min-width: 0;
+}
+
+.products-label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #159a96;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.products-header h1 {
+    margin: 0 0 8px;
+
+    color: #17324d;
+
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.products-header p {
+    margin: 0;
+
+    color: #6c757d;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   ADD PRODUCT BUTTON
+========================================================= */
+
+.products-add-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 11px 18px;
+
+    background: #159a96;
+
+    border: 1px solid #159a96;
+    border-radius: 8px;
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+    transition: 0.2s ease;
+}
+
+.products-add-button:hover {
+    background: #117d7a;
+
+    border-color: #117d7a;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.products-card {
+    width: 100%;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.products-card-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 22px;
+}
+
+.products-card-header h2 {
+    margin: 0 0 6px;
+
+    color: #17324d;
+
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.products-card-header p {
+    margin: 0;
+
+    color: #6c757d;
+
+    font-size: 14px;
+}
+
+.products-total {
+    color: #6c757d;
+
+    font-size: 14px;
+
+    white-space: nowrap;
+}
+
+.products-total strong {
+    color: #159a96;
+
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+.products-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border-top: 1px solid #edf0f2;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.products-table {
+    width: 100%;
+
+    min-width: 1100px;
+
+    border-collapse: collapse;
+
+    table-layout: auto;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.products-table thead {
+    background: #159a96;
+}
+
+.products-table thead th {
+    padding: 15px 18px;
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.products-table tbody td {
+    padding: 16px 18px;
+
+    border-bottom: 1px solid #edf0f2;
+
+    color: #343a40;
+
+    font-size: 14px;
+
+    vertical-align: middle;
+}
+
+.products-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.products-table tbody tr:hover {
+    background: #f8fbfb;
+}
+
+
+/* =========================================================
+   PRODUCT NAME
+========================================================= */
+
+.product-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: #17324d;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.product-icon {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    flex-shrink: 0;
+
+    background: #e8f7f5;
+
+    border-radius: 7px;
+
+    color: #159a96;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+
+.category-name {
+    color: #495057;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.description-text {
+    color: #495057;
+}
+
+
+/* =========================================================
+   EMPTY VALUES
+========================================================= */
+
+.no-value {
+    color: #adb5bd;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.price-value {
+    color: #17324d;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.available-status,
+.unavailable-status {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.available-status {
+    background: #e8f7f1;
+
+    color: #16835f;
+}
+
+.unavailable-status {
+    background: #fdecec;
+
+    color: #c0392b;
+}
+
+
+/* =========================================================
+   ACTION COLUMN
+========================================================= */
+
+.action-column {
+    width: 120px;
+
+    min-width: 120px;
+
+    text-align: center !important;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   EDIT BUTTON
+========================================================= */
+
+.product-edit-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 8px 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #159a96;
+
+    border-radius: 7px;
+
+    color: #159a96;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none !important;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.product-edit-button:hover {
+    background: #159a96;
+
+    border-color: #159a96;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.products-empty {
+    padding: 70px 20px;
+
+    text-align: center;
+}
+
+.products-empty-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 64px;
+    height: 64px;
+
+    margin: 0 auto 16px;
+
+    background: #e8f7f5;
+
+    border-radius: 50%;
+
+    color: #159a96;
+
+    font-size: 25px;
+}
+
+.products-empty h3 {
+    margin: 0 0 8px;
+
+    color: #17324d;
+
+    font-size: 20px;
+
+    font-weight: 600;
+}
+
+.products-empty p {
+    margin: 0 0 22px;
+
+    color: #6c757d;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   BACK TO DASHBOARD
+========================================================= */
+
+.products-back {
+    margin-top: 20px;
+}
+
+.products-back-link {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #159a96;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.products-back-link:hover {
+    color: #117d7a;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .products-page {
+        padding: 30px 0 45px;
+    }
+
+    .products-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .products-header h1 {
+        font-size: 27px;
+    }
+
+    .products-add-button {
+        width: 100%;
+    }
+
+    .products-card-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .products-table thead th,
+    .products-table tbody td {
+        padding: 12px 14px;
+    }
+
+    .products-edit-button {
+        padding: 7px 11px;
+    }
+}
+
+/* =========================================================
+   PRODUCT STATUS BUTTON
+========================================================= */
+
+.product-status-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-top: 7px;
+
+    padding: 8px 14px;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none !important;
+
+    white-space: nowrap;
+
+    transition: 0.2s ease;
+}
+
+
+/* =========================================================
+   DEACTIVATE
+========================================================= */
+
+.deactivate-button {
+    background: #fff4e5;
+
+    border: 1px solid #f0ad4e;
+
+    color: #b06b00;
+}
+
+.deactivate-button:hover {
+    background: #f0ad4e;
+
+    border-color: #f0ad4e;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   ACTIVATE
+========================================================= */
+
+.activate-button {
+    background: #e8f7f1;
+
+    border: 1px solid #16835f;
+
+    color: #16835f;
+}
+
+.activate-button:hover {
+    background: #16835f;
+
+    border-color: #16835f;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   DELETE BUTTON
+========================================================= */
+
+.product-delete-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-top: 7px;
+
+    padding: 8px 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #c0392b;
+
+    border-radius: 7px;
+
+    color: #c0392b;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-decoration: none !important;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.product-delete-button:hover {
+    background: #c0392b;
+
+    border-color: #c0392b;
+
+    color: #ffffff;
+}

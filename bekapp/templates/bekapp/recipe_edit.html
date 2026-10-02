@@ -1,0 +1,350 @@
+{% extends 'bekapp/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Edit {{ recipe.product.name }} Recipe | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/recipe-edit.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<section class="recipe-edit-page">
+
+    <div class="container-fluid">
+
+        <!-- Page Header -->
+        <div class="recipe-edit-header">
+
+            <div>
+
+                <span class="recipe-label">
+                    EDIT RECIPE
+                </span>
+
+                <h1>
+                    {{ recipe.product.name }}
+                </h1>
+
+                <p>
+                    Update recipe instructions, ingredients, and quantities.
+                </p>
+
+            </div>
+
+
+            <div class="recipe-header-actions">
+
+                <a
+                    href="{% url 'recipe_detail' recipe.id %}"
+                    class="recipe-back-button"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Back to Recipe
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Recipe Form -->
+        <form method="post">
+
+            {% csrf_token %}
+
+
+            {% if recipe_form.non_field_errors %}
+
+                <div class="alert alert-danger">
+
+                    {{ recipe_form.non_field_errors }}
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- Recipe Information -->
+            <div class="recipe-edit-card">
+
+                <div class="recipe-card-header">
+
+                    <div class="recipe-card-icon">
+                        <i class="fa-solid fa-bread-slice"></i>
+                    </div>
+
+                    <div>
+
+                        <span>
+                            RECIPE INFORMATION
+                        </span>
+
+                        <h2>
+                            Product & Instructions
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="recipe-card-content">
+
+
+                    <!-- Product -->
+                    <div class="form-group">
+
+                        <label
+                            for="{{ recipe_form.product.id_for_label }}"
+                            class="form-label"
+                        >
+                            Product
+                        </label>
+
+                        {{ recipe_form.product }}
+
+                        {% if recipe_form.product.errors %}
+
+                            <div class="text-danger small mt-1">
+                                {{ recipe_form.product.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- Description -->
+                    <div class="form-group">
+
+                        <label
+                            for="{{ recipe_form.description.id_for_label }}"
+                            class="form-label"
+                        >
+                            Description / Instructions
+                        </label>
+
+                        {{ recipe_form.description }}
+
+                        {% if recipe_form.description.errors %}
+
+                            <div class="text-danger small mt-1">
+                                {{ recipe_form.description.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Ingredients -->
+            <div class="recipe-edit-card ingredients-card">
+
+                <div class="recipe-card-header">
+
+                    <div class="recipe-card-icon">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+
+                    <div>
+
+                        <span>
+                            RECIPE INGREDIENTS
+                        </span>
+
+                        <h2>
+                            Ingredients
+                        </h2>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        id="add-ingredient"
+                        class="recipe-add-button"
+                    >
+                        <i class="fa-solid fa-plus"></i>
+                        Add Ingredient
+                    </button>
+
+                </div>
+
+
+                <div class="recipe-card-content">
+
+                    <p class="ingredients-description">
+                        Update the ingredients and quantities required
+                        to prepare this product.
+                    </p>
+
+
+                    <div id="ingredients-container">
+
+
+                        {% for item in recipe.ingredients.all %}
+
+                            <div class="ingredient-row">
+
+                                <!-- Ingredient -->
+                                <div class="ingredient-field">
+
+                                    <label class="form-label">
+                                        Ingredient
+                                    </label>
+
+                                    <select
+                                        name="ingredient"
+                                        class="form-select recipe-ingredient"
+                                    >
+
+                                        <option value="">
+                                            Select Ingredient
+                                        </option>
+
+                                        {% for ingredient in ingredient_form.fields.ingredient.queryset %}
+
+                                            <option
+                                                value="{{ ingredient.id }}"
+                                                {% if ingredient.id == item.ingredient.id %}
+                                                    selected
+                                                {% endif %}
+                                            >
+                                                {{ ingredient.name }}
+                                            </option>
+
+                                        {% endfor %}
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- Quantity -->
+                                <div class="quantity-field">
+
+                                    <label class="form-label">
+                                        Quantity
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        name="quantity"
+                                        class="form-control recipe-quantity"
+                                        min="0.001"
+                                        step="0.001"
+                                        value="{{ item.quantity }}"
+                                        placeholder="Enter quantity"
+                                    >
+
+                                </div>
+
+
+                                <!-- Remove -->
+                                <div class="remove-field">
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline-danger remove-ingredient"
+                                    >
+                                        Remove
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        {% empty %}
+
+
+                            <div class="ingredient-row">
+
+                                <div class="ingredient-field">
+
+                                    <label class="form-label">
+                                        Ingredient
+                                    </label>
+
+                                    {{ ingredient_form.ingredient }}
+
+                                </div>
+
+
+                                <div class="quantity-field">
+
+                                    <label class="form-label">
+                                        Quantity
+                                    </label>
+
+                                    {{ ingredient_form.quantity }}
+
+                                </div>
+
+
+                                <div class="remove-field">
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline-danger remove-ingredient"
+                                    >
+                                        Remove
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Form Actions -->
+            <div class="recipe-form-actions">
+
+                <a
+                    href="{% url 'recipe_detail' recipe.id %}"
+                    class="recipe-cancel-button"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="recipe-save-button"
+                >
+                    <i class="fa-solid fa-check"></i>
+                    Save Changes
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- Recipe Edit JavaScript -->
+<script src="{% static 'bekapp/js/recipe-edit.js' %}"></script>
+
+{% endblock %}

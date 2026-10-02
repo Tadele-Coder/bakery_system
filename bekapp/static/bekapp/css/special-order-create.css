@@ -1,0 +1,511 @@
+/* =========================================================
+   SPECIAL ORDER CREATE
+========================================================= */
+
+.special-orders-page {
+    padding: 40px 0 60px;
+    min-height: 75vh;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.special-orders-header {
+    margin-bottom: 30px;
+}
+
+.special-orders-header h2 {
+    margin: 0 0 6px;
+
+    color: #17324d;
+
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.special-orders-header p {
+    margin: 0;
+
+    color: #6c757d;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   FORM CARDS
+========================================================= */
+
+.special-orders-page .card {
+    border: 1px solid #e3e8ec;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    overflow: hidden;
+}
+
+.special-orders-page .card-header {
+    padding: 16px 22px;
+
+    background: #f7f9fb;
+
+    border-bottom: 1px solid #e3e8ec;
+}
+
+.special-orders-page .card-header h5 {
+    margin: 0;
+
+    color: #17324d;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.special-orders-page .card-body {
+    padding: 24px;
+}
+
+
+/* =========================================================
+   FORM LABELS
+========================================================= */
+
+.special-orders-page .form-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #34495e;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   FORM CONTROLS
+========================================================= */
+
+.special-orders-page .form-control,
+.special-orders-page .form-select {
+    width: 100%;
+    min-height: 44px;
+
+    padding: 9px 12px;
+
+    border: 1px solid #d9e0e5;
+    border-radius: 6px;
+
+    background-color: #ffffff;
+    color: #343a40;
+
+    font-size: 14px;
+
+    box-shadow: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
+.special-orders-page textarea.form-control {
+    min-height: 90px;
+
+    resize: vertical;
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.special-orders-page .form-control:focus,
+.special-orders-page .form-select:focus {
+    border-color: #159a96;
+
+    box-shadow:
+        0 0 0 0.2rem rgba(21, 154, 150, 0.12);
+
+    outline: none;
+}
+
+
+/* =========================================================
+   FORM ERRORS
+========================================================= */
+
+.special-orders-page .errorlist {
+    margin: 5px 0 0;
+    padding: 0;
+
+    list-style: none;
+
+    color: #dc3545;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   FIELD ERROR
+========================================================= */
+
+.special-orders-page .field-error {
+    margin-top: 5px;
+
+    color: #dc3545;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   ERROR INPUT
+========================================================= */
+
+.special-orders-page .col-md-6:has(.field-error) .form-control,
+.special-orders-page .col-md-6:has(.field-error) .form-select,
+.special-orders-page .col-12:has(.field-error) .form-control,
+.special-orders-page .col-12:has(.field-error) .form-select {
+    border-color: #dc3545;
+}
+
+
+/* =========================================================
+   ERROR INPUT FOCUS
+========================================================= */
+
+.special-orders-page .col-md-6:has(.field-error) .form-control:focus,
+.special-orders-page .col-md-6:has(.field-error) .form-select:focus,
+.special-orders-page .col-12:has(.field-error) .form-control:focus,
+.special-orders-page .col-12:has(.field-error) .form-select:focus {
+    border-color: #dc3545;
+
+    box-shadow:
+        0 0 0 0.2rem rgba(220, 53, 69, 0.12);
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.special-orders-page .bakery-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 44px;
+
+    padding: 10px 20px;
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
+
+.special-orders-page .bakery-btn-primary {
+    background-color: #159a96;
+
+    color: #ffffff;
+}
+
+.special-orders-page .bakery-btn-primary:hover {
+    background-color: #117d7a;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================================
+   SECONDARY BUTTON
+========================================================= */
+
+.special-orders-page .bakery-btn-secondary {
+    background-color: #6c757d;
+
+    color: #ffffff;
+}
+
+.special-orders-page .bakery-btn-secondary:hover {
+    background-color: #5c636a;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   DATE / TIME INPUTS
+========================================================= */
+
+.special-orders-page input[type="date"],
+.special-orders-page input[type="time"] {
+    min-height: 44px;
+}
+
+
+/* =========================================================
+   INPUT PLACEHOLDER
+========================================================= */
+
+.special-orders-page .form-control::placeholder {
+    color: #9aa3aa;
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   ACTION AREA
+========================================================= */
+
+.special-orders-page form > .d-flex {
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   ORDER PRODUCTS
+========================================================= */
+
+.special-order-item-row {
+    padding: 20px;
+    margin-bottom: 18px;
+
+    border: 1px solid #e3e8ec;
+    border-radius: 8px;
+
+    background: #ffffff;
+}
+
+.special-order-item-row:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   PRODUCT PRICE / TOTAL
+========================================================= */
+
+.special-orders-page .special-order-price,
+.special-orders-page .special-order-total {
+    background-color: #f7f9fb;
+
+    font-weight: 600;
+
+    color: #17324d;
+}
+
+
+/* =========================================================
+   REMOVE PRODUCT BUTTON
+========================================================= */
+
+.special-order-remove-item {
+    width: 100%;
+    min-height: 44px;
+
+    padding: 10px 16px;
+
+    border: 1px solid #dc3545;
+    border-radius: 6px;
+
+    background-color: #ffffff;
+
+    color: #dc3545;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.special-order-remove-item:hover {
+    background-color: #dc3545;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   ADD PRODUCT
+========================================================= */
+
+.special-order-add-item {
+    margin-top: 20px;
+}
+
+#add-special-order-item {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+
+    padding: 9px 18px;
+
+    border: 1px solid #159a96;
+    border-radius: 6px;
+
+    background-color: #ffffff;
+
+    color: #159a96;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+#add-special-order-item:hover {
+    background-color: #159a96;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   ORDER TOTAL SUMMARY
+========================================================= */
+
+.special-order-summary {
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-top: 25px;
+}
+
+.special-order-total-box {
+    min-width: 280px;
+
+    padding: 18px 22px;
+
+    border: 1px solid #dce5e8;
+    border-radius: 8px;
+
+    background-color: #f7f9fb;
+}
+
+.special-order-total-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+.special-order-total-label {
+    color: #34495e;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.special-order-total-value {
+    color: #159a96;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .special-orders-page {
+        padding: 25px 15px 40px;
+    }
+
+    .special-orders-header h2 {
+        font-size: 25px;
+    }
+
+    .special-orders-page .card-body {
+        padding: 18px;
+    }
+
+    .special-orders-page form > .d-flex {
+        flex-direction: column;
+    }
+
+    .special-orders-page .bakery-btn {
+        width: 100%;
+    }
+
+    .special-order-item-row {
+        padding: 16px;
+    }
+
+    .special-order-remove-item {
+        width: 100%;
+    }
+
+    .special-order-summary {
+        justify-content: stretch;
+    }
+
+    .special-order-total-box {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .special-order-total-row {
+        gap: 15px;
+    }
+
+}
+

@@ -1,0 +1,633 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+Special Order {{ special_order.order_number }} | Bakery Management
+{% endblock %}
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/special-order-detail.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="special-order-detail-page">
+
+
+<div class="container">
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="special-order-detail-header">
+
+        <div>
+
+            <span class="special-order-label">
+                SPECIAL ORDER
+            </span>
+
+            <h1>
+                {{ special_order.order_number }}
+            </h1>
+
+            <p>
+                Customer special order details and production information.
+            </p>
+
+        </div>
+
+
+        <div class="special-order-header-actions">
+
+            <a
+                href="{% url 'special_order_list' %}"
+                class="bakery-btn bakery-btn-secondary"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Special Orders
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ORDER SUMMARY
+    ====================================================== -->
+
+    <div class="row g-4 mb-4">
+
+        <!-- CUSTOMER -->
+
+        <div class="col-12 col-lg-4">
+
+            <div class="detail-card h-100">
+
+                <div class="detail-card-header">
+
+                    <div class="detail-card-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <h2>
+                        Customer
+                    </h2>
+
+                </div>
+
+                <div class="detail-card-body">
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Name
+                        </span>
+
+                        <span class="detail-value">
+                            {{ special_order.customer.name }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Phone
+                        </span>
+
+                        <span class="detail-value">
+                            {{ special_order.customer.phone }}
+                        </span>
+
+                    </div>
+
+
+                    {% if special_order.customer.email %}
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Email
+                            </span>
+
+                            <span class="detail-value">
+                                {{ special_order.customer.email }}
+                            </span>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    {% if special_order.customer.address %}
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Address
+                            </span>
+
+                            <span class="detail-value">
+                                {{ special_order.customer.address }}
+                            </span>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- EVENT -->
+
+        <div class="col-12 col-lg-4">
+
+            <div class="detail-card h-100">
+
+                <div class="detail-card-header">
+
+                    <div class="detail-card-icon">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+
+                    <h2>
+                        Event Information
+                    </h2>
+
+                </div>
+
+                <div class="detail-card-body">
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Event
+                        </span>
+
+                        <span class="detail-value">
+                            {{ special_order.get_event_type_display }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Event Date
+                        </span>
+
+                        <span class="detail-value">
+                            {{ special_order.event_date|date:"d M Y" }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Pickup Time
+                        </span>
+
+                        <span class="detail-value">
+
+                            {% if special_order.pickup_time %}
+                                {{ special_order.pickup_time|time:"H:i" }}
+                            {% else %}
+                                —
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Status
+                        </span>
+
+                        <span class="status-badge status-{{ special_order.status|lower }}">
+                            {{ special_order.get_status_display }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAYMENT -->
+
+        <div class="col-12 col-lg-4">
+
+            <div class="detail-card h-100">
+
+                <div class="detail-card-header">
+
+                    <div class="detail-card-icon">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                    </div>
+
+                    <h2>
+                        Payment Summary
+                    </h2>
+
+                </div>
+
+                <div class="detail-card-body">
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Order Total
+                        </span>
+
+                        <span class="detail-value">
+                            {{ special_order.total_amount|floatformat:2 }} ETB
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Deposit
+                        </span>
+
+                        <span class="detail-value">
+                            {{ special_order.deposit_amount|floatformat:2 }} ETB
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row detail-row-total">
+
+                        <span class="detail-label">
+                            Remaining
+                        </span>
+
+                        <span class="detail-value detail-value-highlight">
+
+                            {{ remaining_amount|floatformat:2 }} ETB
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ORDER PRODUCTS
+    ====================================================== -->
+
+    <div class="detail-card mb-4">
+
+        <div class="detail-card-header">
+
+            <div class="detail-card-icon">
+                <i class="fa-solid fa-cake-candles"></i>
+            </div>
+
+            <h2>
+                Order Products
+            </h2>
+
+        </div>
+
+
+        <div class="detail-card-body detail-card-body-table">
+
+            {% if special_order.items.all %}
+
+                <div class="table-responsive">
+
+                    <table class="table special-order-items-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Product
+                                </th>
+
+                                <th>
+                                    Quantity
+                                </th>
+
+                                <th>
+                                    Unit Price
+                                </th>
+
+                                <th>
+                                    Total
+                                </th>
+
+                                <th>
+                                    Customization
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for item in special_order.items.all %}
+
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            {{ item.product.name }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        {{ item.quantity }}
+                                    </td>
+
+                                    <td>
+                                        {{ item.unit_price|floatformat:2 }} ETB
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            {{ item.total_price|floatformat:2 }} ETB
+                                        </strong>
+                                    </td>
+
+                                    <td>
+
+                                        {% if item.customization %}
+                                            {{ item.customization }}
+                                        {% else %}
+                                            —
+                                        {% endif %}
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="alert alert-info mb-0">
+                    No products have been added to this order.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         NOTES
+    ====================================================== -->
+
+    <div class="row g-4 mb-4">
+
+        <!-- CUSTOMER NOTES -->
+
+        {% if special_order.customer.notes %}
+
+            <div class="col-12 col-lg-6">
+
+                <div class="detail-card h-100">
+
+                    <div class="detail-card-header">
+
+                        <div class="detail-card-icon">
+                            <i class="fa-solid fa-user-pen"></i>
+                        </div>
+
+                        <h2>
+                            Customer Notes
+                        </h2>
+
+                    </div>
+
+                    <div class="detail-card-body">
+
+                        <p class="detail-notes">
+                            {{ special_order.customer.notes }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- ORDER NOTES -->
+
+        {% if special_order.notes %}
+
+            <div class="col-12 col-lg-6">
+
+                <div class="detail-card h-100">
+
+                    <div class="detail-card-header">
+
+                        <div class="detail-card-icon">
+                            <i class="fa-solid fa-note-sticky"></i>
+                        </div>
+
+                        <h2>
+                            Order Notes
+                        </h2>
+
+                    </div>
+
+                    <div class="detail-card-body">
+
+                        <p class="detail-notes">
+                            {{ special_order.notes }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =====================================================
+         ORDER INFORMATION
+    ====================================================== -->
+
+    <div class="detail-card mb-4">
+
+        <div class="detail-card-header">
+
+            <div class="detail-card-icon">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+
+            <h2>
+                Order Information
+            </h2>
+
+        </div>
+
+
+        <div class="detail-card-body">
+
+            <div class="row g-3">
+
+                <div class="col-md-4">
+
+                    <span class="detail-label">
+                        Order Number
+                    </span>
+
+                    <strong>
+                        {{ special_order.order_number }}
+                    </strong>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <span class="detail-label">
+                        Created By
+                    </span>
+
+                    <strong>
+                        {{ special_order.created_by.username }}
+                    </strong>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <span class="detail-label">
+                        Created
+                    </span>
+
+                    <strong>
+                        {{ special_order.created_at|date:"d M Y H:i" }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ACTIONS
+    ====================================================== -->
+
+    <div class="special-order-detail-actions">
+
+        <a
+            href="{% url 'special_order_list' %}"
+            class="bakery-btn bakery-btn-secondary"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Special Orders
+        </a>
+
+
+        {% if special_order.status == 'PENDING' %}
+
+            <form
+                method="post"
+                action="{% url 'special_order_confirm' special_order.id %}"
+                style="display: inline;"
+            >
+
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="bakery-btn bakery-btn-primary"
+                >
+                    <i class="fa-solid fa-check"></i>
+                    Confirm Order
+                </button>
+
+            </form>
+
+        {% endif %}
+
+        {% if special_order.status == 'READY' %}
+
+            <form
+                method="post"
+                action="{% url 'special_order_complete' special_order.id %}"
+                style="display: inline;"
+            >
+
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="bakery-btn bakery-btn-primary"
+                >
+                    <i class="fa-solid fa-check-double"></i>
+                    Complete Order
+                </button>
+
+            </form>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+</section>
+
+{% endblock %}

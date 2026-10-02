@@ -1,0 +1,392 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Sales Report | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/owner-sales-report.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<section class="owner-sales-report">
+
+    <div class="container-fluid">
+
+        <!-- Page Header -->
+      
+        <div class="sales-report-header">
+
+            {% if business_settings %}
+
+                <div class="sales-business-info">
+
+                    {% if business_settings.logo %}
+                        <div class="sales-business-logo">
+
+                            <img
+                                src="{{ business_settings.logo.url }}"
+                                alt="{{ business_settings.business_name }}"
+                            >
+
+                        </div>
+                    {% endif %}
+
+                    <div class="sales-business-details">
+
+                        <h2>
+                            {{ business_settings.business_name }}
+                        </h2>
+
+                        {% if business_settings.phone %}
+                            <span>
+                                <i class="fa-solid fa-phone"></i>
+                                {{ business_settings.phone }}
+                            </span>
+                        {% endif %}
+
+                        {% if business_settings.email %}
+                            <span>
+                                <i class="fa-solid fa-envelope"></i>
+                                {{ business_settings.email }}
+                            </span>
+                        {% endif %}
+
+                        {% if business_settings.address %}
+                            <span>
+                                <i class="fa-solid fa-location-dot"></i>
+                                {{ business_settings.address }}
+                            </span>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+
+            <span class="reports-label">
+                SALES REPORT
+            </span>
+
+            <h1>
+                Sales Report
+            </h1>
+
+            <p>
+                Review sales transactions and payment information.
+            </p>
+
+        </div>
+
+
+        <!-- Report Period -->
+        <div class="sales-report-period">
+
+            <strong>
+                Report Period:
+            </strong>
+
+            {{ start_date }}
+            &nbsp; to &nbsp;
+            {{ end_date }}
+
+        </div>
+
+        <!-- Report Actions -->
+                
+        <div class="sales-report-actions">
+
+            <!-- Export CSV -->
+            <a
+                href="{% url 'owner_sales_report_csv' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                class="btn sales-export-button"
+            >
+                <i class="fa-solid fa-file-csv"></i>
+                Export CSV
+            </a>
+
+            <!-- Export Excel -->
+            <a
+                href="{% url 'owner_sales_report_excel' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                class="btn sales-export-button"
+            >
+                <i class="fa-solid fa-file-excel"></i>
+                Export Excel
+            </a>
+
+            <!-- Export PDF -->
+            <a
+                href="{% url 'owner_sales_report_pdf' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                class="btn sales-export-button"
+            >
+                <i class="fa-solid fa-file-pdf"></i>
+                Export PDF
+            </a>
+
+        </div>
+
+
+        <!-- Summary -->
+                
+        <div class="row g-4">
+
+            <!-- Number of Sales -->
+            <div class="col-12 col-md-6 col-xl-3">
+
+                <div class="sales-summary-card">
+
+                    <span>
+                        Number of Sales
+                    </span>
+
+                    <h3>
+                        {{ sales_count }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- Total Sales -->
+            <div class="col-12 col-md-6 col-xl-3">
+
+                <div class="sales-summary-card">
+
+                    <span>
+                        Total Sales
+                    </span>
+
+                    <h3>
+                        {{ total_sales|floatformat:2 }} ETB
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- Total Discount -->
+            <div class="col-12 col-md-6 col-xl-3">
+
+                <div class="sales-summary-card">
+
+                    <span>
+                        Total Discount
+                    </span>
+
+                    <h3>
+                        {{ total_discount|floatformat:2 }} ETB
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- Total Paid -->
+            <div class="col-12 col-md-6 col-xl-3">
+
+                <div class="sales-summary-card">
+
+                    <span>
+                        Total Paid
+                    </span>
+
+                    <h3>
+                        {{ total_paid|floatformat:2 }} ETB
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- Outstanding -->
+            <div class="col-12 col-md-6 col-xl-3">
+
+                <div class="sales-summary-card">
+
+                    <span>
+                        Outstanding
+                    </span>
+
+                    <h3>
+                        {{ total_outstanding|floatformat:2 }} ETB
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Sales Table -->
+        <div class="sales-report-table-card">
+
+            <div class="sales-report-table-header">
+
+                <div>
+
+                    <span class="reports-label">
+                        TRANSACTIONS
+                    </span>
+
+                    <h2>
+                        Sales Transactions
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table sales-report-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Sale Number
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Cashier
+                            </th>
+
+                            <th>
+                                Products
+                            </th>
+
+                            <th>
+                                Quantity
+                            </th>
+
+                            <th>
+                                Discount
+                            </th>
+
+                            <th>
+                                Sale Total
+                            </th>
+
+                            <th>
+                                Amount Paid
+                            </th>
+
+                            <th>
+                                Remaining
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for sale in sales %}
+
+                        <tr>
+
+                            <td>
+                                {{ sale.sale_number }}
+                            </td>
+
+                            <td>
+                                {{ sale.sale_date|date:"d M Y H:i" }}
+                            </td>
+
+                            <td>
+                                {{ sale.cashier.username }}
+                            </td>
+
+                            <td>
+
+                                {% for item in sale.items.all %}
+
+                                    {{ item.product.name }}{% if not forloop.last %}, {% endif %}
+
+                                {% endfor %}
+
+                            </td>
+
+                            <td>
+
+                                {% for item in sale.items.all %}
+
+                                    {{ item.quantity }}{% if not forloop.last %}, {% endif %}
+
+                                {% endfor %}
+
+                            </td>
+
+                            <td>
+                                {{ sale.discount|floatformat:2 }} ETB
+                            </td>
+
+                            <td>
+                                {{ sale.total_amount|floatformat:2 }} ETB
+                            </td>
+
+                            <td>
+                                {{ sale.report_paid_amount|floatformat:2 }} ETB
+                            </td>
+
+                            <td>
+                                {{ sale.report_outstanding|floatformat:2 }} ETB
+                            </td>
+
+                            <td>
+                                {{ sale.get_payment_status_display }}
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td colspan="10" class="text-center">
+
+                                No sales found for this date range.
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,295 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+Stock Report | Bakery Management
+{% endblock %}
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/owner-stock-report.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="owner-stock-report">
+
+    <div class="container">
+
+
+        <!-- =====================================================
+             REPORT HEADER
+        ====================================================== -->
+
+   
+        <div class="stock-business-header">
+
+            {% if business_settings %}
+
+                {% if business_settings.logo %}
+                    <img
+                        src="{{ business_settings.logo.url }}"
+                        alt="{{ business_settings.business_name }}"
+                        class="stock-business-logo"
+                    >
+                {% endif %}
+
+                <h1>
+                    {{ business_settings.business_name }}
+                </h1>
+
+                {% if business_settings.phone %}
+                    <div>
+                        <i class="fa-solid fa-phone"></i>
+                        {{ business_settings.phone }}
+                    </div>
+                {% endif %}
+
+                {% if business_settings.email %}
+                    <div>
+                        <i class="fa-solid fa-envelope"></i>
+                        {{ business_settings.email }}
+                    </div>
+                {% endif %}
+
+                {% if business_settings.address %}
+                    <div>
+                        <i class="fa-solid fa-location-dot"></i>
+                        {{ business_settings.address }}
+                    </div>
+                {% endif %}
+
+            {% endif %}
+
+            <span class="reports-label">
+                OWNER REPORTS
+            </span>
+
+            <h2>
+                Stock Report
+            </h2>
+
+            <p>
+                Review current finished-product stock,
+                including produced, sold, and available quantities.
+            </p>
+
+        </div>
+
+
+        <!-- =====================================================
+             REPORT ACTIONS
+        ====================================================== -->
+       
+        <div class="stock-report-actions">
+
+            <a
+                href="{% url 'owner_stock_report_csv' %}"
+                class="stock-export-button"
+            >
+                <i class="fa-solid fa-file-csv"></i>
+                CSV
+            </a>
+
+            <a
+                href="{% url 'owner_stock_report_excel' %}"
+                class="stock-export-button"
+            >
+                <i class="fa-solid fa-file-excel"></i>
+                Excel
+            </a>
+
+            <a
+                href="{% url 'owner_stock_report_pdf' %}"
+                class="stock-export-button"
+            >
+                <i class="fa-solid fa-file-pdf"></i>
+                PDF
+            </a>
+
+        </div>
+        <!-- =====================================================
+             SUMMARY CARDS
+        ====================================================== -->
+
+        <div class="row g-4">
+
+
+            <!-- Number of Products -->
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <div class="stock-summary-card">
+
+                    <span>
+                        Number of Products
+                    </span>
+
+                    <h3>
+                        {{ products_count }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- Total Produced -->
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <div class="stock-summary-card">
+
+                    <span>
+                        Total Produced
+                    </span>
+
+                    <h3>
+                        {{ total_produced|floatformat:2 }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- Total Sold -->
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <div class="stock-summary-card">
+
+                    <span>
+                        Total Sold
+                    </span>
+
+                    <h3>
+                        {{ total_sold|floatformat:2 }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- Total Available -->
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <div class="stock-summary-card">
+
+                    <span>
+                        Total Available
+                    </span>
+
+                    <h3>
+                        {{ total_available|floatformat:2 }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             STOCK TABLE
+        ====================================================== -->
+
+        <div class="stock-report-table-card">
+
+            <div class="stock-report-table-header">
+
+                <h2>
+                    Current Stock
+                </h2>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table stock-report-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Product
+                            </th>
+
+                            <th>
+                                Produced
+                            </th>
+
+                            <th>
+                                Sold
+                            </th>
+
+                            <th>
+                                Available Stock
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for item in stock_items %}
+
+                        <tr>
+
+                            <td>
+                                {{ item.product.name }}
+                            </td>
+
+                            <td>
+                                {{ item.produced_quantity|floatformat:2 }}
+                            </td>
+
+                            <td>
+                                {{ item.sold_quantity|floatformat:2 }}
+                            </td>
+
+                            <td>
+                                <strong>
+                                    {{ item.available_quantity|floatformat:2 }}
+                                </strong>
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="4"
+                                class="text-center"
+                            >
+                                No stock records found.
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+{% endblock %}

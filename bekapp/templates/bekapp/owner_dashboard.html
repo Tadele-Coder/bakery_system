@@ -1,0 +1,595 @@
+{% extends 'bekapp/base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+    Owner Dashboard | Bakery Management System
+{% endblock %}
+
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/owner-dashboard.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="owner-dashboard">
+
+    <div class="container-fluid">
+
+        <!-- Page Header -->
+        <div class="dashboard-header">
+
+            <div>
+
+                <span class="dashboard-label">
+                    OWNER PANEL
+                </span>
+
+                <h1>
+                    Owner Dashboard
+                </h1>
+
+                <p>
+                    Welcome back, {{ user.username }}.
+                    Manage and monitor your bakery operations.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Summary Cards -->
+
+        <div class="row g-4 mb-4">
+
+            <!-- Products -->
+            <div class="col-12 col-sm-6 col-xl-3">
+
+                <a
+                    href="{% url 'product_list' %}"
+                    class="dashboard-card"
+                >
+
+                    <div class="dashboard-card-icon">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>
+
+                    <div class="dashboard-card-content">
+
+                        <span>
+                            Products
+                        </span>
+
+                        <h3>
+                            {{ product_count }}
+                        </h3>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- Today's Production -->
+            <div class="col-12 col-sm-6 col-xl-3">
+
+                <a
+                    href="{% url 'production_list' %}"
+                    class="dashboard-card"
+                >
+
+                    <div class="dashboard-card-icon">
+                        <i class="fa-solid fa-industry"></i>
+                    </div>
+
+                    <div class="dashboard-card-content">
+
+                        <span>
+                            Today's Production
+                        </span>
+
+                        <h3>
+                            {{ today_production_count }}
+                        </h3>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- Today's Sales -->
+            <div class="col-12 col-sm-6 col-xl-3">
+
+                <a
+                    href="{% url 'sale_list' %}"
+                    class="dashboard-card"
+                >
+
+                    <div class="dashboard-card-icon">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+
+                    <div class="dashboard-card-content">
+
+                        <span>
+                            Today's Sales
+                        </span>
+
+                        <h3>
+                            {{ today_sale_count }}
+                        </h3>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- Outstanding Payments -->
+            <div class="col-12 col-sm-6 col-xl-3">
+
+                <a
+                    href="{% url 'outstanding_payments' %}"
+                    class="dashboard-card"
+                >
+
+                    <div class="dashboard-card-icon">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                    </div>
+
+                    <div class="dashboard-card-content">
+
+                        <span>
+                            Outstanding Payments
+                        </span>
+
+                        <h3>
+                            {{ outstanding_payment_total|floatformat:2 }} ETB
+                        </h3>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Ingredient Stock Summary -->
+
+        <div class="dashboard-section">
+
+            <div class="dashboard-section-header">
+
+                <div>
+
+                    <span class="dashboard-label">
+                        INVENTORY
+                    </span>
+
+                    <h2>
+                        Ingredient Stock
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                <!-- Active Ingredients -->
+                <div class="col-12 col-sm-6 col-lg-4">
+
+                    <a
+                        href="{% url 'ingredient_list' %}"
+                        class="dashboard-card"
+                    >
+
+                        <div class="dashboard-card-icon">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                        </div>
+
+                        <div class="dashboard-card-content">
+
+                            <span>
+                                Active Ingredients
+                            </span>
+
+                            <h3>
+                                {{ ingredient_count }}
+                            </h3>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Low Stock -->
+                <div class="col-12 col-sm-6 col-lg-4">
+
+                    <a
+                        href="{% url 'ingredient_list' %}"
+                        class="dashboard-card"
+                    >
+
+                        <div class="dashboard-card-icon">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+
+                        <div class="dashboard-card-content">
+
+                            <span>
+                                Low Stock
+                            </span>
+
+                            <h3>
+                                {{ low_stock_count }}
+                            </h3>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Out of Stock -->
+                <div class="col-12 col-sm-6 col-lg-4">
+
+                    <a
+                        href="{% url 'ingredient_list' %}"
+                        class="dashboard-card"
+                    >
+
+                        <div class="dashboard-card-icon">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </div>
+
+                        <div class="dashboard-card-content">
+
+                            <span>
+                                Out of Stock
+                            </span>
+
+                            <h3>
+                                {{ out_of_stock_count }}
+                            </h3>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Management Section -->
+
+        <div class="dashboard-section">
+
+            <div class="dashboard-section-header">
+
+                <div>
+
+                    <span class="dashboard-label">
+                        MANAGEMENT
+                    </span>
+
+                    <h2>
+                        Bakery Operations
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                <!-- Products -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a
+                        href="{% url 'product_list' %}"
+                        class="management-card"
+                    >
+
+                        <div class="management-icon">
+                            <i class="fa-solid fa-box-open"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Products
+                            </h3>
+
+                            <p>
+                                Manage bakery products and prices.
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Recipes -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a
+                        href="{% url 'recipe_list' %}"
+                        class="management-card"
+                    >
+
+                        <div class="management-icon">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Recipes
+                            </h3>
+
+                            <p>
+                                Manage ingredients and recipes.
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Production -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a
+                        href="{% url 'production_list' %}"
+                        class="management-card"
+                    >
+
+                        <div class="management-icon">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Production
+                            </h3>
+
+                            <p>
+                                Monitor bakery production.
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Sales -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a
+                        href="{% url 'sale_list' %}"
+                        class="management-card"
+                    >
+
+                        <div class="management-icon">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Sales
+                            </h3>
+
+                            <p>
+                                Manage sales and customer transactions.
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Payments -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a
+                        href="{% url 'payment_list' %}"
+                        class="management-card"
+                    >
+
+                        <div class="management-icon">
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Payments
+                            </h3>
+
+                            <p>
+                                Monitor payments and outstanding balances.
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Special Orders -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a
+                        href="{% url 'special_order_list' %}"
+                        class="management-card"
+                    >
+
+                        <div class="management-icon">
+                            <i class="fa-solid fa-cake-candles"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Special Orders
+                            </h3>
+
+                            <p>
+                                Manage custom cake and bakery orders.
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Users -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a
+                        href="{% url 'user_list' %}"
+                        class="management-card"
+                    >
+
+                        <div class="management-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Users & Staff
+                            </h3>
+
+                            <p>
+                                Manage bakery staff and user accounts.
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Reports -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a
+                        href="{% url 'owner_reports' %}"
+                        class="management-card"
+                    >
+
+                        <div class="management-icon">
+                            <i class="fa-solid fa-chart-column"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Reports
+                            </h3>
+
+                            <p>
+                                View bakery performance and financial reports.
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Settings -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a
+                        href="{% url 'business_settings' %}"
+                        class="management-card"
+                    >
+
+                        <div class="management-icon">
+                            <i class="fa-solid fa-gear"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Settings
+                            </h3>
+
+                            <p>
+                                Configure your bakery system.
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

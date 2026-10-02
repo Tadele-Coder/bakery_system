@@ -1,0 +1,57 @@
+{% extends 'bekapp/base.html' %}
+
+{% block title %}
+    Home | Bakery Management System
+{% endblock %}
+
+
+{% block content %}
+
+<section class="bakery-section">
+
+    <div class="container">
+
+        <div class="bakery-section-title text-center">
+
+            <h2>
+                Bakery Management System
+            </h2>
+
+            <p>
+                Manage your bakery operations efficiently and easily.
+            </p>
+
+        </div>
+
+
+        <div class="text-center">
+
+            {% if user.is_authenticated %}
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="btn btn-bakery px-4 py-2"
+                >
+                    <i class="fa-solid fa-gauge-high me-2"></i>
+                    Go to Dashboard
+                </a>
+
+            {% else %}
+
+                <a
+                    href="{% url 'login' %}"
+                    class="btn btn-bakery px-4 py-2"
+                >
+                    <i class="fa-solid fa-right-to-bracket me-2"></i>
+                    Login
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,236 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Users & Staff | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/user-list.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="user-list-page">
+
+    <div class="container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+
+            <div>
+                <span class="page-label">USER MANAGEMENT</span>
+
+                <h1>Users & Staff</h1>
+
+                <p>
+                    Manage bakery staff and user accounts.
+                </p>
+            </div>
+
+            <div>
+                <a
+                    href="{% url 'staff_create' %}"
+                    class="btn btn-primary"
+                >
+                    <i class="fa-solid fa-user-plus"></i>
+                    Add Staff
+                </a>
+            </div>
+
+        </div>
+
+
+        <!-- Users Table -->
+        <div class="users-card">
+
+            <div class="users-card-header">
+
+                <div>
+                    <h2>Staff Accounts</h2>
+
+                    <p>
+                        View and manage users in the bakery system.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="users-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Username</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for user in users %}
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    {{ user.username }}
+                                </strong>
+                            </td>
+
+                            <td>
+                                {% if user.first_name or user.last_name %}
+                                    {{ user.first_name }}
+                                    {{ user.last_name }}
+                                {% else %}
+                                    —
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if user.email %}
+                                    {{ user.email }}
+                                {% else %}
+                                    —
+                                {% endif %}
+                            </td>
+
+                            <td>
+
+                                {% if user.role == 'OWNER' %}
+
+                                    <span class="role-badge role-owner">
+                                        Owner
+                                    </span>
+
+                                {% elif user.role == 'CASHIER' %}
+
+                                    <span class="role-badge role-cashier">
+                                        Cashier
+                                    </span>
+
+                                {% elif user.role == 'PRODUCTION_MANAGER' %}
+
+                                    <span class="role-badge role-production">
+                                        Production Manager
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="role-badge">
+                                        {{ user.get_role_display }}
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                {% if user.is_active %}
+
+                                    <span class="status-badge status-active">
+                                        Active
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="status-badge status-inactive">
+                                        Inactive
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                <div class="user-actions">
+
+                                    <a
+                                        href="{% url 'staff_edit' user.id %}"
+                                        class="action-btn"
+                                        title="Edit User"
+                                    >
+                                        <i class="fa-solid fa-pen"></i>
+                                    </a>
+
+                                    {% if user.role != 'OWNER' %}
+
+                                        {% if user.is_active %}
+
+                                            <a
+                                                href="#"
+                                                class="action-btn action-danger"
+                                                title="Deactivate User"
+                                            >
+                                                <i class="fa-solid fa-user-slash"></i>
+                                            </a>
+
+                                        {% else %}
+
+                                            <a
+                                                href="#"
+                                                class="action-btn action-success"
+                                                title="Activate User"
+                                            >
+                                                <i class="fa-solid fa-user-check"></i>
+                                            </a>
+
+                                        {% endif %}
+
+                                    {% endif %}
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="empty-state"
+                            >
+
+                                <i class="fa-solid fa-users"></i>
+
+                                <h3>No users found</h3>
+
+                                <p>
+                                    There are currently no user accounts.
+                                </p>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

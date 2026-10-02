@@ -1,0 +1,450 @@
+/* =========================================================
+   PRODUCT FORM PAGE
+   ========================================================= */
+
+.product-form-page {
+    padding: 35px 0 50px;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.product-form-header {
+    margin-bottom: 25px;
+}
+
+.page-label {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #159a96;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.product-form-header h1 {
+    margin: 0;
+    color: #17324d;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.product-form-header p {
+    margin: 8px 0 0;
+    color: #6c757d;
+    font-size: 0.95rem;
+}
+
+
+/* =========================================================
+   FORM CARD
+   ========================================================= */
+
+.product-form-card {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 0;
+    background: #ffffff;
+    border: 1px solid #e6eeee;
+    border-radius: 14px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CARD HEADER
+   ========================================================= */
+
+.product-form-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 22px 28px;
+    background: #f7fbfb;
+    border-bottom: 1px solid #e6eeee;
+}
+
+.form-card-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e5f6f5;
+    color: #159a96;
+
+    border-radius: 10px;
+
+    font-size: 1.2rem;
+}
+
+.product-form-card-header h2 {
+    margin: 0;
+    color: #17324d;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.product-form-card-header p {
+    margin: 4px 0 0;
+    color: #6c757d;
+    font-size: 0.88rem;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.product-form-card form {
+    padding: 28px;
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #17324d;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 11px 13px;
+
+    border: 1px solid #d7e2e2;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #343a40;
+
+    font-size: 0.92rem;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #159a96;
+
+    box-shadow:
+        0 0 0 3px rgba(21, 154, 150, 0.10);
+}
+
+.form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+
+/* =========================================================
+   CHECKBOX
+   ========================================================= */
+
+.checkbox-group {
+    padding: 15px 16px;
+
+    background: #f8fbfb;
+    border: 1px solid #e5eeee;
+    border-radius: 9px;
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+
+    margin: 0;
+
+    accent-color: #159a96;
+
+    cursor: pointer;
+}
+
+.checkbox-wrapper label {
+    margin: 0;
+
+    color: #343a40;
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   HELP TEXT
+   ========================================================= */
+
+.form-help {
+    display: block;
+    margin-top: 6px;
+
+    color: #7b858c;
+    font-size: 0.78rem;
+}
+
+
+/* =========================================================
+   FORM ERRORS
+   ========================================================= */
+
+.form-error-box {
+    margin-bottom: 22px;
+    padding: 13px 15px;
+
+    background: #fff4f4;
+    border: 1px solid #f0caca;
+    border-radius: 8px;
+
+    color: #b02a37;
+    font-size: 0.88rem;
+}
+
+.form-error-box p {
+    margin: 0;
+}
+
+.field-error {
+    margin-top: 6px;
+
+    color: #b02a37;
+    font-size: 0.78rem;
+}
+
+
+/* =========================================================
+   FORM ACTIONS
+   ========================================================= */
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 30px;
+    padding-top: 22px;
+
+    border-top: 1px solid #e9eeee;
+}
+
+
+/* =========================================================
+   CANCEL BUTTON
+   ========================================================= */
+
+.cancel-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    min-height: 42px;
+    padding: 9px 17px;
+
+    background: #ffffff;
+    color: #6c757d;
+
+    border: 1px solid #d7dddd;
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 0.88rem;
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+}
+
+.cancel-btn:hover {
+    background: #f5f6f6;
+    color: #495057;
+    border-color: #c8d0d0;
+}
+
+
+/* =========================================================
+   SAVE / CREATE BUTTON
+   ========================================================= */
+
+.save-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    min-height: 42px;
+    padding: 9px 19px;
+
+    background: #159a96;
+    color: #ffffff;
+
+    border: 1px solid #159a96;
+    border-radius: 8px;
+
+    font-size: 0.88rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.save-btn:hover {
+    background: #117d7a;
+    border-color: #117d7a;
+    color: #ffffff;
+}
+
+.save-btn:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================================================
+   BACK LINK
+   ========================================================= */
+
+.back-link-wrapper {
+    max-width: 850px;
+    margin: 18px auto 0;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #159a96;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.back-link:hover {
+    color: #117d7a;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .product-form-page {
+        padding: 25px 0 40px;
+    }
+
+    .product-form-header h1 {
+        font-size: 1.65rem;
+    }
+
+    .product-form-card {
+        border-radius: 11px;
+    }
+
+    .product-form-card-header {
+        padding: 19px 20px;
+    }
+
+    .product-form-card form {
+        padding: 22px 20px;
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .product-form-page {
+        padding: 20px 0 35px;
+    }
+
+    .product-form-header h1 {
+        font-size: 1.45rem;
+    }
+
+    .product-form-header p {
+        font-size: 0.88rem;
+    }
+
+    .product-form-card-header {
+        align-items: flex-start;
+        padding: 17px;
+    }
+
+    .form-card-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 1rem;
+    }
+
+    .product-form-card-header h2 {
+        font-size: 1rem;
+    }
+
+    .product-form-card-header p {
+        font-size: 0.8rem;
+    }
+
+    .product-form-card form {
+        padding: 20px 17px;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .cancel-btn,
+    .save-btn {
+        width: 100%;
+    }
+
+    .back-link-wrapper {
+        padding: 0 5px;
+    }
+
+}

@@ -1,0 +1,312 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if editing %}
+        Edit Staff | Bakery Management System
+    {% else %}
+        Add Staff | Bakery Management System
+    {% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/staff-form.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="staff-form-page">
+
+    <div class="container">
+
+        <!-- Page Header -->
+        <div class="page-header">
+
+            <div>
+                <span class="page-label">USER MANAGEMENT</span>
+
+                {% if editing %}
+
+                    <h1>Edit Staff</h1>
+
+                    <p>
+                        Update the staff member's account information.
+                    </p>
+
+                {% else %}
+
+                    <h1>Add Staff</h1>
+
+                    <p>
+                        Create a new bakery staff account.
+                    </p>
+
+                {% endif %}
+            </div>
+
+            <div>
+                <a
+                    href="{% url 'user_list' %}"
+                    class="back-btn"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Back to Users
+                </a>
+            </div>
+
+        </div>
+
+
+        <!-- Form Card -->
+        <div class="staff-form-card">
+
+            <div class="staff-form-header">
+
+                <div class="form-header-icon">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+
+                <div>
+
+                    {% if editing %}
+
+                        <h2>Edit Staff Account</h2>
+
+                        <p>
+                            Update the staff member's account information.
+                        </p>
+
+                    {% else %}
+
+                        <h2>Staff Account</h2>
+
+                        <p>
+                            Enter the staff member's account information.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="form-error">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+
+                <div class="form-grid">
+
+                    <!-- Username -->
+                    <div class="form-group">
+
+                        <label for="{{ form.username.id_for_label }}">
+                            Username
+                        </label>
+
+                        {{ form.username }}
+
+                        {% if form.username.errors %}
+                            <div class="field-error">
+                                {{ form.username.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="form-group">
+
+                        <label for="{{ form.email.id_for_label }}">
+                            Email Address
+                        </label>
+
+                        {{ form.email }}
+
+                        {% if form.email.errors %}
+                            <div class="field-error">
+                                {{ form.email.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- First Name -->
+                    <div class="form-group">
+
+                        <label for="{{ form.first_name.id_for_label }}">
+                            First Name
+                        </label>
+
+                        {{ form.first_name }}
+
+                        {% if form.first_name.errors %}
+                            <div class="field-error">
+                                {{ form.first_name.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- Last Name -->
+                    <div class="form-group">
+
+                        <label for="{{ form.last_name.id_for_label }}">
+                            Last Name
+                        </label>
+
+                        {{ form.last_name }}
+
+                        {% if form.last_name.errors %}
+                            <div class="field-error">
+                                {{ form.last_name.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- Role -->
+                    <div class="form-group">
+
+                        <label for="{{ form.role.id_for_label }}">
+                            Role
+                        </label>
+
+                        {{ form.role }}
+
+                        {% if form.role.errors %}
+                            <div class="field-error">
+                                {{ form.role.errors }}
+                            </div>
+                        {% endif %}
+
+                        <small class="field-help">
+                            Select the staff member's system role.
+                        </small>
+
+                    </div>
+
+
+                    <!-- Password -->
+                    {% if form.password %}
+                        <div class="form-group">
+
+                            <label for="{{ form.password.id_for_label }}">
+                                Password
+                            </label>
+
+                            {{ form.password }}
+
+                            {% if form.password.errors %}
+                                <div class="field-error">
+                                    {{ form.password.errors }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    {% endif %}
+
+
+                    <!-- Confirm Password -->
+                    {% if form.confirm_password %}
+                        <div class="form-group">
+
+                            <label for="{{ form.confirm_password.id_for_label }}">
+                                Confirm Password
+                            </label>
+
+                            {{ form.confirm_password }}
+
+                            {% if form.confirm_password.errors %}
+                                <div class="field-error">
+                                    {{ form.confirm_password.errors }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    {% endif %}
+
+
+                    <!-- Active Status -->
+                    {% if form.is_active %}
+                        <div class="form-group">
+
+                            <label for="{{ form.is_active.id_for_label }}">
+                                Account Status
+                            </label>
+
+                            <div class="checkbox-wrapper">
+                                {{ form.is_active }}
+
+                                <span>
+                                    Active
+                                </span>
+                            </div>
+
+                            {% if form.is_active.errors %}
+                                <div class="field-error">
+                                    {{ form.is_active.errors }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- Actions -->
+                <div class="form-actions">
+
+                    <a
+                        href="{% url 'user_list' %}"
+                        class="cancel-btn"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                    >
+
+                        {% if editing %}
+
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            Save Changes
+
+                        {% else %}
+
+                            <i class="fa-solid fa-user-plus"></i>
+                            Create Staff
+
+                        {% endif %}
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+

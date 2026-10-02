@@ -1,0 +1,167 @@
+{% extends "bekapp/base.html" %}
+{% load static %}
+
+{% block title %}
+{{ page_title }} | Bakery Management
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/stock-movement-form.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="stock-movement-form-page">
+
+    <div class="container py-4">
+
+        <div class="stock-movement-form-header">
+
+            <h1>{{ page_title }}</h1>
+
+            <p>
+                Record a stock movement for a bakery ingredient.
+            </p>
+
+        </div>
+
+        <div class="card stock-movement-form-card">
+
+            <div class="card-body">
+
+                <form method="post">
+
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+
+                        <div class="alert alert-danger">
+
+                            {{ form.non_field_errors }}
+
+                        </div>
+
+                    {% endif %}
+
+                    <div class="row g-3">
+
+                        <div class="col-12">
+
+                            <label
+                                for="{{ form.ingredient.id_for_label }}"
+                                class="form-label"
+                            >
+                                Ingredient
+                            </label>
+
+                            {{ form.ingredient }}
+
+                            {% if form.ingredient.errors %}
+
+                                <div class="text-danger form-error">
+                                    {{ form.ingredient.errors }}
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="col-12 col-md-6">
+
+                            <label
+                                for="{{ form.movement_type.id_for_label }}"
+                                class="form-label"
+                            >
+                                Movement Type
+                            </label>
+
+                            {{ form.movement_type }}
+
+                            {% if form.movement_type.errors %}
+
+                                <div class="text-danger form-error">
+                                    {{ form.movement_type.errors }}
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="col-12 col-md-6">
+
+                            <label
+                                for="{{ form.quantity.id_for_label }}"
+                                class="form-label"
+                            >
+                                Quantity
+                            </label>
+
+                            {{ form.quantity }}
+
+                            {% if form.quantity.errors %}
+
+                                <div class="text-danger form-error">
+                                    {{ form.quantity.errors }}
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="col-12">
+
+                            <label
+                                for="{{ form.note.id_for_label }}"
+                                class="form-label"
+                            >
+                                Note
+                            </label>
+
+                            {{ form.note }}
+
+                            {% if form.note.errors %}
+
+                                <div class="text-danger form-error">
+                                    {{ form.note.errors }}
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                    <div class="stock-movement-form-actions">
+
+                        <a
+                            href="{% url 'ingredient_list' %}"
+                            class="btn btn-secondary"
+                        >
+                            <i class="fas fa-arrow-left"></i>
+                            Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            <i class="fas fa-save"></i>
+                            Record Movement
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

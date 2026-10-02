@@ -1,0 +1,252 @@
+{% extends 'bekapp/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    New Sale | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/sale-create.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<section class="sale-create">
+
+    <div class="container-fluid">
+
+        <!-- PAGE HEADER -->
+
+        <div class="sale-create-header">
+
+            <div>
+
+                <span class="dashboard-label">
+                    SALES & POS
+                </span>
+
+                <h1>
+                    New Sale
+                </h1>
+
+                <p>
+                    Select a product and enter the quantity to create a sale.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- SALE FORM CARD -->
+
+        <div class="sale-create-card">
+
+            <div class="sale-create-card-header">
+
+                <div>
+
+                    <h2>
+                        Sale Item
+                    </h2>
+
+                    <p>
+                        Product price and available stock are shown automatically.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="sale-create-body">
+
+                <form method="post">
+
+                    {% csrf_token %}
+
+
+                    <!-- PRODUCT -->
+
+                    <div class="form-section">
+
+                        <label
+                            for="{{ form.product.id_for_label }}"
+                            class="form-label"
+                        >
+                            Product
+                        </label>
+
+
+                        <select
+                            name="{{ form.product.html_name }}"
+                            id="{{ form.product.id_for_label }}"
+                            class="form-select"
+                            required
+                        >
+
+                            <option value="">
+                                Select Product
+                            </option>
+
+
+                            {% for product in form.product.field.queryset %}
+
+                                <option
+                                    value="{{ product.id }}"
+                                    data-price="{{ product.price }}"
+                                    data-stock="{{ product.available_stock }}"
+                                    {% if form.product.value|stringformat:"s" == product.id|stringformat:"s" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    {{ product.name }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+
+                        {% if form.product.errors %}
+
+                            <div class="form-error">
+                                {{ form.product.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- AVAILABLE STOCK -->
+
+                    <div class="sale-available-stock">
+
+                        <span>
+                            Available Stock
+                        </span>
+
+                        <strong id="available-stock">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <!-- QUANTITY -->
+
+                    <div class="form-section">
+
+                        <label
+                            for="{{ form.quantity.id_for_label }}"
+                            class="form-label"
+                        >
+                            Quantity
+                        </label>
+
+
+                        {{ form.quantity }}
+
+
+                        {% if form.quantity.errors %}
+
+                            <div class="form-error">
+                                {{ form.quantity.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- PRICE INFORMATION -->
+
+                    <div class="sale-price-information">
+
+
+                        <!-- UNIT PRICE -->
+
+                        <div class="sale-price-box">
+
+                            <span>
+                                Unit Price
+                            </span>
+
+                            <strong id="unit-price">
+                                0.00 ETB
+                            </strong>
+
+                        </div>
+
+
+                        <!-- TOTAL PRICE -->
+
+                        <div class="sale-price-box">
+
+                            <span>
+                                Total Price
+                            </span>
+
+                            <strong id="total-price">
+                                0.00 ETB
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACTION BUTTONS -->
+
+                    <div class="sale-create-actions">
+
+
+                        <a
+                            href="{% url 'cashier_dashboard' %}"
+                            class="btn btn-outline-secondary"
+                        >
+
+                            <i class="fa-solid fa-arrow-left"></i>
+
+                            Cancel
+
+                        </a>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-bakery"
+                        >
+
+                            <i class="fa-solid fa-cart-plus"></i>
+
+                            Add Sale
+
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SEPARATE JAVASCRIPT -->
+
+<script src="{% static 'bekapp/js/sale-create.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,277 @@
+/* =========================================================
+   PRODUCTION CANCEL
+   MOBILE FIRST
+========================================================= */
+
+.production-cancel {
+    min-height: 75vh;
+    padding: 30px 0 45px;
+    background: #f7f9fb;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.production-cancel-card {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    background: #ffffff;
+    border: 1px solid #e5eeee;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.production-cancel-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #fff3cd;
+    color: #856404;
+    font-size: 1.6rem;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.production-cancel-card .dashboard-label {
+    display: inline-block;
+    color: #159a96;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.production-cancel-card h1 {
+    margin: 8px 0;
+    color: #17324d;
+    font-size: 1.65rem;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.production-cancel-message {
+    margin: 0 auto 25px;
+    color: #6c757d;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   INFORMATION
+========================================================= */
+
+.production-cancel-info {
+    margin-bottom: 20px;
+    overflow: hidden;
+    border: 1px solid #e5eeee;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.production-cancel-info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 14px 16px;
+    border-bottom: 1px solid #edf2f2;
+}
+
+.production-cancel-info-row:last-child {
+    border-bottom: none;
+}
+
+.production-cancel-info-row span {
+    color: #6c757d;
+    font-size: 0.88rem;
+}
+
+.production-cancel-info-row > strong {
+    color: #17324d;
+    font-size: 0.9rem;
+    text-align: right;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.production-status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.status-planned {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-in_progress {
+    background: #cff4fc;
+    color: #055160;
+}
+
+.status-completed {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.status-cancelled {
+    background: #f8d7da;
+    color: #842029;
+}
+
+
+/* =========================================================
+   WARNING
+========================================================= */
+
+.production-cancel-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 25px;
+    padding: 14px;
+    background: #f7f9fb;
+    border: 1px solid #e5eeee;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.production-cancel-warning i {
+    margin-top: 2px;
+    color: #159a96;
+}
+
+.production-cancel-warning p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.production-cancel-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.production-cancel-actions form {
+    width: 100%;
+    margin: 0;
+}
+
+.production-cancel-actions .btn {
+    width: 100%;
+    min-height: 46px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   CANCEL BUTTON
+========================================================= */
+
+.btn-cancel-production {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 18px;
+    background: #dc3545;
+    border: 1px solid #dc3545;
+    border-radius: 8px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.btn-cancel-production:hover {
+    background: #bb2d3b;
+    border-color: #bb2d3b;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 576px) {
+
+    .production-cancel {
+        padding: 45px 0 55px;
+    }
+
+    .production-cancel-card {
+        padding: 40px 35px;
+    }
+
+    .production-cancel-actions {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .production-cancel-actions form {
+        width: auto;
+    }
+
+    .production-cancel-actions .btn {
+        width: auto;
+        min-width: 160px;
+    }
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 992px) {
+
+    .production-cancel {
+        padding: 60px 0;
+    }
+
+    .production-cancel-card {
+        padding: 45px;
+    }
+
+    .production-cancel-card h1 {
+        font-size: 2rem;
+    }
+}

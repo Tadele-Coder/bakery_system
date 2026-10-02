@@ -1,0 +1,199 @@
+{% extends "bekapp/base.html" %}
+{% load static %}
+
+{% block title %}
+Ingredients | Bakery Management
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/ingredient-list.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="ingredient-list-page">
+
+    <div class="container py-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+                <h1>Ingredients</h1>
+
+                <p class="text-muted mb-0">
+                    Manage bakery ingredients and stock information.
+                </p>
+            </div>
+
+          <div class="d-flex gap-2">
+
+                <a
+                    href="{% url 'stock_movement_list' %}"
+                    class="btn btn-outline-primary"
+                >
+                    <i class="fas fa-history"></i>
+                    History
+                </a>
+
+                <a
+                    href="{% url 'stock_movement_create' %}"
+                    class="btn btn-outline-primary"
+                >
+                    <i class="fas fa-exchange-alt"></i>
+                    Stock Movement
+                </a>
+
+                <a
+                    href="{% url 'ingredient_create' %}"
+                    class="btn btn-primary"
+                >
+                    <i class="fas fa-plus"></i>
+                    Add Ingredient
+                </a>
+
+            </div>
+        </div>
+
+        <div class="card">
+
+            <div class="card-body">
+
+                {% if ingredients %}
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle">
+
+                            <thead>
+                                <tr>
+                                    <th>Ingredient</th>
+                                    <th>Unit</th>
+                                    <th>Current Stock</th>
+                                    <th>Minimum Stock</th>
+                                    <th>Cost / Unit</th>
+                                    <th>Stock Status</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                {% for ingredient in ingredients %}
+
+                                    <tr>
+
+                                        <td>
+                                            <strong>
+                                                {{ ingredient.name }}
+                                            </strong>
+                                        </td>
+
+                                        <td>
+                                            {{ ingredient.get_unit_display }}
+                                        </td>
+
+                                        <td>
+                                            {{ ingredient.current_stock }}
+                                        </td>
+
+                                        <td>
+                                            {{ ingredient.minimum_stock }}
+                                        </td>
+
+                                        <td>
+                                            {{ ingredient.cost_per_unit }} ETB
+                                        </td>
+
+                                        <td>
+
+                                            {% if ingredient.current_stock <= 0 %}
+
+                                                <span class="badge bg-danger">
+                                                    Out of Stock
+                                                </span>
+
+                                            {% elif ingredient.current_stock < ingredient.minimum_stock %}
+
+                                                <span class="badge bg-warning text-dark">
+                                                    Low Stock
+                                                </span>
+
+                                            {% else %}
+
+                                                <span class="badge bg-success">
+                                                    In Stock
+                                                </span>
+
+                                            {% endif %}
+
+                                        </td>
+
+                                        <td>
+
+                                            {% if ingredient.is_active %}
+
+                                                <span class="badge bg-success">
+                                                    Active
+                                                </span>
+
+                                            {% else %}
+
+                                                <span class="badge bg-secondary">
+                                                    Inactive
+                                                </span>
+
+                                            {% endif %}
+
+                                        </td>
+
+                                        <td>
+
+                                            <a
+                                                href="{% url 'ingredient_edit' ingredient.pk %}"
+                                                class="btn btn-sm btn-outline-primary"
+                                            >
+                                                <i class="fas fa-edit"></i>
+                                                Edit
+                                            </a>
+
+                                        </td>
+
+                                    </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="text-center py-5">
+
+                        <i class="fas fa-box-open fa-3x mb-3"></i>
+
+                        <h4>No Ingredients Recorded</h4>
+
+                        <p class="text-muted">
+                            Start by adding your bakery ingredients.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

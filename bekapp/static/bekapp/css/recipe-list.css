@@ -1,0 +1,297 @@
+/* =========================================================
+   RECIPE LIST PAGE
+========================================================= */
+
+.recipe-list-page {
+    padding: 50px 0 70px;
+    background: #f7f9fb;
+    min-height: calc(100vh - 76px);
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.recipe-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 35px;
+}
+
+.recipe-label {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #159a96;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.recipe-page-header h1 {
+    margin: 0 0 8px;
+    color: #17324d;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.recipe-page-header p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+
+/* =========================================================
+   ADD BUTTON
+========================================================= */
+
+.recipe-add-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: #159a96;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.recipe-add-button:hover {
+    background: #117d7a;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   RECIPE SECTION
+========================================================= */
+
+.recipe-section {
+    background: #ffffff;
+    border: 1px solid #e5eaee;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.recipe-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 25px 28px;
+    border-bottom: 1px solid #e5eaee;
+}
+
+.recipe-section-header h2 {
+    margin: 0 0 5px;
+    color: #17324d;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.recipe-section-header p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.recipe-count {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 12px;
+    border-radius: 20px;
+    background: #e8f7f6;
+    color: #117d7a;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.recipe-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+}
+
+.recipe-table th {
+    padding: 15px 20px;
+    background: #f7f9fb;
+    border-bottom: 1px solid #e5eaee;
+    color: #5d6b78;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.recipe-table td {
+    padding: 18px 20px;
+    border-bottom: 1px solid #edf0f2;
+    color: #495057;
+    font-size: 0.92rem;
+    vertical-align: middle;
+}
+
+.recipe-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.recipe-table tbody tr:hover {
+    background: #fafcfc;
+}
+
+
+/* =========================================================
+   PRODUCT NAME
+========================================================= */
+
+.product-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #17324d;
+    font-weight: 700;
+}
+
+.product-name i {
+    color: #159a96;
+}
+
+
+/* =========================================================
+   INGREDIENT COUNT
+========================================================= */
+
+.ingredient-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 30px;
+    padding: 0 9px;
+    border-radius: 6px;
+    background: #e8f7f6;
+    color: #117d7a;
+    font-weight: 700;
+}
+
+.text-muted {
+    color: #9aa3aa !important;
+}
+
+
+/* =========================================================
+   ACTION
+========================================================= */
+
+.recipe-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #159a96;
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.recipe-action:hover {
+    color: #117d7a;
+}
+
+.recipe-action i {
+    font-size: 0.78rem;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-recipes {
+    padding: 70px 25px;
+    text-align: center;
+}
+
+.empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #e8f7f6;
+    color: #159a96;
+    font-size: 1.8rem;
+}
+
+.empty-recipes h3 {
+    margin-bottom: 8px;
+    color: #17324d;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.empty-recipes p {
+    margin-bottom: 22px;
+    color: #6c757d;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .recipe-list-page {
+        padding: 35px 0 50px;
+    }
+
+    .recipe-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 25px;
+    }
+
+    .recipe-page-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .recipe-section-header {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .recipe-table th,
+    .recipe-table td {
+        padding: 14px 15px;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .recipe-page-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .recipe-add-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+}

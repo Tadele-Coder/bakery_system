@@ -1,0 +1,215 @@
+{% extends 'bekapp/base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+    Login | Bakery Management System
+{% endblock %}
+
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/login.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="login-section">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-12 col-sm-10 col-md-7 col-lg-5">
+
+                <div class="login-card">
+
+                    <!-- Login Header -->
+                    <div class="login-header text-center">
+
+                        <div class="login-icon">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                        </div>
+
+                        <h2>
+                            Welcome Back
+                        </h2>
+
+                        <p>
+                            Login to your bakery management account.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Error Message -->
+                    {% if error %}
+
+                        <div class="alert alert-danger" role="alert">
+
+                            <i class="fa-solid fa-circle-exclamation me-2"></i>
+
+                            {{ error }}
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- Login Form -->
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+
+                        <!-- Username -->
+                        <div class="mb-3">
+
+                            <label
+                                for="username"
+                                class="form-label"
+                            >
+                                Username
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-user"></i>
+                                </span>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="username"
+                                    name="username"
+                                    placeholder="Enter your username"
+                                    required
+                                    autocomplete="username"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Password -->
+                        <div class="mb-3">
+
+                            <label
+                                for="password"
+                                class="form-label"
+                            >
+                                Password
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-lock"></i>
+                                </span>
+
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    required
+                                    autocomplete="current-password"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="btn password-toggle"
+                                    id="passwordToggle"
+                                    aria-label="Show password"
+                                >
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Login Button -->
+                        <div class="d-grid mt-4">
+
+                            <button
+                                type="submit"
+                                class="btn btn-bakery login-button"
+                            >
+                                <i class="fa-solid fa-right-to-bracket me-2"></i>
+                                Login
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script>
+
+    const passwordInput = document.getElementById('password');
+    const passwordToggle = document.getElementById('passwordToggle');
+
+    passwordToggle.addEventListener('click', function () {
+
+        const isPassword =
+            passwordInput.getAttribute('type') === 'password';
+
+        passwordInput.setAttribute(
+            'type',
+            isPassword ? 'text' : 'password'
+        );
+
+        const icon = this.querySelector('i');
+
+        if (isPassword) {
+
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+
+            this.setAttribute(
+                'aria-label',
+                'Hide password'
+            );
+
+        } else {
+
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+
+            this.setAttribute(
+                'aria-label',
+                'Show password'
+            );
+
+        }
+
+    });
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,346 @@
+/* =========================================================
+   SALE CREATE / POS
+========================================================= */
+
+.sale-create {
+    padding: 30px 0 60px;
+    background: #f7f9fb;
+    min-height: 75vh;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.sale-create-header {
+    margin-bottom: 30px;
+}
+
+.sale-create-header h1 {
+    margin: 8px 0 8px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #17324d;
+}
+
+.sale-create-header p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.95rem;
+}
+
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.sale-create-card {
+    max-width: 850px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.sale-create-card-header {
+    padding: 24px;
+    border-bottom: 1px solid #e9ecef;
+    background: #ffffff;
+}
+
+.sale-create-card-header h2 {
+    margin: 0 0 6px;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #17324d;
+}
+
+.sale-create-card-header p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.95rem;
+}
+
+
+/* =========================================================
+   CARD BODY
+========================================================= */
+
+.sale-create-body {
+    padding: 24px;
+}
+
+
+/* =========================================================
+   FORM SECTION
+========================================================= */
+
+.form-section {
+    margin-bottom: 22px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #17324d;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+
+/* =========================================================
+   FORM CONTROLS
+========================================================= */
+
+.sale-create .form-select,
+.sale-create .form-control {
+    width: 100%;
+    min-height: 50px;
+    padding: 10px 14px;
+    border: 1px solid #d9e1e7;
+    border-radius: 10px;
+    background: #ffffff;
+    font-size: 1rem;
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.sale-create .form-select:focus,
+.sale-create .form-control:focus {
+    border-color: #159a96;
+    box-shadow: 0 0 0 0.2rem rgba(21, 154, 150, 0.15);
+    outline: none;
+}
+
+
+/* =========================================================
+   PRODUCT SELECT
+========================================================= */
+
+.sale-create .form-select {
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   QUANTITY INPUT
+========================================================= */
+
+.sale-create input[type="number"] {
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   FORM ERRORS
+========================================================= */
+
+.form-error {
+    margin-top: 7px;
+    color: #dc3545;
+    font-size: 0.9rem;
+}
+
+.form-error ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+
+/* =========================================================
+   PRICE INFORMATION
+========================================================= */
+
+.sale-price-information {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin: 28px 0;
+}
+
+
+/* =========================================================
+   PRICE BOX
+========================================================= */
+
+.sale-price-box {
+    padding: 20px;
+    background: #f7f9fb;
+    border: 1px solid #e5eaee;
+    border-radius: 12px;
+}
+
+.sale-price-box span {
+    display: block;
+    margin-bottom: 7px;
+    color: #6c757d;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.sale-price-box strong {
+    display: block;
+    color: #159a96;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.sale-create-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.sale-create-actions .btn {
+    min-height: 50px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+
+/* =========================================================
+   BAKERY BUTTON
+========================================================= */
+
+.sale-create-actions .btn-bakery {
+    background: #159a96;
+    border-color: #159a96;
+    color: #ffffff;
+}
+
+.sale-create-actions .btn-bakery:hover {
+    background: #117d7a;
+    border-color: #117d7a;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   CANCEL BUTTON
+========================================================= */
+
+.sale-create-actions .btn-outline-secondary {
+    border-color: #ced4da;
+    color: #495057;
+    background: #ffffff;
+}
+
+.sale-create-actions .btn-outline-secondary:hover {
+    background: #f1f3f5;
+    color: #343a40;
+}
+
+
+/* =========================================================
+   TABLET / DESKTOP
+========================================================= */
+
+@media (min-width: 768px) {
+
+    .sale-create {
+        padding: 50px 0 80px;
+    }
+
+
+    .sale-create-header h1 {
+        font-size: 2.3rem;
+    }
+
+
+    .sale-create-card-header,
+    .sale-create-body {
+        padding: 30px;
+    }
+
+
+    .sale-price-information {
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .sale-create-actions {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+
+    .sale-create-actions .btn {
+        min-width: 150px;
+    }
+
+}
+
+
+/* =========================================================
+   LARGE SCREENS
+========================================================= */
+
+@media (min-width: 1200px) {
+
+    .sale-create-card {
+        max-width: 900px;
+    }
+
+}
+
+/* =========================================================
+   AVAILABLE STOCK
+========================================================= */
+
+.sale-available-stock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin: -4px 0 22px;
+    padding: 16px 18px;
+    background: #eef9f8;
+    border: 1px solid #cce9e7;
+    border-radius: 12px;
+}
+
+.sale-available-stock span {
+    color: #495057;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.sale-available-stock strong {
+    color: #117d7a;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+/* =========================================================
+   STOCK UNAVAILABLE MESSAGE
+========================================================= */
+
+.sale-stock-message {
+    display: none;
+    margin-top: 8px;
+    color: #dc3545;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.sale-stock-message.show {
+    display: block;
+}

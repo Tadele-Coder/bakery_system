@@ -1,0 +1,345 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+Production Report | Bakery Management
+{% endblock %}
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/owner-production-report.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="owner-production-report">
+
+    <div class="container">
+
+        <!-- Report Header -->
+    
+        <div class="production-business-header">
+
+            {% if business_settings %}
+
+                {% if business_settings.logo %}
+                    <img
+                        src="{{ business_settings.logo.url }}"
+                        alt="{{ business_settings.business_name }}"
+                        class="production-business-logo"
+                    >
+                {% endif %}
+
+                <h1>
+                    {{ business_settings.business_name }}
+                </h1>
+
+                {% if business_settings.phone %}
+                    <div>
+                        <i class="fa-solid fa-phone"></i>
+                        {{ business_settings.phone }}
+                    </div>
+                {% endif %}
+
+                {% if business_settings.email %}
+                    <div>
+                        <i class="fa-solid fa-envelope"></i>
+                        {{ business_settings.email }}
+                    </div>
+                {% endif %}
+
+                {% if business_settings.address %}
+                    <div>
+                        <i class="fa-solid fa-location-dot"></i>
+                        {{ business_settings.address }}
+                    </div>
+                {% endif %}
+
+            {% endif %}
+
+            <span class="reports-label">
+                OWNER REPORTS
+            </span>
+
+            <h2>
+                Production Report
+            </h2>
+
+            <p>
+                Review production records, quantities, and
+                production activity for the selected period.
+            </p>
+
+        </div>
+
+        <!-- Report Period -->
+        <div class="production-report-period">
+
+            <strong>
+                Report Period:
+            </strong>
+
+            {{ start_date }}
+
+            <span>
+                to
+            </span>
+
+            {{ end_date }}
+
+        </div>
+
+
+        <!-- Report Actions -->
+        <div class="production-report-actions">
+
+           <a
+                href="{% url 'owner_production_report_csv' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                class="btn production-export-button"
+            >
+                <i class="fa-solid fa-file-csv"></i>
+                Export CSV
+            </a>
+
+            <a
+                href="{% url 'owner_production_report_excel' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                class="btn production-export-button"
+            >
+                <i class="fa-solid fa-file-excel"></i>
+                Export Excel
+            </a>
+
+            <a
+                href="{% url 'owner_production_report_pdf' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                class="btn production-export-button"
+            >
+                <i class="fa-solid fa-file-pdf"></i>
+                Export PDF
+            </a>
+
+        </div>
+
+
+        <!-- Summary Cards -->
+        <div class="row g-4">
+
+
+            <!-- Number of Productions -->
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <div class="production-summary-card">
+
+                    <span>
+                        Number of Productions
+                    </span>
+
+                    <h3>
+                        {{ productions_count }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- Planned Quantity -->
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <div class="production-summary-card">
+
+                    <span>
+                        Planned Quantity
+                    </span>
+
+                    <h3>
+                        {{ planned_quantity|floatformat:2 }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- Actual Quantity -->
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <div class="production-summary-card">
+
+                    <span>
+                        Actual Quantity
+                    </span>
+
+                    <h3>
+                        {{ actual_quantity|floatformat:2 }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- Completed -->
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <div class="production-summary-card">
+
+                    <span>
+                        Completed
+                    </span>
+
+                    <h3>
+                        {{ completed_count }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Production Transactions -->
+        <div class="production-report-table-card">
+
+            <div class="production-report-table-header">
+
+                <h2>
+                    Production Records
+                </h2>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table production-report-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Production Date
+                            </th>
+
+                            <th>
+                                Created By
+                            </th>
+
+                            <th>
+                                Products
+                            </th>
+
+                            <th>
+                                Planned Quantity
+                            </th>
+
+                            <th>
+                                Actual Quantity
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for production in productions %}
+
+                        <tr>
+
+                            <td>
+                                {{ production.production_date|date:"d M Y" }}
+                            </td>
+
+                            <td>
+                                {{ production.created_by.username }}
+                            </td>
+
+                            <td>
+
+                                {% for item in production.items.all %}
+
+                                    {{ item.product.name }}
+
+                                    {% if not forloop.last %}
+                                        ,
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            </td>
+
+                            <td>
+
+                                {% for item in production.items.all %}
+
+                                    {{ item.planned_quantity|floatformat:2 }}
+
+                                    {% if not forloop.last %}
+                                        ,
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            </td>
+
+                            <td>
+
+                                {% for item in production.items.all %}
+
+                                    {{ item.actual_quantity|floatformat:2 }}
+
+                                    {% if not forloop.last %}
+                                        ,
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            </td>
+
+                            <td>
+                                {{ production.get_status_display }}
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="text-center"
+                            >
+                                No production records found
+                                for this period.
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

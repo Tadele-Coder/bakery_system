@@ -1,0 +1,132 @@
+/* =========================================================
+   LOGIN PAGE
+========================================================= */
+
+.login-section {
+    min-height: 70vh;
+    padding: 70px 0;
+    display: flex;
+    align-items: center;
+}
+
+
+/* =========================================================
+   LOGIN CARD
+========================================================= */
+
+.login-card {
+    background: #ffffff;
+    padding: 40px;
+    border: 1px solid #e5e9ed;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(23, 50, 77, 0.08);
+}
+
+
+/* =========================================================
+   LOGIN HEADER
+========================================================= */
+
+.login-header {
+    margin-bottom: 30px;
+}
+
+.login-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8f7f6;
+    color: #159a96;
+    border-radius: 50%;
+    font-size: 25px;
+}
+
+.login-header h2 {
+    margin-bottom: 8px;
+    color: #17324d;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.login-header p {
+    margin-bottom: 0;
+    color: #6c757d;
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.login-card .form-label {
+    color: #17324d;
+    font-weight: 600;
+}
+
+.login-card .input-group-text {
+    background: #f5f7f9;
+    border-color: #ced4da;
+    color: #159a96;
+}
+
+.login-card .form-control {
+    min-height: 46px;
+    border-color: #ced4da;
+}
+
+.login-card .form-control:focus {
+    border-color: #159a96;
+    box-shadow: 0 0 0 0.2rem rgba(21, 154, 150, 0.15);
+}
+
+
+/* =========================================================
+   PASSWORD BUTTON
+========================================================= */
+
+.password-toggle {
+    background: #ffffff;
+    border: 1px solid #ced4da;
+    border-left: 0;
+    color: #6c757d;
+}
+
+.password-toggle:hover {
+    color: #159a96;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.login-button {
+    min-height: 48px;
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+
+    .login-section {
+        padding: 40px 15px;
+    }
+
+    .login-card {
+        padding: 28px 20px;
+        border-radius: 12px;
+    }
+
+    .login-header h2 {
+        font-size: 25px;
+    }
+
+}

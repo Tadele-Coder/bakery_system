@@ -1,0 +1,255 @@
+/* =========================================================
+   OWNER REPORTS
+========================================================= */
+
+.owner-reports {
+    min-height: 70vh;
+    padding: 45px 0 70px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.reports-header {
+    margin-bottom: 35px;
+}
+
+.reports-label {
+    display: inline-block;
+    margin-bottom: 8px;
+
+    color: #159a96;
+
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.reports-header h1 {
+    margin-bottom: 8px;
+
+    color: #17324d;
+
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.reports-header p {
+    margin-bottom: 0;
+
+    color: #6c757d;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   FILTER CARD
+========================================================= */
+
+.reports-filter-card {
+    margin-bottom: 40px;
+    padding: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e9ed;
+    border-radius: 12px;
+
+    box-shadow: 0 5px 20px rgba(23, 50, 77, 0.05);
+}
+
+.reports-filter-header {
+    margin-bottom: 22px;
+}
+
+.reports-filter-header h2 {
+    margin: 0;
+
+    color: #17324d;
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.reports-filter-form .form-label {
+    margin-bottom: 7px;
+
+    color: #17324d;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.reports-filter-form .form-control {
+    min-height: 46px;
+
+    border-color: #dfe5e9;
+    border-radius: 8px;
+}
+
+.reports-filter-form .form-control:focus {
+    border-color: #159a96;
+
+    box-shadow: 0 0 0 0.2rem rgba(21, 154, 150, 0.12);
+}
+
+.reports-filter-button {
+    min-height: 46px;
+
+    background: #159a96;
+    border-color: #159a96;
+
+    color: #ffffff;
+
+    font-weight: 600;
+}
+
+.reports-filter-button:hover {
+    background: #117d7a;
+    border-color: #117d7a;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   REPORTS SECTION
+========================================================= */
+
+.reports-section {
+    margin-top: 20px;
+}
+
+.reports-section-header {
+    margin-bottom: 25px;
+}
+
+.reports-section-header h2 {
+    margin: 0;
+
+    color: #17324d;
+
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   REPORT CARDS
+========================================================= */
+
+.report-card {
+    min-height: 165px;
+
+    padding: 24px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e9ed;
+    border-radius: 12px;
+
+    box-shadow: 0 5px 20px rgba(23, 50, 77, 0.05);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.report-card:hover {
+    transform: translateY(-3px);
+
+    border-color: #159a96;
+
+    box-shadow: 0 10px 25px rgba(23, 50, 77, 0.09);
+}
+
+.report-icon {
+    width: 52px;
+    height: 52px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e8f7f6;
+
+    color: #159a96;
+
+    border-radius: 10px;
+
+    font-size: 20px;
+}
+
+.report-content {
+    min-width: 0;
+}
+
+.report-content h3 {
+    margin: 0 0 6px;
+
+    color: #17324d;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.report-content p {
+    margin: 0;
+
+    color: #6c757d;
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+
+    .owner-reports {
+        padding: 35px 15px 55px;
+    }
+
+    .reports-header h1 {
+        font-size: 27px;
+    }
+
+    .reports-filter-card {
+        padding: 20px;
+    }
+
+    .report-card {
+        min-height: 135px;
+        padding: 20px;
+    }
+
+    .report-icon {
+        width: 48px;
+        height: 48px;
+
+        font-size: 18px;
+    }
+
+    .report-content h3 {
+        font-size: 17px;
+    }
+
+    .report-content p {
+        font-size: 13px;
+    }
+
+}

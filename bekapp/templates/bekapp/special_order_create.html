@@ -1,0 +1,542 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+New Special Order | Bakery Management
+{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet"
+      href="{% static 'bekapp/css/special-order-create.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container special-orders-page">
+
+
+    <!-- PAGE HEADER -->
+
+    <div class="special-orders-header">
+
+        <h2>
+            New Special Order
+        </h2>
+
+        <p>
+            Create a customer special order.
+        </p>
+
+    </div>
+
+
+    <form method="post" id="special-order-form">
+
+        {% csrf_token %}
+
+
+        <!-- =====================================================
+             CUSTOMER INFORMATION
+        ====================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+                    Customer Information
+                </h5>
+
+            </div>
+
+
+            <div class="card-body">
+
+                <div class="row g-3">
+
+
+                    <!-- CUSTOMER NAME -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Customer Name
+                        </label>
+
+                        {{ customer_form.name }}
+
+                        {% if customer_form.name.errors %}
+                            <div class="field-error">
+                                {{ customer_form.name.errors|striptags }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- PHONE -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Phone
+                        </label>
+
+                        {{ customer_form.phone }}
+
+                        {% if customer_form.phone.errors %}
+                            <div class="field-error">
+                                {{ customer_form.phone.errors|striptags }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Email
+                        </label>
+
+                        {{ customer_form.email }}
+
+                        {% if customer_form.email.errors %}
+                            <div class="field-error">
+                                {{ customer_form.email.errors|striptags }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- ADDRESS -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Address
+                        </label>
+
+                        {{ customer_form.address }}
+
+                        {% if customer_form.address.errors %}
+                            <div class="field-error">
+                                {{ customer_form.address.errors|striptags }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- CUSTOMER NOTES -->
+
+                    <div class="col-12">
+
+                        <label class="form-label">
+                            Customer Notes
+                        </label>
+
+                        {{ customer_form.notes }}
+
+                        {% if customer_form.notes.errors %}
+                            <div class="field-error">
+                                {{ customer_form.notes.errors|striptags }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             ORDER INFORMATION
+        ====================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+                    Order Information
+                </h5>
+
+            </div>
+
+
+            <div class="card-body">
+
+                <div class="row g-3">
+
+
+                    <!-- EVENT TYPE -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Event Type
+                        </label>
+
+                        {{ order_form.event_type }}
+
+                        {% if order_form.event_type.errors %}
+                            <div class="field-error">
+                                {{ order_form.event_type.errors|striptags }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- EVENT DATE -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Event Date
+                        </label>
+
+                        {{ order_form.event_date }}
+
+                        {% if order_form.event_date.errors %}
+                            <div class="field-error">
+                                {{ order_form.event_date.errors|striptags }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- PICKUP TIME -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Pickup Time
+                        </label>
+
+                        {{ order_form.pickup_time }}
+
+                        {% if order_form.pickup_time.errors %}
+                            <div class="field-error">
+                                {{ order_form.pickup_time.errors|striptags }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- DEPOSIT -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Deposit Amount
+                        </label>
+
+                        {{ order_form.deposit_amount }}
+
+                        {% if order_form.deposit_amount.errors %}
+                            <div class="field-error">
+                                {{ order_form.deposit_amount.errors|striptags }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- ORDER NOTES -->
+
+                    <div class="col-12">
+
+                        <label class="form-label">
+                            Order Notes
+                        </label>
+
+                        {{ order_form.notes }}
+
+                        {% if order_form.notes.errors %}
+                            <div class="field-error">
+                                {{ order_form.notes.errors|striptags }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- NON FIELD ERRORS -->
+
+                    {% if order_form.non_field_errors %}
+
+                        <div class="col-12">
+
+                            <div class="alert alert-danger mb-0">
+
+                                {{ order_form.non_field_errors }}
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             ORDER PRODUCTS
+        ====================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+                    Order Products
+                </h5>
+
+            </div>
+
+
+            <div class="card-body">
+
+                <div id="special-order-items">
+
+
+                    <!-- PRODUCT ROW -->
+
+                    <div class="special-order-item-row">
+
+                        <div class="row g-3 align-items-end">
+
+
+                            <!-- PRODUCT -->
+
+                            <div class="col-lg-4 col-md-6">
+
+                                <label class="form-label">
+                                    Product
+                                </label>
+
+                                <select
+                                    name="product"
+                                    class="form-select special-order-product"
+                                >
+
+                                    <option value="">
+                                        Select Product
+                                    </option>
+
+                                    {% for product in products %}
+
+                                        <option
+                                            value="{{ product.id }}"
+                                            data-price="{{ product.price }}"
+                                        >
+                                            {{ product.name }}
+                                        </option>
+
+                                    {% endfor %}
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- QUANTITY -->
+
+                            <div class="col-lg-2 col-md-6">
+
+                                <label class="form-label">
+                                    Quantity
+                                </label>
+
+                                <input
+                                    type="number"
+                                    name="quantity"
+                                    class="form-control special-order-quantity"
+                                    min="0.01"
+                                    step="0.01"
+                                    value="1"
+                                    placeholder="Quantity"
+                                >
+
+                            </div>
+
+
+                            <!-- UNIT PRICE -->
+
+                            <div class="col-lg-2 col-md-6">
+
+                                <label class="form-label">
+                                    Unit Price
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control special-order-price"
+                                    value="0.00"
+                                    readonly
+                                >
+
+                            </div>
+
+
+                            <!-- TOTAL -->
+
+                            <div class="col-lg-2 col-md-6">
+
+                                <label class="form-label">
+                                    Total
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control special-order-total"
+                                    value="0.00"
+                                    readonly
+                                >
+
+                            </div>
+
+
+                            <!-- REMOVE -->
+
+                            <div class="col-lg-2 col-md-6">
+
+                                <button
+                                    type="button"
+                                    class="special-order-remove-item"
+                                >
+                                    Remove
+                                </button>
+
+                            </div>
+
+
+                            <!-- CUSTOMIZATION -->
+
+                            <div class="col-12">
+
+                                <label class="form-label">
+                                    Customization
+                                </label>
+
+                                <textarea
+                                    name="customization"
+                                    class="form-control special-order-customization"
+                                    rows="2"
+                                    placeholder="Design, flavor, size, decoration, message, etc."
+                                ></textarea>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ADD PRODUCT -->
+
+                <div class="special-order-add-item">
+
+                    <button
+                        type="button"
+                        id="add-special-order-item"
+                    >
+                        + Add Product
+                    </button>
+
+                </div>
+
+
+                <!-- ORDER TOTAL -->
+
+                <div class="special-order-summary">
+
+                    <div class="special-order-total-box">
+
+                        <div class="special-order-total-row">
+
+                            <span class="special-order-total-label">
+                                Order Total
+                            </span>
+
+                            <span
+                                class="special-order-total-value"
+                                id="special-order-grand-total"
+                            >
+                                0.00 ETB
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             ACTIONS
+        ====================================================== -->
+
+        <div class="d-flex gap-2">
+
+            <button
+                type="submit"
+                class="bakery-btn bakery-btn-primary"
+            >
+                Save Special Order
+            </button>
+
+
+            <a
+                href="{% url 'special_order_list' %}"
+                class="bakery-btn bakery-btn-secondary"
+            >
+                Cancel
+            </a>
+
+        </div>
+
+
+    </form>
+
+
+</div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script src="{% static 'bekapp/js/special-order-create.js' %}"></script>
+
+{% endblock %}
+

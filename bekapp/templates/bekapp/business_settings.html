@@ -1,0 +1,176 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Business Settings | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/business-settings.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<div class="container settings-page">
+
+    <div class="settings-card">
+
+        <div class="settings-header">
+
+            <span class="settings-header-label">
+                System Configuration
+            </span>
+
+            <h1>
+                <i class="fa-solid fa-gear"></i>
+                Business Settings
+            </h1>
+
+            <p>
+                Manage your bakery's business information.
+            </p>
+
+        </div>
+
+        <form
+            method="post"
+            enctype="multipart/form-data"
+            class="settings-form"
+        >
+
+            {% csrf_token %}
+
+            <!-- Business Name -->
+            <div class="settings-field">
+
+                <label class="form-label">
+                    Business Name
+                </label>
+
+                {{ form.business_name }}
+
+                {% if form.business_name.errors %}
+                    <div class="settings-error">
+                        {{ form.business_name.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+            <!-- Phone -->
+            <div class="settings-field">
+
+                <label class="form-label">
+                    Phone
+                </label>
+
+                {{ form.phone }}
+
+                {% if form.phone.errors %}
+                    <div class="settings-error">
+                        {{ form.phone.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+            <!-- Email -->
+            <div class="settings-field">
+
+                <label class="form-label">
+                    Email
+                </label>
+
+                {{ form.email }}
+
+                {% if form.email.errors %}
+                    <div class="settings-error">
+                        {{ form.email.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+            <!-- Address -->
+            <div class="settings-field">
+
+                <label class="form-label">
+                    Address
+                </label>
+
+                {{ form.address }}
+
+                {% if form.address.errors %}
+                    <div class="settings-error">
+                        {{ form.address.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+            <!-- Logo -->
+            <div class="settings-field logo-upload-section">
+
+                <label class="form-label">
+                    Bakery Logo
+                </label>
+
+                {{ form.logo }}
+
+                {% if form.logo.errors %}
+                    <div class="settings-error">
+                        {{ form.logo.errors }}
+                    </div>
+                {% endif %}
+
+                {% if form.instance.logo %}
+
+                    <div class="logo-preview">
+
+                        <span class="logo-preview-label">
+                            Current Logo
+                        </span>
+
+                        <img
+                            src="{{ form.instance.logo.url }}"
+                            alt="Bakery Logo"
+                            class="settings-logo"
+                        >
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            <!-- Actions -->
+            <div class="settings-actions">
+
+                <a
+                    href="{% url 'owner_dashboard' %}"
+                    class="btn btn-outline-secondary settings-back-button"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn settings-save-button"
+                >
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Save Settings
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,211 @@
+{% extends "bekapp/base.html" %}
+{% load static %}
+
+{% block title %}
+Stock Movement History | Bakery Management
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/stock-movement-list.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="stock-movement-list-page">
+
+    <div class="container py-4">
+
+        <div class="stock-movement-list-header">
+
+            <div>
+
+                <h1>Stock Movement History</h1>
+
+                <p>
+                    View all ingredient stock movements and inventory changes.
+                </p>
+
+            </div>
+
+            <div class="stock-movement-list-actions">
+
+                <a
+                    href="{% url 'ingredient_list' %}"
+                    class="btn btn-outline-primary"
+                >
+                    <i class="fas fa-arrow-left"></i>
+                    Ingredients
+                </a>
+
+                <a
+                    href="{% url 'stock_movement_create' %}"
+                    class="btn btn-primary"
+                >
+                    <i class="fas fa-plus"></i>
+                    Stock Movement
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="card stock-movement-list-card">
+
+            <div class="card-body">
+
+                {% if movements %}
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Ingredient</th>
+                                    <th>Movement</th>
+                                    <th>Quantity</th>
+                                    <th>Production</th>
+                                    <th>Note</th>
+                                    <th>Recorded By</th>
+                                    <th>Date</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                {% for movement in movements %}
+
+                                    <tr>
+
+                                        <td>
+
+                                            <strong>
+                                                {{ movement.ingredient.name }}
+                                            </strong>
+
+                                        </td>
+
+                                        <td>
+
+                                            {% if movement.movement_type == "RECEIVED" %}
+
+                                                <span class="badge bg-success">
+                                                    <i class="fas fa-arrow-down"></i>
+                                                    Stock Received
+                                                </span>
+
+                                            {% elif movement.movement_type == "USED" %}
+
+                                                <span class="badge bg-danger">
+                                                    <i class="fas fa-arrow-up"></i>
+                                                    Stock Used
+                                                </span>
+
+                                            {% else %}
+
+                                                <span class="badge bg-warning text-dark">
+                                                    <i class="fas fa-sync-alt"></i>
+                                                    Stock Adjustment
+                                                </span>
+
+                                            {% endif %}
+
+                                        </td>
+
+                                        <td>
+                                            {{ movement.quantity }}
+                                            {{ movement.ingredient.get_unit_display }}
+                                        </td>
+
+                                        <td>
+
+                                            {% if movement.production %}
+
+                                                <strong>
+                                                    Production #{{ movement.production.id }}
+                                                </strong>
+
+                                            {% else %}
+
+                                                <span class="text-muted">
+                                                    —
+                                                </span>
+
+                                            {% endif %}
+
+                                        </td>
+
+                                        <td>
+
+                                            {% if movement.note %}
+
+                                                {{ movement.note }}
+
+                                            {% else %}
+
+                                                <span class="text-muted">
+                                                    —
+                                                </span>
+
+                                            {% endif %}
+
+                                        </td>
+
+                                        <td>
+                                            {{ movement.created_by.username }}
+                                        </td>
+
+                                        <td>
+                                            {{ movement.created_at|date:"d M Y, H:i" }}
+                                        </td>
+
+                                    </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="stock-movement-empty">
+
+                        <i class="fas fa-exchange-alt fa-3x"></i>
+
+                        <h4>No Stock Movements</h4>
+
+                        <p>
+                            No ingredient stock movements have been recorded yet.
+                        </p>
+
+                        <a
+                            href="{% url 'stock_movement_create' %}"
+                            class="btn btn-primary"
+                        >
+                            <i class="fas fa-plus"></i>
+                            Record Stock Movement
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

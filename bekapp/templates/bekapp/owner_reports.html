@@ -1,0 +1,341 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Owner Reports | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/owner-reports.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<section class="owner-reports">
+
+    <div class="container-fluid">
+
+        <!-- Page Header -->
+        <div class="reports-header">
+
+            <div>
+
+                <span class="reports-label">
+                    OWNER REPORTS
+                </span>
+
+                <h1>
+                    Business Reports
+                </h1>
+
+                <p>
+                    View and analyze bakery business performance.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Date Filter -->
+        <div class="reports-filter-card">
+
+            <div class="reports-filter-header">
+
+                <div>
+
+                    <span class="reports-label">
+                        REPORT PERIOD
+                    </span>
+
+                    <h2>
+                        Select Date Range
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <form method="get" class="reports-filter-form">
+
+                <div class="row g-3 align-items-end">
+
+                    <!-- Start Date -->
+                    <div class="col-12 col-md-5">
+
+                        <label
+                            for="start_date"
+                            class="form-label"
+                        >
+                            Start Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="start_date"
+                            name="start_date"
+                            value="{{ start_date }}"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- End Date -->
+                    <div class="col-12 col-md-5">
+
+                        <label
+                            for="end_date"
+                            class="form-label"
+                        >
+                            End Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="end_date"
+                            name="end_date"
+                            value="{{ end_date }}"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Apply -->
+                    <div class="col-12 col-md-2">
+
+                        <button
+                            type="submit"
+                            class="btn reports-filter-button w-100"
+                        >
+                            <i class="fa-solid fa-filter"></i>
+                            Apply
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- Report Sections -->
+        <div class="reports-section">
+
+            <div class="reports-section-header">
+
+                <span class="reports-label">
+                    REPORTS
+                </span>
+
+                <h2>
+                    Bakery Reports
+                </h2>
+
+            </div>
+
+
+            <div class="row g-4">
+
+
+                <!-- Sales Report -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a
+                        href="{% url 'owner_sales_report' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                        class="report-card"
+                    >
+
+                        <div class="report-icon">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </div>
+
+                        <div class="report-content">
+
+                            <h3>
+                                Sales Report
+                            </h3>
+
+                            <p>
+                                Review sales transactions, totals,
+                                discounts, payments, and balances.
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Payment Report -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a
+                        href="{% url 'owner_payment_report' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                        class="report-card"
+                    >
+
+                        <div class="report-icon">
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                        </div>
+
+                        <div class="report-content">
+
+                            <h3>
+                                Payment Report
+                            </h3>
+
+                            <p>
+                                Review payments, methods, statuses,
+                                and totals.
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Production Report -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a
+                        href="{% url 'owner_production_report' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                        class="report-card"
+                    >
+
+                        <div class="report-icon">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+
+                        <div class="report-content">
+
+                            <h3>
+                                Production Report
+                            </h3>
+
+                            <p>
+                                Review production records, planned quantities,
+                                actual quantities, and production status.
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Stock Report -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a
+                        href="{% url 'owner_stock_report' %}"
+                        class="report-card"
+                    >
+
+                        <div class="report-icon">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                        </div>
+
+                        <div class="report-content">
+
+                            <h3>
+                                Stock Report
+                            </h3>
+
+                            <p>
+                                Review produced, sold, and
+                                available finished-product stock.
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Special Order Report -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a
+                        href="{% url 'owner_special_order_report' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                        class="report-card"
+                    >
+
+                        <div class="report-icon">
+                            <i class="fa-solid fa-cake-candles"></i>
+                        </div>
+
+                        <div class="report-content">
+
+                            <h3>
+                                Special Order Report
+                            </h3>
+
+                            <p>
+                                Review customer orders, deposits,
+                                balances, and order status.
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Business Summary -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a
+                        href="{% url 'owner_business_summary' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                        class="report-card"
+                    >
+
+                        <div class="report-icon">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+
+                        <div class="report-content">
+
+                            <h3>
+                                Business Summary
+                            </h3>
+
+                            <p>
+                                View an overall summary of sales, payments,
+                                production, special orders, and stock.
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+

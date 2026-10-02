@@ -1,0 +1,276 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{% static 'bekapp/css/production-special-orders.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="production-special-orders-page">
+
+    <div class="container">
+
+        <!-- PAGE HEADER -->
+        <div class="production-special-orders-header">
+
+            <div>
+
+                <span class="production-special-orders-label">
+                    PRODUCTION MANAGEMENT
+                </span>
+
+                <h2>
+                    Special Orders
+                </h2>
+
+                <p>
+                    View and manage customer orders requiring production.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% if special_orders %}
+
+            <!-- ORDERS CARD -->
+            <div class="production-special-orders-card">
+
+                <div class="production-special-orders-card-header">
+
+                    <div>
+
+                        <h3>
+                            Orders for Production
+                        </h3>
+
+                        <p>
+                            Confirmed, in-production, and ready orders
+                        </p>
+
+                    </div>
+
+                    <div class="production-special-orders-count">
+
+                        {{ special_orders|length }}
+
+                        {% if special_orders|length == 1 %}
+                            Order
+                        {% else %}
+                            Orders
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table class="table production-special-orders-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Order</th>
+                                <th>Customer</th>
+                                <th>Event</th>
+                                <th>Event Date</th>
+                                <th>Pickup</th>
+                                <th>Total</th>
+                                <th>Status</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for order in special_orders %}
+
+                                <tr>
+
+                                    <!-- ORDER -->
+                                    <td>
+
+                                        <a href="{% url 'special_order_detail' order.id %}"
+                                           class="production-special-order-number">
+
+                                            {{ order.order_number }}
+
+                                        </a>
+
+                                    </td>
+
+
+                                    <!-- CUSTOMER -->
+                                    <td>
+
+                                        <div class="production-special-order-customer">
+
+                                            <strong>
+                                                {{ order.customer.name }}
+                                            </strong>
+
+                                            {% if order.customer.phone %}
+
+                                                <span>
+                                                    {{ order.customer.phone }}
+                                                </span>
+
+                                            {% endif %}
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <!-- EVENT -->
+                                    <td>
+
+                                        {{ order.get_event_type_display }}
+
+                                    </td>
+
+
+                                    <!-- EVENT DATE -->
+                                    <td>
+
+                                        {{ order.event_date|date:"d M Y" }}
+
+                                    </td>
+
+
+                                    <!-- PICKUP -->
+                                    <td>
+
+                                        {% if order.pickup_time %}
+
+                                            <span class="production-special-order-time">
+
+                                                <i class="fa-regular fa-clock"></i>
+
+                                                {{ order.pickup_time|time:"H:i" }}
+
+                                            </span>
+
+                                        {% else %}
+
+                                            —
+
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <!-- TOTAL -->
+                                    <td>
+
+                                        <strong>
+                                            {{ order.total_amount|floatformat:2 }} ETB
+                                        </strong>
+
+                                    </td>
+
+
+                                    <!-- STATUS -->
+                                 <td>
+
+                                    <span class="production-special-order-status
+                                        status-{{ order.status|lower }}">
+
+                                        {{ order.get_status_display }}
+
+                                    </span>
+
+                                   {% if order.status == 'CONFIRMED' %}
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'special_order_start_production' order.id %}"
+                                            style="display: inline;"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="production-special-order-action"
+                                            >
+                                                <i class="fa-solid fa-play"></i>
+                                                Start Production
+                                            </button>
+
+                                        </form>
+
+                                    {% elif order.status == 'IN_PRODUCTION' %}
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'special_order_mark_ready' order.id %}"
+                                            style="display: inline;"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="production-special-order-action"
+                                            >
+                                                <i class="fa-solid fa-check"></i>
+                                                Mark Ready
+                                            </button>
+
+                                        </form>
+
+                                    {% endif %}
+
+                                </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        {% else %}
+
+            <!-- EMPTY STATE -->
+            <div class="production-special-orders-empty">
+
+                <div class="production-special-orders-empty-icon">
+
+                    <i class="fa-solid fa-cake-candles"></i>
+
+                </div>
+
+                <h3>
+                    No Production Orders
+                </h3>
+
+                <p>
+                    There are currently no confirmed special orders
+                    requiring production.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

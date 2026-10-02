@@ -1,0 +1,455 @@
+/* =========================================================
+   PRODUCT DELETE PAGE
+========================================================= */
+
+.product-delete-page {
+    padding: 50px 0 70px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.product-delete-header {
+    margin-bottom: 30px;
+}
+
+.product-delete-label {
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    color: #159a96;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.product-delete-header h1 {
+    margin: 0 0 8px;
+
+    color: #17324d;
+
+    font-size: 32px;
+
+    font-weight: 700;
+}
+
+.product-delete-header p {
+    margin: 0;
+
+    color: #6c757d;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.product-delete-card {
+    max-width: 650px;
+
+    margin: 0 auto;
+
+    padding: 40px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 14px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   WARNING ICON
+========================================================= */
+
+.product-delete-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    background: #fff4e5;
+
+    border-radius: 50%;
+
+    color: #d98200;
+
+    font-size: 28px;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.product-delete-card h2 {
+    margin: 0 0 12px;
+
+    color: #17324d;
+
+    font-size: 23px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   WARNING TEXT
+========================================================= */
+
+.delete-warning {
+    margin: 0 auto 25px;
+
+    max-width: 500px;
+
+    color: #6c757d;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   PRODUCT INFORMATION
+========================================================= */
+
+.product-delete-info {
+    margin-bottom: 20px;
+
+    padding: 18px 20px;
+
+    background: #f8fafa;
+
+    border: 1px solid #e5eeee;
+
+    border-radius: 10px;
+
+    text-align: left;
+}
+
+.info-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 10px 0;
+
+    border-bottom: 1px solid #e5eeee;
+
+    color: #495057;
+
+    font-size: 14px;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    color: #6c757d;
+
+    font-weight: 500;
+}
+
+.info-row strong {
+    color: #17324d;
+
+    font-weight: 600;
+
+    text-align: right;
+}
+
+
+/* =========================================================
+   IMPORTANT MESSAGE
+========================================================= */
+
+.delete-important {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin-bottom: 30px;
+
+    padding: 14px 16px;
+
+    background: #eef8f8;
+
+    border: 1px solid #d7eeee;
+
+    border-radius: 9px;
+
+    color: #117d7a;
+
+    text-align: left;
+}
+
+.delete-important > i {
+    margin-top: 2px;
+
+    font-size: 16px;
+}
+
+.delete-important strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #117d7a;
+
+    font-size: 13px;
+}
+
+.delete-important p {
+    margin: 0;
+
+    color: #4f6f70;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.product-delete-actions {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+}
+
+
+/* =========================================================
+   CANCEL BUTTON
+========================================================= */
+
+.delete-cancel-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 10px 18px;
+
+    background: #ffffff;
+
+    border: 1px solid #adb5bd;
+
+    border-radius: 8px;
+
+    color: #495057;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+.delete-cancel-button:hover {
+    background: #f1f3f5;
+
+    color: #343a40;
+
+    border-color: #868e96;
+}
+
+
+/* =========================================================
+   DELETE BUTTON
+========================================================= */
+
+.delete-confirm-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 10px 18px;
+
+    background: #c0392b;
+
+    border: 1px solid #c0392b;
+
+    border-radius: 8px;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.delete-confirm-button:hover {
+    background: #a93226;
+
+    border-color: #a93226;
+}
+
+
+/* =========================================================
+   BACK LINK
+========================================================= */
+
+.product-delete-back {
+    max-width: 650px;
+
+    margin: 20px auto 0;
+}
+
+.product-delete-back-link {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #159a96;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.product-delete-back-link:hover {
+    color: #117d7a;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .product-delete-page {
+        padding: 35px 0 50px;
+    }
+
+    .product-delete-header h1 {
+        font-size: 27px;
+    }
+
+    .product-delete-card {
+        padding: 28px 20px;
+    }
+
+    .product-delete-actions {
+        flex-direction: column-reverse;
+    }
+
+    .delete-cancel-button,
+    .delete-confirm-button {
+        width: 100%;
+    }
+
+    .info-row {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 4px;
+    }
+
+    .info-row strong {
+        text-align: left;
+    }
+}
+
+/* =========================================================
+   DELETE ERROR
+========================================================= */
+
+.delete-error-box {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin-bottom: 22px;
+
+    padding: 15px 17px;
+
+    background: #fff5f4;
+
+    border: 1px solid #e6b8b3;
+
+    border-radius: 9px;
+
+    color: #a93226;
+
+    text-align: left;
+}
+
+.delete-error-icon {
+    flex-shrink: 0;
+
+    margin-top: 2px;
+
+    font-size: 17px;
+}
+
+.delete-error-box strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #a93226;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+.delete-error-box p {
+    margin: 0;
+
+    color: #6d3b37;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}

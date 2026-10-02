@@ -1,0 +1,233 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Delete Product | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/product-delete.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="product-delete-page">
+
+    <div class="container">
+
+        <!-- PAGE HEADER -->
+        <div class="product-delete-header">
+
+            <span class="product-delete-label">
+                PRODUCT MANAGEMENT
+            </span>
+
+            <h1>
+                Delete Product
+            </h1>
+
+            <p>
+                Confirm whether you want to permanently remove this product.
+            </p>
+
+        </div>
+
+
+        <!-- DELETE CARD -->
+        <div class="product-delete-card">
+
+            <div class="product-delete-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+
+
+            <h2>
+                Delete "{{ product.name }}"?
+            </h2>
+
+
+            <p class="delete-warning">
+                You are about to permanently delete this product.
+                This action cannot be undone.
+            </p>
+
+
+            <!-- DELETE ERROR -->
+            {% if delete_error %}
+
+                <div class="delete-error-box">
+
+                    <div class="delete-error-icon">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Product Cannot Be Deleted
+                        </strong>
+
+                        <p>
+                            {{ delete_error }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- PRODUCT INFORMATION -->
+            <div class="product-delete-info">
+
+                <div class="info-row">
+
+                    <span class="info-label">
+                        Product
+                    </span>
+
+                    <strong>
+                        {{ product.name }}
+                    </strong>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span class="info-label">
+                        Category
+                    </span>
+
+                    <span>
+
+                        {% if product.category %}
+                            {{ product.category.name }}
+                        {% else %}
+                            No category
+                        {% endif %}
+
+                    </span>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span class="info-label">
+                        Price
+                    </span>
+
+                    <strong>
+                        {{ product.price }} ETB
+                    </strong>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span class="info-label">
+                        Status
+                    </span>
+
+                    <span>
+
+                        {% if product.is_available %}
+
+                            Available
+
+                        {% else %}
+
+                            Unavailable
+
+                        {% endif %}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- IMPORTANT INFORMATION -->
+            <div class="delete-important">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+                <div>
+
+                    <strong>
+                        Important
+                    </strong>
+
+                    <p>
+                        Products connected to sales, production records,
+                        or special orders cannot be deleted.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+            <form method="post">
+
+                {% csrf_token %}
+
+                <div class="product-delete-actions">
+
+                    <a
+                        href="{% url 'product_list' %}"
+                        class="delete-cancel-button"
+                    >
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Cancel
+                    </a>
+
+
+                    {% if not delete_error %}
+
+                        <button
+                            type="submit"
+                            class="delete-confirm-button"
+                        >
+                            <i class="fa-solid fa-trash"></i>
+                            Delete Product
+                        </button>
+
+                    {% endif %}
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- BACK LINK -->
+        <div class="product-delete-back">
+
+            <a
+                href="{% url 'product_list' %}"
+                class="product-delete-back-link"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Products
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

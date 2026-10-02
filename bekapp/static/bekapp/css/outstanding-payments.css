@@ -1,0 +1,266 @@
+/* =========================================================
+   OUTSTANDING PAYMENTS PAGE
+========================================================= */
+
+.outstanding-payments-page {
+    padding: 50px 0 70px;
+    background: #f7f9fb;
+    min-height: 70vh;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.outstanding-payments-header {
+    margin-bottom: 30px;
+}
+
+.outstanding-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.outstanding-payments-header h1 {
+    margin: 0 0 8px;
+    color: #17324d;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.outstanding-payments-header p {
+    margin: 0;
+    color: #6b7785;
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.outstanding-back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: #159a96;
+    color: #ffffff;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.outstanding-back-button:hover {
+    background: #117d7a;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.outstanding-back-button i {
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   TABLE CARD
+========================================================= */
+
+.outstanding-payments-card {
+    background: #ffffff;
+    border: 1px solid #e5e9ed;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(23, 50, 77, 0.06);
+    overflow: hidden;
+}
+
+.outstanding-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.outstanding-table {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+}
+
+.outstanding-table thead {
+    background: #f1f7f7;
+}
+
+.outstanding-table th {
+    padding: 15px 18px;
+    color: #17324d;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid #dfe7e8;
+}
+
+.outstanding-table td {
+    padding: 15px 18px;
+    color: #536170;
+    font-size: 14px;
+    border-bottom: 1px solid #edf0f2;
+    vertical-align: middle;
+}
+
+.outstanding-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.outstanding-table tbody tr:hover {
+    background: #f9fbfb;
+}
+
+.outstanding-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   SALE NUMBER
+========================================================= */
+
+.outstanding-sale-number {
+    color: #159a96;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   OUTSTANDING AMOUNT
+========================================================= */
+
+.outstanding-amount {
+    color: #b42318;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.outstanding-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.outstanding-status.partial {
+    background: #fff6df;
+    color: #9a6a00;
+}
+
+.outstanding-status.unpaid {
+    background: #fdecec;
+    color: #b42318;
+}
+
+
+/* =========================================================
+   VIEW SALE BUTTON
+========================================================= */
+
+.outstanding-action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    background: #159a96;
+    color: #ffffff;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.outstanding-action-button:hover {
+    background: #117d7a;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.outstanding-empty {
+    padding: 70px 25px;
+    text-align: center;
+}
+
+.outstanding-empty i {
+    margin-bottom: 18px;
+    color: #159a96;
+    font-size: 42px;
+}
+
+.outstanding-empty h3 {
+    margin: 0 0 8px;
+    color: #17324d;
+    font-size: 22px;
+}
+
+.outstanding-empty p {
+    margin: 0;
+    color: #6b7785;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .outstanding-payments-page {
+        padding: 35px 0 50px;
+    }
+
+    .outstanding-header-top {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .outstanding-payments-header h1 {
+        font-size: 27px;
+    }
+
+    .outstanding-back-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .outstanding-table {
+        min-width: 850px;
+    }
+
+}
+

@@ -1,0 +1,473 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+Business Summary | Bakery Management
+{% endblock %}
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/owner-business-summary.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="business-summary-page">
+
+    <!-- HEADER -->
+    
+    <div class="business-summary-business-header">
+
+        <div class="business-summary-business-info">
+
+            {% if business_settings %}
+
+                {% if business_settings.logo %}
+                    <img
+                        src="{{ business_settings.logo.url }}"
+                        alt="{{ business_settings.business_name }}"
+                        class="business-summary-business-logo"
+                    >
+                {% endif %}
+
+                <h1>
+                    {{ business_settings.business_name }}
+                </h1>
+
+                {% if business_settings.phone %}
+                    <div>
+                        <i class="fas fa-phone"></i>
+                        {{ business_settings.phone }}
+                    </div>
+                {% endif %}
+
+                {% if business_settings.email %}
+                    <div>
+                        <i class="fas fa-envelope"></i>
+                        {{ business_settings.email }}
+                    </div>
+                {% endif %}
+
+                {% if business_settings.address %}
+                    <div>
+                        <i class="fas fa-location-dot"></i>
+                        {{ business_settings.address }}
+                    </div>
+                {% endif %}
+
+            {% endif %}
+
+            <span class="reports-label">
+                OWNER REPORTS
+            </span>
+
+            <h2>
+                Business Summary
+            </h2>
+
+            <p>
+                Overall business performance for the selected period.
+            </p>
+
+        </div>
+
+        <a
+            href="{% url 'owner_reports' %}"
+            class="back-button"
+        >
+            <i class="fas fa-arrow-left"></i>
+            Back to Reports
+        </a>
+
+    </div>
+
+
+
+    <!-- DATE FILTER -->
+    <div class="filter-card">
+
+        <form method="get">
+
+            <div class="filter-grid">
+
+                <div class="filter-field">
+
+                    <label for="start_date">
+                        Start Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="start_date"
+                        name="start_date"
+                        value="{{ start_date }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="filter-field">
+
+                    <label for="end_date">
+                        End Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="end_date"
+                        name="end_date"
+                        value="{{ end_date }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="filter-action">
+
+                    <button
+                        type="submit"
+                        class="apply-button"
+                    >
+                        <i class="fas fa-filter"></i>
+                        Apply Filter
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- REPORT PERIOD -->
+    <div class="period-card">
+
+        <i class="fas fa-calendar-alt"></i>
+
+        <div>
+            <span>Report Period</span>
+
+            <strong>
+                {{ start_date }} — {{ end_date }}
+            </strong>
+        </div>
+
+    </div>
+
+
+    <!-- SALES SUMMARY -->
+    <div class="section-title">
+
+        <i class="fas fa-shopping-cart"></i>
+
+        <h2>Sales Summary</h2>
+
+    </div>
+
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                <i class="fas fa-receipt"></i>
+            </div>
+
+            <div>
+                <span>Sales</span>
+
+                <strong>
+                    {{ sales_count }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                <i class="fas fa-money-bill-wave"></i>
+            </div>
+
+            <div>
+                <span>Total Sales</span>
+
+                <strong>
+                    {{ total_sales|floatformat:2 }} ETB
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                <i class="fas fa-tag"></i>
+            </div>
+
+            <div>
+                <span>Total Discount</span>
+
+                <strong>
+                    {{ total_discount|floatformat:2 }} ETB
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+
+            <div>
+                <span>Total Paid</span>
+
+                <strong>
+                    {{ total_paid|floatformat:2 }} ETB
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PRODUCTION SUMMARY -->
+    <div class="section-title">
+
+        <i class="fas fa-industry"></i>
+
+        <h2>Production Summary</h2>
+
+    </div>
+
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+
+            <div>
+                <span>Productions</span>
+
+                <strong>
+                    {{ production_count }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                <i class="fas fa-check"></i>
+            </div>
+
+            <div>
+                <span>Completed</span>
+
+                <strong>
+                    {{ completed_production_count }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                <i class="fas fa-boxes"></i>
+            </div>
+
+            <div>
+                <span>Total Produced</span>
+
+                <strong>
+                    {{ total_produced|floatformat:2 }}
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SPECIAL ORDERS SUMMARY -->
+    <div class="section-title">
+
+        <i class="fas fa-birthday-cake"></i>
+
+        <h2>Special Orders Summary</h2>
+
+    </div>
+
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                <i class="fas fa-list"></i>
+            </div>
+
+            <div>
+                <span>Special Orders</span>
+
+                <strong>
+                    {{ special_order_count }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                <i class="fas fa-money-bill"></i>
+            </div>
+
+            <div>
+                <span>Total Amount</span>
+
+                <strong>
+                    {{ special_order_total|floatformat:2 }} ETB
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                <i class="fas fa-hand-holding-usd"></i>
+            </div>
+
+            <div>
+                <span>Total Deposits</span>
+
+                <strong>
+                    {{ special_order_deposit|floatformat:2 }} ETB
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                <i class="fas fa-balance-scale"></i>
+            </div>
+
+            <div>
+                <span>Outstanding Balance</span>
+
+                <strong>
+                    {{ special_order_balance|floatformat:2 }} ETB
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CURRENT STOCK -->
+    <div class="section-title">
+
+        <i class="fas fa-box-open"></i>
+
+        <h2>Current Stock</h2>
+
+    </div>
+
+
+    <div class="stock-summary-card">
+
+        <div class="stock-icon">
+
+            <i class="fas fa-cubes"></i>
+
+        </div>
+
+        <div>
+
+            <span>
+                Available Finished Products
+            </span>
+
+            <strong>
+                {{ total_stock_available|floatformat:2 }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- EXPORTS -->
+    <div class="export-section">
+
+        <h2>
+            <i class="fas fa-download"></i>
+            Export Report
+        </h2>
+
+        <p>
+            Download the business summary in your preferred format.
+        </p>
+
+        <div class="export-buttons">
+
+            <a
+                href="{% url 'owner_business_summary_csv' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                class="export-button"
+            >
+                <i class="fas fa-file-csv"></i>
+                CSV
+            </a>
+
+            <a
+                href="{% url 'owner_business_summary_excel' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                class="export-button"
+            >
+                <i class="fas fa-file-excel"></i>
+                Excel
+            </a>
+
+            <a
+                href="{% url 'owner_business_summary_pdf' %}?start_date={{ start_date }}&end_date={{ end_date }}"
+                class="export-button"
+            >
+                <i class="fas fa-file-pdf"></i>
+                PDF
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

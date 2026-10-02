@@ -1,0 +1,327 @@
+{% extends 'bekapp/base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+    Production Dashboard | Bakery Management System
+{% endblock %}
+
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/production-dashboard.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="production-dashboard">
+
+    <div class="container-fluid">
+
+        <!-- Page Header -->
+        <div class="dashboard-header">
+
+            <div>
+
+                <span class="dashboard-label">
+                    PRODUCTION PANEL
+                </span>
+
+                <h1>
+                    Production Dashboard
+                </h1>
+
+                <p>
+                    Welcome back, {{ user.username }}.
+                    Manage and monitor bakery production operations.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Summary Cards -->
+        <div class="row g-4 mb-4">
+
+
+            <!-- Products -->
+                        
+            <div class="col-12 col-sm-6 col-xl-3">
+                <a href="{% url 'product_list' %}" class="dashboard-card">
+                    <div class="dashboard-card-icon">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>
+                    <div class="dashboard-card-content">
+                        <span>Products</span>
+                        <h3>{{ product_count }}</h3>
+                    </div>
+                </a>
+            </div>
+
+
+            <!-- Today's Production -->
+                        
+            <div class="col-12 col-sm-6 col-xl-3">
+                <a href="{% url 'production_list' %}" class="dashboard-card">
+                    <div class="dashboard-card-icon">
+                        <i class="fa-solid fa-industry"></i>
+                    </div>
+                    <div class="dashboard-card-content">
+                        <span>Today's Production</span>
+                        <h3>{{ today_production_count }}</h3>
+                    </div>
+                </a>
+            </div>
+
+
+            <!-- Completed -->
+                        
+            <div class="col-12 col-sm-6 col-xl-3">
+                <a href="{% url 'production_completed_list' %}" class="dashboard-card">
+                    <div class="dashboard-card-icon">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div class="dashboard-card-content">
+                        <span>Completed</span>
+                        <h3>{{ completed_production_count }}</h3>
+                    </div>
+                </a>
+            </div>
+
+
+            <!-- Recipes -->
+            
+            <div class="col-12 col-sm-6 col-xl-3">
+                <a href="{% url 'recipe_list' %}" class="dashboard-card">
+                    <div class="dashboard-card-icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div class="dashboard-card-content">
+                        <span>Recipes</span>
+                        <h3>{{ recipe_count }}</h3>
+                    </div>
+                </a>
+            </div>
+
+        <!-- Production Management -->
+        <div class="dashboard-section">
+
+            <div class="dashboard-section-header">
+
+                <div>
+
+                    <span class="dashboard-label">
+                        PRODUCTION MANAGEMENT
+                    </span>
+
+                    <h2>
+                        Bakery Operations
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="row g-4">
+
+
+                <!-- Production -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a href="{% url 'production_list' %}" class="management-card">
+
+                        <div class="management-icon">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Production
+                            </h3>
+
+                            <p>
+                                Create and manage daily bakery production.
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                    </a>
+
+                </div>
+
+                <!-- Special Orders -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a href="{% url 'production_special_order_list' %}"
+                    class="management-card">
+
+                        <div class="management-icon">
+                            <i class="fa-solid fa-cake-candles"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Special Orders
+                            </h3>
+
+                            <p>
+                                View confirmed customer orders and manage production.
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Products -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a href="{% url 'product_list' %}" class="management-card">
+
+                        <div class="management-icon">
+                            <i class="fa-solid fa-box-open"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Products
+                            </h3>
+
+                            <p>
+                                View bakery products and production information.
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Recipes -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a href="{% url 'recipe_list' %}" class="management-card">
+
+                        <div class="management-icon">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Recipes
+                            </h3>
+
+                            <p>
+                                View recipes and required ingredients.
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Production History -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a href="{% url 'production_list' %}" class="management-card">
+                        <div class="management-icon">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </div>
+                        <div>
+                            <h3>Production History</h3>
+                            <p>Review previous production records.</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+                    </a>
+                </div>
+
+
+                <!-- Completed Production -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a href="{% url 'production_completed_list' %}" class="management-card">
+
+                        <div class="management-icon">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Production Completed
+                            </h3>
+
+                            <p>
+                                View and manage completed production.
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Stock -->
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <a href="{% url 'production_stock_list' %}" class="management-card">
+
+                        <div class="management-icon">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Stock
+                            </h3>
+
+                            <p>
+                                Monitor products available from production.
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,230 @@
+/* =========================================================
+   OWNER DASHBOARD
+========================================================= */
+
+.owner-dashboard {
+    min-height: 70vh;
+    padding: 45px 0 70px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.dashboard-header {
+    margin-bottom: 35px;
+}
+
+.dashboard-label {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #159a96;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.dashboard-header h1 {
+    margin-bottom: 8px;
+    color: #17324d;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.dashboard-header p {
+    margin-bottom: 0;
+    color: #6c757d;
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.dashboard-card {
+    height: 100%;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: #ffffff;
+    border: 1px solid #e5e9ed;
+    border-radius: 12px;
+    color: inherit;
+    text-decoration: none;
+    box-shadow: 0 5px 20px rgba(23, 50, 77, 0.05);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.dashboard-card:hover {
+    color: inherit;
+    text-decoration: none;
+    transform: translateY(-3px);
+    border-color: #159a96;
+    box-shadow: 0 10px 25px rgba(23, 50, 77, 0.09);
+}
+
+.dashboard-card:focus-visible {
+    outline: 2px solid #159a96;
+    outline-offset: 3px;
+}
+
+.dashboard-card-icon {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8f7f6;
+    color: #159a96;
+    border-radius: 10px;
+    font-size: 21px;
+}
+
+.dashboard-card-content {
+    min-width: 0;
+}
+
+.dashboard-card-content span {
+    display: block;
+    margin-bottom: 3px;
+    color: #6c757d;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.dashboard-card-content h3 {
+    margin: 0;
+    color: #17324d;
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   MANAGEMENT SECTION
+========================================================= */
+
+.dashboard-section {
+    margin-top: 20px;
+}
+
+.dashboard-section-header {
+    margin-bottom: 25px;
+}
+
+.dashboard-section-header h2 {
+    margin: 0;
+    color: #17324d;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   MANAGEMENT CARDS
+========================================================= */
+
+.management-card {
+    min-height: 150px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #e5e9ed;
+    border-radius: 12px;
+    color: inherit;
+    text-decoration: none;
+    box-shadow: 0 5px 20px rgba(23, 50, 77, 0.05);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.management-card:hover {
+    color: inherit;
+    text-decoration: none;
+    transform: translateY(-3px);
+    border-color: #159a96;
+    box-shadow: 0 10px 25px rgba(23, 50, 77, 0.09);
+}
+
+.management-card:focus-visible {
+    outline: 2px solid #159a96;
+    outline-offset: 3px;
+}
+
+.management-icon {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8f7f6;
+    color: #159a96;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.management-card h3 {
+    margin: 0 0 5px;
+    color: #17324d;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.management-card p {
+    margin: 0;
+    padding-right: 20px;
+    color: #6c757d;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.management-arrow {
+    position: absolute;
+    right: 20px;
+    color: #159a96;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+
+    .owner-dashboard {
+        padding: 35px 15px 55px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 27px;
+    }
+
+    .dashboard-card {
+        padding: 20px;
+    }
+
+    .dashboard-card-content h3 {
+        font-size: 24px;
+    }
+
+    .management-card {
+        min-height: 130px;
+        padding: 20px;
+    }
+
+}

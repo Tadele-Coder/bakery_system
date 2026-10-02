@@ -1,0 +1,298 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'bekapp/css/special-orders.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="special-orders-page">
+
+    <div class="container">
+
+        <!-- PAGE HEADER -->
+        <div class="special-orders-header">
+
+            <div class="special-orders-header-text">
+
+                <span class="special-orders-label">
+                    ORDER MANAGEMENT
+                </span>
+
+                <h2>
+                    Special Orders
+                </h2>
+
+                <p>
+                    View and manage customer special orders.
+                </p>
+
+            </div>
+
+            <div class="special-orders-header-action">
+
+                <a href="{% url 'special_order_create' %}"
+                   class="bakery-btn bakery-btn-primary">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    New Special Order
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        {% if special_orders %}
+
+            <!-- ORDERS TABLE CARD -->
+            <div class="special-orders-card">
+
+                <div class="special-orders-card-header">
+
+                    <div>
+                        <h3>
+                            Special Order Records
+                        </h3>
+
+                        <p>
+                            Customer orders and payment information
+                        </p>
+                    </div>
+
+                    <div class="special-orders-count">
+
+                        {{ special_orders|length }}
+
+                        {% if special_orders|length == 1 %}
+                            Order
+                        {% else %}
+                            Orders
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table class="table special-orders-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Order</th>
+
+                                <th>Customer</th>
+
+                                <th>Event</th>
+
+                                <th>Event Date</th>
+
+                                <th>Pickup</th>
+
+                                <th>Total</th>
+
+                                <th>Deposit</th>
+
+                                <th>Status</th>
+
+                                <th>Created By</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for order in special_orders %}
+
+                                <tr>
+
+                                    <!-- ORDER NUMBER -->
+                                    <td>
+
+                                        <a href="{% url 'special_order_detail' order.id %}"
+                                           class="special-order-number">
+
+                                            {{ order.order_number }}
+
+                                        </a>
+
+                                    </td>
+
+
+                                    <!-- CUSTOMER -->
+                                    <td>
+
+                                        <div class="special-order-customer">
+
+                                            <strong>
+                                                {{ order.customer.name }}
+                                            </strong>
+
+                                            {% if order.customer.phone %}
+
+                                                <span>
+                                                    {{ order.customer.phone }}
+                                                </span>
+
+                                            {% endif %}
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <!-- EVENT -->
+                                    <td>
+
+                                        <span class="special-order-event">
+
+                                            {{ order.get_event_type_display }}
+
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- EVENT DATE -->
+                                    <td>
+
+                                        <span class="special-order-date">
+
+                                            {{ order.event_date|date:"d M Y" }}
+
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- PICKUP TIME -->
+                                    <td>
+
+                                        {% if order.pickup_time %}
+
+                                            <span class="special-order-time">
+
+                                                <i class="fa-regular fa-clock"></i>
+
+                                                {{ order.pickup_time|time:"H:i" }}
+
+                                            </span>
+
+                                        {% else %}
+
+                                            <span class="special-order-empty">
+                                                —
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <!-- TOTAL -->
+                                    <td>
+
+                                        <strong class="special-order-amount">
+
+                                            {{ order.total_amount|floatformat:2 }} ETB
+
+                                        </strong>
+
+                                    </td>
+
+
+                                    <!-- DEPOSIT -->
+                                    <td>
+
+                                        <span class="special-order-deposit">
+
+                                            {{ order.deposit_amount|floatformat:2 }} ETB
+
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- STATUS -->
+                                    <td>
+
+                                        <span class="special-order-status
+                                            status-{{ order.status|lower }}">
+
+                                            {{ order.get_status_display }}
+
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- CREATED BY -->
+                                    <td>
+
+                                        <span class="special-order-created-by">
+
+                                            {{ order.created_by.username }}
+
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        {% else %}
+
+            <!-- EMPTY STATE -->
+            <div class="special-orders-empty">
+
+                <div class="special-orders-empty-icon">
+
+                    <i class="fa-solid fa-cake-candles"></i>
+
+                </div>
+
+                <h3>
+                    No Special Orders
+                </h3>
+
+                <p>
+                    No special orders have been created yet.
+                </p>
+
+                <a href="{% url 'special_order_create' %}"
+                   class="bakery-btn bakery-btn-primary">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Create Special Order
+
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

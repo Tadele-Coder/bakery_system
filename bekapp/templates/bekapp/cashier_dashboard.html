@@ -1,0 +1,412 @@
+{% extends 'bekapp/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Cashier Dashboard | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/cashier-dashboard.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<section class="cashier-dashboard">
+
+<div class="container-fluid">
+
+    <!-- Page Header -->
+    <div class="dashboard-header">
+
+        <div>
+
+            <span class="dashboard-label">
+                CASHIER PANEL
+            </span>
+
+            <h1>
+                Cashier Dashboard
+            </h1>
+
+            <p>
+                Welcome back, {{ user.username }}.
+                Manage sales and customer payments.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Summary Cards -->
+
+    <div class="row g-4 mb-4">
+
+        <!-- Today's Sales -->
+        <div class="col-12 col-sm-6 col-xl-3">
+
+            <a href="{% url 'sale_list' %}" class="dashboard-card">
+
+                <div class="dashboard-card-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+
+                <div class="dashboard-card-content">
+
+                    <span>
+                        Today's Sales
+                    </span>
+
+                    <h3>
+                        {{ today_sales_count }}
+                    </h3>
+
+                </div>
+
+            </a>
+
+        </div>
+
+
+        <!-- Today's Payments -->
+        <div class="col-12 col-sm-6 col-xl-3">
+
+            <a href="{% url 'payment_list' %}?today=1" class="dashboard-card">
+
+                <div class="dashboard-card-icon">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                </div>
+
+                <div class="dashboard-card-content">
+
+                    <span>
+                        Today's Payments
+                    </span>
+
+                    <h3>
+                        {{ today_payment_count }}
+                    </h3>
+
+                </div>
+
+            </a>
+
+        </div>
+
+
+        <!-- Completed Payments -->
+        <div class="col-12 col-sm-6 col-xl-3">
+
+            <a href="{% url 'payment_list' %}?completed_today=1" class="dashboard-card">
+
+                <div class="dashboard-card-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+
+                <div class="dashboard-card-content">
+
+                    <span>
+                        Completed Payments
+                    </span>
+
+                    <h3>
+                        {{ completed_payment_count }}
+                    </h3>
+
+                </div>
+
+            </a>
+
+        </div>
+
+
+        <!-- Outstanding -->
+        <div class="col-12 col-sm-6 col-xl-3">
+
+            <a href="{% url 'outstanding_payments' %}" class="dashboard-card">
+
+                <div class="dashboard-card-icon">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+
+                <div class="dashboard-card-content">
+
+                    <span>
+                        Outstanding
+                    </span>
+
+                    <h3>
+                        {{ outstanding_amount|floatformat:2 }} ETB
+                    </h3>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Sales Management -->
+    <div class="dashboard-section">
+
+        <div class="dashboard-section-header">
+
+            <div>
+
+                <span class="dashboard-label">
+                    SALES MANAGEMENT
+                </span>
+
+                <h2>
+                    Sales & Payments
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- New Sale -->
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <a href="{% url 'sale_create' %}" class="management-card">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-cart-plus"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            New Sale
+                        </h3>
+
+                        <p>
+                            Create a new customer sale and calculate the total.
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- Sales -->
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <a href="{% url 'sale_list' %}" class="management-card">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Sales
+                        </h3>
+
+                        <p>
+                            View and manage customer sales transactions.
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- Payments -->
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <a href="{% url 'payment_list' %}" class="management-card">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Payments
+                        </h3>
+
+                        <p>
+                            Record and manage customer payments.
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- New Special Order -->
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <a href="{% url 'special_order_create' %}" class="management-card">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-cake-candles"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            New Special Order
+                        </h3>
+
+                        <p>
+                            Receive and create a customer special order at the front desk.
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- Special Orders -->
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <a href="{% url 'special_order_list' %}" class="management-card">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Special Orders
+                        </h3>
+
+                        <p>
+                            View customer special orders, deposits, balances, and status.
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- Payment History -->
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <a href="{% url 'payment_history' %}" class="management-card">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Payment History
+                        </h3>
+
+                        <p>
+                            Review previous customer payment transactions.
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- Outstanding Payments -->
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <a href="{% url 'outstanding_payments' %}" class="management-card">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Outstanding Payments
+                        </h3>
+
+                        <p>
+                            View customer balances and unpaid amounts.
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- Products -->
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <a href="{% url 'cashier_product_list' %}" class="management-card">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Products
+                        </h3>
+
+                        <p>
+                            View available bakery products and prices.
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right management-arrow"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+{% endblock %}

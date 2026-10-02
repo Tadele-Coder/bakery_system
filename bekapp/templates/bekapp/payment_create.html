@@ -1,0 +1,242 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Record Payment | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/payment-create.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="payment-create">
+
+    <div class="container-fluid">
+
+        <!-- PAGE HEADER -->
+        <div class="payment-create-header">
+
+            <div>
+
+                <span class="dashboard-label">
+                    SALES & POS
+                </span>
+
+                <h1>
+                    Record Payment
+                </h1>
+
+                <p>
+                    Record a payment for sale {{ sale.sale_number }}.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- SALE BALANCE -->
+        <div class="payment-balance-card">
+
+            <div class="payment-balance-item">
+
+                <span>
+                    Sale Total
+                </span>
+
+                <strong>
+                    {{ sale.total_amount|floatformat:2 }} ETB
+                </strong>
+
+            </div>
+
+
+            <div class="payment-balance-item">
+
+                <span>
+                    Already Paid
+                </span>
+
+                <strong>
+                    {{ paid_amount|floatformat:2 }} ETB
+                </strong>
+
+            </div>
+
+
+            <div class="payment-balance-item payment-remaining">
+
+                <span>
+                    Remaining Balance
+                </span>
+
+                <strong>
+                    {{ remaining_amount|floatformat:2 }} ETB
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAYMENT FORM CARD -->
+        <div class="payment-create-card">
+
+            <div class="payment-create-card-header">
+
+                <div>
+
+                    <h2>
+                        Payment Information
+                    </h2>
+
+                    <p>
+                        Enter the payment details below.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="payment-create-body">
+
+                <form method="post">
+
+                    {% csrf_token %}
+
+
+                    <!-- PAYMENT METHOD -->
+                    <div class="form-section">
+
+                        <label
+                            for="{{ form.method.id_for_label }}"
+                            class="form-label"
+                        >
+                            Payment Method
+                        </label>
+
+                        {{ form.method }}
+
+                        {% if form.method.errors %}
+
+                            <div class="form-error">
+                                {{ form.method.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- AMOUNT -->
+                    <div class="form-section">
+
+                        <label
+                            for="{{ form.amount.id_for_label }}"
+                            class="form-label"
+                        >
+                            Payment Amount
+                        </label>
+
+                        {{ form.amount }}
+
+                        {% if form.amount.errors %}
+
+                            <div class="form-error">
+                                {{ form.amount.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- REFERENCE NUMBER -->
+                    <div class="form-section">
+
+                        <label
+                            for="{{ form.reference_number.id_for_label }}"
+                            class="form-label"
+                        >
+                            Reference Number
+                        </label>
+
+                        {{ form.reference_number }}
+
+                        <small>
+                            Useful for Telebirr or Bank payments.
+                        </small>
+
+                        {% if form.reference_number.errors %}
+
+                            <div class="form-error">
+                                {{ form.reference_number.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- NOTES -->
+                    <div class="form-section">
+
+                        <label
+                            for="{{ form.notes.id_for_label }}"
+                            class="form-label"
+                        >
+                            Notes
+                        </label>
+
+                        {{ form.notes }}
+
+                        {% if form.notes.errors %}
+
+                            <div class="form-error">
+                                {{ form.notes.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- ACTIONS -->
+                    <div class="payment-create-actions">
+
+                        <a
+                            href="{% url 'sale_detail' sale.id %}"
+                            class="btn btn-outline-secondary"
+                        >
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Cancel
+                        </a>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-bakery"
+                        >
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                            Record Payment
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

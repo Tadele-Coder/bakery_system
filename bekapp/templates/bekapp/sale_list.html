@@ -1,0 +1,204 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+Sales | Bakery Management
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/sale-list.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="sale-list-page">
+
+    <div class="container">
+
+        <!-- Page Header -->
+        <div class="sale-list-header">
+
+            <div class="sale-header-top">
+
+                <div>
+                    <h1>Sales</h1>
+
+                    <p>
+                        View and manage customer sales transactions.
+                    </p>
+                </div>
+
+                <div class="sale-header-actions">
+
+                    <a
+                        href="{% url 'sale_create' %}"
+                        class="sale-new-button"
+                    >
+                        <i class="fas fa-plus"></i>
+                        New Sale
+                    </a>
+
+                    <a
+                        href="{% url 'cashier_dashboard' %}"
+                        class="sale-back-button"
+                    >
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Dashboard
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Sales Table -->
+        <div class="sale-table-card">
+
+            {% if sales %}
+
+                <div class="sale-table-wrapper">
+
+                    <table class="sale-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Date</th>
+                                <th>Sale Number</th>
+                                <th>Cashier</th>
+                                <th>Items</th>
+                                <th>Subtotal</th>
+                                <th>Discount</th>
+                                <th>Total</th>
+                                <th>Payment Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for sale in sales %}
+
+                                <tr>
+
+                                    <td>
+                                        {{ sale.sale_date|date:"Y-m-d H:i" }}
+                                    </td>
+
+                                    <td>
+                                        <span class="sale-number">
+                                            {{ sale.sale_number }}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        {{ sale.cashier.username }}
+                                    </td>
+
+                                    <td>
+                                        {{ sale.items.count }}
+                                    </td>
+
+                                    <td>
+                                        {{ sale.subtotal|floatformat:2 }} ETB
+                                    </td>
+
+                                    <td>
+                                        {{ sale.discount|floatformat:2 }} ETB
+                                    </td>
+
+                                    <td>
+                                        <span class="sale-total">
+                                            {{ sale.total_amount|floatformat:2 }} ETB
+                                        </span>
+                                    </td>
+
+                                    <td>
+
+                                        {% if sale.payment_status == 'PAID' %}
+
+                                            <span class="sale-status paid">
+                                                Paid
+                                            </span>
+
+                                        {% elif sale.payment_status == 'PARTIAL' %}
+
+                                            <span class="sale-status partial">
+                                                Partially Paid
+                                            </span>
+
+                                        {% elif sale.payment_status == 'REFUNDED' %}
+
+                                            <span class="sale-status refunded">
+                                                Refunded
+                                            </span>
+
+                                        {% else %}
+
+                                            <span class="sale-status unpaid">
+                                                Unpaid
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+                                    <td>
+
+                                        <a
+                                            href="{% url 'sale_detail' sale_id=sale.id %}"
+                                            class="sale-view-button"
+                                        >
+                                            View Sale
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="sale-empty">
+
+                    <i class="fas fa-receipt"></i>
+
+                    <h3>No Sales Yet</h3>
+
+                    <p>
+                        No customer sales have been recorded yet.
+                    </p>
+
+                    <a
+                        href="{% url 'sale_create' %}"
+                        class="sale-new-button"
+                    >
+                        <i class="fas fa-plus"></i>
+                        Create New Sale
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+

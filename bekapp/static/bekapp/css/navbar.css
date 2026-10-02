@@ -1,0 +1,37 @@
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.bakery-navbar {
+    min-height: 72px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e9ed;
+}
+
+.bakery-brand {
+    color: #159a96;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.bakery-brand:hover {
+    color: #117d7a;
+}
+
+.bakery-brand i {
+    margin-right: 8px;
+}
+
+.bakery-navbar .nav-link {
+    color: #17324d;
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+.bakery-navbar .nav-link i {
+    margin-right: 5px;
+}
+
+.bakery-navbar .nav-link:hover {
+    color: #159a96;
+}

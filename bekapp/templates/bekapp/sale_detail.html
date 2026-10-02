@@ -1,0 +1,392 @@
+{% extends 'bekapp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Sale {{ sale.sale_number }} | Bakery Management System
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'bekapp/css/sale-detail.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="sale-detail">
+
+    <div class="container-fluid">
+
+        <!-- PAGE HEADER -->
+        <div class="sale-detail-header">
+
+            <div>
+
+                <span class="dashboard-label">
+                    SALES & POS
+                </span>
+
+                <h1>
+                    Sale {{ sale.sale_number }}
+                </h1>
+
+                <p>
+                    Sale details and payment information.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- SALE INFORMATION -->
+        <div class="sale-detail-card">
+
+            <div class="sale-detail-card-header">
+
+                <div>
+
+                    <h2>
+                        Sale Information
+                    </h2>
+
+                    <p>
+                        Transaction details
+                    </p>
+
+                </div>
+
+
+                <span class="sale-status">
+                    {{ sale.get_payment_status_display }}
+                </span>
+
+            </div>
+
+
+            <div class="sale-detail-body">
+
+                <div class="sale-info-grid">
+
+                    <!-- SALE NUMBER -->
+                    <div class="sale-info-item">
+
+                        <span>
+                            Sale Number
+                        </span>
+
+                        <strong>
+                            {{ sale.sale_number }}
+                        </strong>
+
+                    </div>
+
+
+                    <!-- DATE -->
+                    <div class="sale-info-item">
+
+                        <span>
+                            Date
+                        </span>
+
+                        <strong>
+                            {{ sale.sale_date|date:"d M Y, H:i" }}
+                        </strong>
+
+                    </div>
+
+
+                    <!-- CASHIER -->
+                    <div class="sale-info-item">
+
+                        <span>
+                            Cashier
+                        </span>
+
+                        <strong>
+                            {{ sale.cashier.username }}
+                        </strong>
+
+                    </div>
+
+
+                    <!-- PAYMENT STATUS -->
+                    <div class="sale-info-item">
+
+                        <span>
+                            Payment Status
+                        </span>
+
+                        <strong>
+                            {{ sale.get_payment_status_display }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SALE ITEMS -->
+        <div class="sale-detail-card">
+
+            <div class="sale-detail-card-header">
+
+                <div>
+
+                    <h2>
+                        Sale Items
+                    </h2>
+
+                    <p>
+                        Products included in this sale
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="sale-items-body">
+
+                {% for item in sale.items.all %}
+
+                    <div class="sale-item">
+
+                        <div class="sale-item-main">
+
+                            <strong>
+                                {{ item.product.name }}
+                            </strong>
+
+                            <span>
+                                Quantity:
+                                {{ item.quantity }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="sale-item-pricing">
+
+                            <span>
+                                {{ item.unit_price|floatformat:2 }} ETB ×
+                                {{ item.quantity }}
+                            </span>
+
+                            <strong>
+                                {{ item.total_price|floatformat:2 }} ETB
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="sale-empty">
+                        No sale items found.
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- SALE TOTALS -->
+        <div class="sale-detail-card">
+
+            <div class="sale-detail-card-header">
+
+                <div>
+
+                    <h2>
+                        Sale Summary
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="sale-summary-body">
+
+                <div class="sale-summary-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong>
+                        {{ sale.subtotal|floatformat:2 }} ETB
+                    </strong>
+
+                </div>
+
+
+                <div class="sale-summary-row">
+
+                    <span>
+                        Discount
+                    </span>
+
+                    <strong>
+                        {{ sale.discount|floatformat:2 }} ETB
+                    </strong>
+
+                </div>
+
+
+                <div class="sale-summary-row sale-summary-total">
+
+                    <span>
+                        Total Amount
+                    </span>
+
+                    <strong>
+                        {{ sale.total_amount|floatformat:2 }} ETB
+                    </strong>
+
+                </div>
+
+                <div class="sale-summary-row">
+
+                    <span>
+                        Paid Amount
+                    </span>
+
+                    <strong>
+                        {{ paid_amount|floatformat:2 }} ETB
+                    </strong>
+
+                </div>
+
+
+                <div class="sale-summary-row sale-summary-remaining">
+
+                    <span>
+                        Remaining Balance
+                    </span>
+
+                    <strong>
+                        {{ remaining_amount|floatformat:2 }} ETB
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAYMENT HISTORY -->
+        <div class="sale-detail-card">
+
+            <div class="sale-detail-card-header">
+
+                <div>
+
+                    <h2>
+                        Payment History
+                    </h2>
+
+                    <p>
+                        Payments recorded for this sale
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="sale-payments-body">
+
+                {% for payment in sale.payments.all %}
+
+                    <div class="sale-payment">
+
+                        <div class="sale-payment-main">
+
+                            <strong>
+                                {{ payment.get_method_display }}
+                            </strong>
+
+                            <span>
+                                {{ payment.payment_date|date:"d M Y, H:i" }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="sale-payment-right">
+
+                            <span>
+                                {{ payment.get_status_display }}
+                            </span>
+
+                            <strong>
+                                {{ payment.amount|floatformat:2 }} ETB
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="sale-empty">
+                        No payments recorded yet.
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+        <div class="sale-detail-actions">
+
+            <a
+                href="{% url 'cashier_dashboard' %}"
+                class="btn btn-outline-secondary"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+
+
+            {% if sale.payment_status != 'PAID' %}
+
+                <a
+                    href="{% url 'payment_create' sale.id %}"
+                    class="btn btn-bakery"
+                >
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    Record Payment
+                </a>
+
+            {% endif %}
+
+
+            <a
+                href="{% url 'sale_create' %}"
+                class="btn btn-bakery"
+            >
+                <i class="fa-solid fa-cart-plus"></i>
+                New Sale
+            </a>
+
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}
