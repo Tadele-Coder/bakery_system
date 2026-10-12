@@ -1,28 +1,45 @@
 # Python
+
 __pycache__/
 *.py[cod]
 *.pyo
 
 # Virtual environment
+
 venv/
 .venv/
 
 # Django
+
 *.log
 db.sqlite3
 db_sqlite_backup.sqlite3
 bakery_data.json
+staticfiles/
 
-# Environment variables
+# Environment variables and secrets
+
 .env
+.env.*
+!.env.example
+
+# Database backups
+
+*.dump
+*.backup
+*.bak
+backups/
 
 # Media/uploads
+
 media/
 
 # IDE
+
 .vscode/
 .idea/
 
 # OS
+
 .DS_Store
 Thumbs.db
