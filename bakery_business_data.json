@@ -1,0 +1,767 @@
+[
+{
+  "model": "bekapp.category",
+  "pk": 1,
+  "fields": {
+    "name": "Bread",
+    "description": "",
+    "is_active": true,
+    "created_at": "2026-10-08T04:25:01.733Z",
+    "updated_at": "2026-10-08T04:25:01.733Z"
+  }
+},
+{
+  "model": "bekapp.category",
+  "pk": 2,
+  "fields": {
+    "name": "Cake",
+    "description": "",
+    "is_active": true,
+    "created_at": "2026-10-08T04:25:12.571Z",
+    "updated_at": "2026-10-08T04:25:12.571Z"
+  }
+},
+{
+  "model": "bekapp.category",
+  "pk": 3,
+  "fields": {
+    "name": "Pastry",
+    "description": "",
+    "is_active": true,
+    "created_at": "2026-10-08T04:25:27.477Z",
+    "updated_at": "2026-10-08T04:25:27.477Z"
+  }
+},
+{
+  "model": "bekapp.category",
+  "pk": 4,
+  "fields": {
+    "name": "Donut",
+    "description": "",
+    "is_active": true,
+    "created_at": "2026-10-08T04:25:37.319Z",
+    "updated_at": "2026-10-08T04:25:37.319Z"
+  }
+},
+{
+  "model": "bekapp.category",
+  "pk": 5,
+  "fields": {
+    "name": "Cupcake",
+    "description": "",
+    "is_active": true,
+    "created_at": "2026-10-08T04:25:49.163Z",
+    "updated_at": "2026-10-08T04:25:49.163Z"
+  }
+},
+{
+  "model": "bekapp.category",
+  "pk": 6,
+  "fields": {
+    "name": "Cookies",
+    "description": "",
+    "is_active": true,
+    "created_at": "2026-10-08T04:26:02.448Z",
+    "updated_at": "2026-10-08T04:26:02.448Z"
+  }
+},
+{
+  "model": "bekapp.category",
+  "pk": 7,
+  "fields": {
+    "name": "Sweet & Dessert",
+    "description": "",
+    "is_active": true,
+    "created_at": "2026-10-08T04:26:13.281Z",
+    "updated_at": "2026-10-08T04:26:13.281Z"
+  }
+},
+{
+  "model": "bekapp.category",
+  "pk": 8,
+  "fields": {
+    "name": "Special Order",
+    "description": "",
+    "is_active": true,
+    "created_at": "2026-10-08T04:26:25.321Z",
+    "updated_at": "2026-10-08T04:26:25.321Z"
+  }
+},
+{
+  "model": "bekapp.product",
+  "pk": 1,
+  "fields": {
+    "category": 1,
+    "name": "White Bread",
+    "description": "",
+    "price": "15.00",
+    "image": "",
+    "is_available": true,
+    "created_at": "2026-10-08T04:27:17.155Z",
+    "updated_at": "2026-10-08T04:27:17.155Z"
+  }
+},
+{
+  "model": "bekapp.product",
+  "pk": 2,
+  "fields": {
+    "category": 3,
+    "name": "Bonbolino",
+    "description": "",
+    "price": "60.00",
+    "image": "",
+    "is_available": true,
+    "created_at": "2026-10-08T04:28:22.380Z",
+    "updated_at": "2026-10-08T04:28:22.380Z"
+  }
+},
+{
+  "model": "bekapp.product",
+  "pk": 3,
+  "fields": {
+    "category": 2,
+    "name": "Chocolate Cake",
+    "description": "",
+    "price": "150.00",
+    "image": "",
+    "is_available": true,
+    "created_at": "2026-10-08T04:29:03.389Z",
+    "updated_at": "2026-10-08T04:29:03.389Z"
+  }
+},
+{
+  "model": "bekapp.product",
+  "pk": 4,
+  "fields": {
+    "category": 2,
+    "name": "Vanilla Cake",
+    "description": "",
+    "price": "180.00",
+    "image": "",
+    "is_available": true,
+    "created_at": "2026-10-08T04:29:34.769Z",
+    "updated_at": "2026-10-08T04:29:34.769Z"
+  }
+},
+{
+  "model": "bekapp.product",
+  "pk": 5,
+  "fields": {
+    "category": 2,
+    "name": "Torta 1kg",
+    "description": "",
+    "price": "1500.00",
+    "image": "",
+    "is_available": true,
+    "created_at": "2026-10-08T04:30:33.227Z",
+    "updated_at": "2026-10-08T04:30:33.227Z"
+  }
+},
+{
+  "model": "bekapp.product",
+  "pk": 6,
+  "fields": {
+    "category": 2,
+    "name": "Cupcake",
+    "description": "",
+    "price": "200.00",
+    "image": "",
+    "is_available": true,
+    "created_at": "2026-10-08T04:30:59.871Z",
+    "updated_at": "2026-10-08T04:30:59.871Z"
+  }
+},
+{
+  "model": "bekapp.product",
+  "pk": 7,
+  "fields": {
+    "category": 4,
+    "name": "Chocolate Donut",
+    "description": "",
+    "price": "80.00",
+    "image": "",
+    "is_available": true,
+    "created_at": "2026-10-08T04:31:26.131Z",
+    "updated_at": "2026-10-08T04:31:26.131Z"
+  }
+},
+{
+  "model": "bekapp.product",
+  "pk": 8,
+  "fields": {
+    "category": 4,
+    "name": "Plain Donut",
+    "description": "",
+    "price": "50.00",
+    "image": "",
+    "is_available": true,
+    "created_at": "2026-10-08T04:32:03.392Z",
+    "updated_at": "2026-10-08T04:32:03.392Z"
+  }
+},
+{
+  "model": "bekapp.product",
+  "pk": 9,
+  "fields": {
+    "category": 3,
+    "name": "Croissant",
+    "description": "",
+    "price": "100.00",
+    "image": "",
+    "is_available": true,
+    "created_at": "2026-10-08T04:32:38.794Z",
+    "updated_at": "2026-10-08T04:32:38.794Z"
+  }
+},
+{
+  "model": "bekapp.ingredient",
+  "pk": 1,
+  "fields": {
+    "name": "Wheat Flour",
+    "unit": "KG",
+    "current_stock": "75.000",
+    "minimum_stock": "20.000",
+    "cost_per_unit": "100.00",
+    "is_active": true,
+    "created_at": "2026-10-08T04:12:12.736Z",
+    "updated_at": "2026-10-08T04:46:59.200Z"
+  }
+},
+{
+  "model": "bekapp.ingredient",
+  "pk": 2,
+  "fields": {
+    "name": "Sugar",
+    "unit": "KG",
+    "current_stock": "47.500",
+    "minimum_stock": "10.000",
+    "cost_per_unit": "180.00",
+    "is_active": true,
+    "created_at": "2026-10-08T04:13:21.179Z",
+    "updated_at": "2026-10-08T04:46:59.197Z"
+  }
+},
+{
+  "model": "bekapp.ingredient",
+  "pk": 3,
+  "fields": {
+    "name": "Butter",
+    "unit": "KG",
+    "current_stock": "25.000",
+    "minimum_stock": "5.000",
+    "cost_per_unit": "100.00",
+    "is_active": true,
+    "created_at": "2026-10-08T04:14:53.777Z",
+    "updated_at": "2026-10-08T04:14:53.777Z"
+  }
+},
+{
+  "model": "bekapp.ingredient",
+  "pk": 4,
+  "fields": {
+    "name": "Vegetable Oil",
+    "unit": "LITER",
+    "current_stock": "28.500",
+    "minimum_stock": "5.000",
+    "cost_per_unit": "300.00",
+    "is_active": true,
+    "created_at": "2026-10-08T04:15:45.939Z",
+    "updated_at": "2026-10-08T04:46:59.199Z"
+  }
+},
+{
+  "model": "bekapp.ingredient",
+  "pk": 5,
+  "fields": {
+    "name": "Eggs",
+    "unit": "PIECE",
+    "current_stock": "300.000",
+    "minimum_stock": "50.000",
+    "cost_per_unit": "20.00",
+    "is_active": true,
+    "created_at": "2026-10-08T04:16:18.247Z",
+    "updated_at": "2026-10-08T04:16:18.247Z"
+  }
+},
+{
+  "model": "bekapp.ingredient",
+  "pk": 6,
+  "fields": {
+    "name": "Milk",
+    "unit": "LITER",
+    "current_stock": "40.000",
+    "minimum_stock": "10.000",
+    "cost_per_unit": "110.00",
+    "is_active": true,
+    "created_at": "2026-10-08T04:16:49.098Z",
+    "updated_at": "2026-10-08T04:16:49.098Z"
+  }
+},
+{
+  "model": "bekapp.ingredient",
+  "pk": 7,
+  "fields": {
+    "name": "Yeast",
+    "unit": "GRAM",
+    "current_stock": "4500.000",
+    "minimum_stock": "1000.000",
+    "cost_per_unit": "0.80",
+    "is_active": true,
+    "created_at": "2026-10-08T04:17:37.212Z",
+    "updated_at": "2026-10-08T04:46:59.201Z"
+  }
+},
+{
+  "model": "bekapp.ingredient",
+  "pk": 8,
+  "fields": {
+    "name": "Salt",
+    "unit": "KG",
+    "current_stock": "107.499",
+    "minimum_stock": "2.000",
+    "cost_per_unit": "40.00",
+    "is_active": true,
+    "created_at": "2026-10-08T04:18:22.466Z",
+    "updated_at": "2026-10-08T04:46:59.188Z"
+  }
+},
+{
+  "model": "bekapp.ingredient",
+  "pk": 9,
+  "fields": {
+    "name": "Baking Powder",
+    "unit": "GRAM",
+    "current_stock": "3000.000",
+    "minimum_stock": "500.000",
+    "cost_per_unit": "0.50",
+    "is_active": true,
+    "created_at": "2026-10-08T04:18:58.837Z",
+    "updated_at": "2026-10-08T04:18:58.837Z"
+  }
+},
+{
+  "model": "bekapp.ingredient",
+  "pk": 10,
+  "fields": {
+    "name": "Vanilla",
+    "unit": "ML",
+    "current_stock": "2000.000",
+    "minimum_stock": "300.000",
+    "cost_per_unit": "1.50",
+    "is_active": true,
+    "created_at": "2026-10-08T04:19:52.451Z",
+    "updated_at": "2026-10-08T04:19:52.451Z"
+  }
+},
+{
+  "model": "bekapp.ingredient",
+  "pk": 11,
+  "fields": {
+    "name": "Cocoa Powder",
+    "unit": "KG",
+    "current_stock": "10.000",
+    "minimum_stock": "2.000",
+    "cost_per_unit": "350.00",
+    "is_active": true,
+    "created_at": "2026-10-08T04:20:37.073Z",
+    "updated_at": "2026-10-08T04:20:37.073Z"
+  }
+},
+{
+  "model": "bekapp.ingredient",
+  "pk": 12,
+  "fields": {
+    "name": "Chocolate",
+    "unit": "KG",
+    "current_stock": "8.000",
+    "minimum_stock": "2.000",
+    "cost_per_unit": "600.00",
+    "is_active": true,
+    "created_at": "2026-10-08T04:21:16.344Z",
+    "updated_at": "2026-10-08T04:21:16.344Z"
+  }
+},
+{
+  "model": "bekapp.ingredient",
+  "pk": 13,
+  "fields": {
+    "name": "Cream",
+    "unit": "LITER",
+    "current_stock": "15.000",
+    "minimum_stock": "3.000",
+    "cost_per_unit": "350.00",
+    "is_active": true,
+    "created_at": "2026-10-08T04:21:49.753Z",
+    "updated_at": "2026-10-08T04:21:49.753Z"
+  }
+},
+{
+  "model": "bekapp.ingredient",
+  "pk": 14,
+  "fields": {
+    "name": "Food Coloring",
+    "unit": "ML",
+    "current_stock": "1000.000",
+    "minimum_stock": "200.000",
+    "cost_per_unit": "2.00",
+    "is_active": true,
+    "created_at": "2026-10-08T04:22:30.464Z",
+    "updated_at": "2026-10-08T04:22:30.464Z"
+  }
+},
+{
+  "model": "bekapp.stockmovement",
+  "pk": 1,
+  "fields": {
+    "ingredient": 8,
+    "production": null,
+    "movement_type": "RECEIVED",
+    "quantity": "99.999",
+    "note": "",
+    "created_by": 1,
+    "created_at": "2026-10-08T04:44:32.555Z"
+  }
+},
+{
+  "model": "bekapp.stockmovement",
+  "pk": 2,
+  "fields": {
+    "ingredient": 8,
+    "production": 1,
+    "movement_type": "USED",
+    "quantity": "2.500",
+    "note": "Used for Production #1 - White Bread (50.00)",
+    "created_by": 3,
+    "created_at": "2026-10-08T04:46:59.195Z"
+  }
+},
+{
+  "model": "bekapp.stockmovement",
+  "pk": 3,
+  "fields": {
+    "ingredient": 2,
+    "production": 1,
+    "movement_type": "USED",
+    "quantity": "2.500",
+    "note": "Used for Production #1 - White Bread (50.00)",
+    "created_by": 3,
+    "created_at": "2026-10-08T04:46:59.198Z"
+  }
+},
+{
+  "model": "bekapp.stockmovement",
+  "pk": 4,
+  "fields": {
+    "ingredient": 4,
+    "production": 1,
+    "movement_type": "USED",
+    "quantity": "1.500",
+    "note": "Used for Production #1 - White Bread (50.00)",
+    "created_by": 3,
+    "created_at": "2026-10-08T04:46:59.200Z"
+  }
+},
+{
+  "model": "bekapp.stockmovement",
+  "pk": 5,
+  "fields": {
+    "ingredient": 1,
+    "production": 1,
+    "movement_type": "USED",
+    "quantity": "25.000",
+    "note": "Used for Production #1 - White Bread (50.00)",
+    "created_by": 3,
+    "created_at": "2026-10-08T04:46:59.201Z"
+  }
+},
+{
+  "model": "bekapp.stockmovement",
+  "pk": 6,
+  "fields": {
+    "ingredient": 7,
+    "production": 1,
+    "movement_type": "USED",
+    "quantity": "500.000",
+    "note": "Used for Production #1 - White Bread (50.00)",
+    "created_by": 3,
+    "created_at": "2026-10-08T04:46:59.202Z"
+  }
+},
+{
+  "model": "bekapp.recipe",
+  "pk": 1,
+  "fields": {
+    "product": 1,
+    "description": "",
+    "created_at": "2026-10-08T04:35:41.228Z",
+    "updated_at": "2026-10-08T04:46:32.071Z"
+  }
+},
+{
+  "model": "bekapp.recipe",
+  "pk": 2,
+  "fields": {
+    "product": 3,
+    "description": "",
+    "created_at": "2026-10-08T04:38:48.738Z",
+    "updated_at": "2026-10-08T04:38:48.738Z"
+  }
+},
+{
+  "model": "bekapp.recipe",
+  "pk": 3,
+  "fields": {
+    "product": 6,
+    "description": "",
+    "created_at": "2026-10-08T04:41:19.484Z",
+    "updated_at": "2026-10-08T04:41:19.484Z"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 6,
+  "fields": {
+    "recipe": 2,
+    "ingredient": 1,
+    "quantity": "0.500"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 7,
+  "fields": {
+    "recipe": 2,
+    "ingredient": 2,
+    "quantity": "0.300"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 8,
+  "fields": {
+    "recipe": 2,
+    "ingredient": 3,
+    "quantity": "0.200"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 9,
+  "fields": {
+    "recipe": 2,
+    "ingredient": 5,
+    "quantity": "4.000"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 10,
+  "fields": {
+    "recipe": 2,
+    "ingredient": 11,
+    "quantity": "0.080"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 11,
+  "fields": {
+    "recipe": 2,
+    "ingredient": 6,
+    "quantity": "0.200"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 12,
+  "fields": {
+    "recipe": 2,
+    "ingredient": 9,
+    "quantity": "10.000"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 13,
+  "fields": {
+    "recipe": 2,
+    "ingredient": 10,
+    "quantity": "5.000"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 14,
+  "fields": {
+    "recipe": 3,
+    "ingredient": 1,
+    "quantity": "0.200"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 15,
+  "fields": {
+    "recipe": 3,
+    "ingredient": 2,
+    "quantity": "0.100"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 16,
+  "fields": {
+    "recipe": 3,
+    "ingredient": 3,
+    "quantity": "0.100"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 17,
+  "fields": {
+    "recipe": 3,
+    "ingredient": 5,
+    "quantity": "2.000"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 18,
+  "fields": {
+    "recipe": 3,
+    "ingredient": 6,
+    "quantity": "0.100"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 19,
+  "fields": {
+    "recipe": 3,
+    "ingredient": 9,
+    "quantity": "5.000"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 20,
+  "fields": {
+    "recipe": 3,
+    "ingredient": 10,
+    "quantity": "3.000"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 21,
+  "fields": {
+    "recipe": 1,
+    "ingredient": 8,
+    "quantity": "0.050"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 22,
+  "fields": {
+    "recipe": 1,
+    "ingredient": 2,
+    "quantity": "0.050"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 23,
+  "fields": {
+    "recipe": 1,
+    "ingredient": 4,
+    "quantity": "0.030"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 24,
+  "fields": {
+    "recipe": 1,
+    "ingredient": 1,
+    "quantity": "0.500"
+  }
+},
+{
+  "model": "bekapp.recipeingredient",
+  "pk": 25,
+  "fields": {
+    "recipe": 1,
+    "ingredient": 7,
+    "quantity": "10.000"
+  }
+},
+{
+  "model": "bekapp.production",
+  "pk": 1,
+  "fields": {
+    "production_date": "2026-10-08",
+    "status": "COMPLETED",
+    "notes": "",
+    "created_by": 3,
+    "started_at": "2026-10-08T04:42:59.484Z",
+    "completed_at": "2026-10-08T04:46:59.203Z",
+    "stock_deducted": true,
+    "created_at": "2026-10-08T04:42:51.252Z",
+    "updated_at": "2026-10-08T04:46:59.203Z"
+  }
+},
+{
+  "model": "bekapp.productionitem",
+  "pk": 1,
+  "fields": {
+    "production": 1,
+    "product": 1,
+    "planned_quantity": "50.00",
+    "actual_quantity": "50.00",
+    "notes": ""
+  }
+},
+{
+  "model": "bekapp.sale",
+  "pk": 1,
+  "fields": {
+    "sale_number": "SALE-20261008-0001",
+    "sale_date": "2026-10-08T04:47:31.246Z",
+    "cashier": 2,
+    "payment_status": "PAID",
+    "subtotal": "150.00",
+    "discount": "0.00",
+    "total_amount": "150.00",
+    "notes": "",
+    "created_at": "2026-10-08T04:47:31.246Z",
+    "updated_at": "2026-10-08T04:47:42.100Z"
+  }
+},
+{
+  "model": "bekapp.saleitem",
+  "pk": 1,
+  "fields": {
+    "sale": 1,
+    "product": 1,
+    "quantity": "10.00",
+    "unit_price": "15.00",
+    "total_price": "150.00"
+  }
+},
+{
+  "model": "bekapp.payment",
+  "pk": 1,
+  "fields": {
+    "sale": 1,
+    "method": "CASH",
+    "amount": "150.00",
+    "reference_number": "",
+    "status": "PAID",
+    "payment_date": "2026-10-08T04:47:42.098Z",
+    "notes": "",
+    "recorded_by": 2
+  }
+}
+]
