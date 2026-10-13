@@ -17,15 +17,15 @@ SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
 DEBUG = os.getenv("DJANGO_DEBUG", "True").lower() == "true"
 
+
 ALLOWED_HOSTS = [
     host.strip()
     for host in os.getenv(
         "DJANGO_ALLOWED_HOSTS",
-        "127.0.0.1,localhost",
+        "127.0.0.1,localhost,bakery-management-3b89.onrender.com",
     ).split(",")
     if host.strip()
 ]
-
 
 # Application definition
 
