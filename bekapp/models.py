@@ -233,6 +233,13 @@ class Production(models.Model):
         CANCELLED = "CANCELLED", "Cancelled"
 
     production_date = models.DateField()
+    special_order = models.OneToOneField(
+        "SpecialOrder",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="production",
+    )
 
     status = models.CharField(
         max_length=20,
@@ -413,10 +420,22 @@ class Payment(models.Model):
         FAILED = "FAILED", "Failed"
         REFUNDED = "REFUNDED", "Refunded"
 
+    # Payment for a regular sale
     sale = models.ForeignKey(
         Sale,
         on_delete=models.CASCADE,
         related_name="payments",
+        null=True,
+        blank=True,
+    )
+
+    # Payment for a special order
+    special_order = models.ForeignKey(
+        "SpecialOrder",
+        on_delete=models.PROTECT,
+        related_name="payments",
+        null=True,
+        blank=True,
     )
 
     method = models.CharField(
@@ -455,8 +474,25 @@ class Payment(models.Model):
     class Meta:
         ordering = ["-payment_date"]
 
+        constraints = [
+            models.CheckConstraint(
+                condition=(
+                    models.Q(
+                        sale__isnull=False,
+                        special_order__isnull=True,
+                    )
+                    | models.Q(
+                        sale__isnull=True,
+                        special_order__isnull=False,
+                    )
+                ),
+                name="payment_one_transaction_only",
+            ),
+        ]
+
     def __str__(self):
         return f"{self.method} - {self.amount} ETB"
+
 
 class Customer(models.Model):
     name = models.CharField(max_length=150)

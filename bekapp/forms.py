@@ -1,6 +1,8 @@
+
 from django import forms
 from django.db.models import Q
 from django.contrib.auth import get_user_model
+
 from .models import (
     Product,
     Payment,
@@ -34,16 +36,13 @@ class ProductForm(forms.ModelForm):
                     'placeholder': 'Enter product name',
                 }
             ),
-
             'category': forms.Select(),
-
             'description': forms.Textarea(
                 attrs={
                     'placeholder': 'Enter product description',
                     'rows': 4,
                 }
             ),
-
             'price': forms.NumberInput(
                 attrs={
                     'placeholder': 'Enter product price',
@@ -51,7 +50,6 @@ class ProductForm(forms.ModelForm):
                     'min': '0',
                 }
             ),
-
             'is_available': forms.CheckboxInput(),
         }
 
@@ -62,9 +60,7 @@ class SaleItemForm(forms.Form):
         queryset=Product.objects.filter(
             is_available=True
         ).order_by('name'),
-
         empty_label="Select Product",
-
         widget=forms.Select(
             attrs={
                 'class': 'form-select',
@@ -76,7 +72,6 @@ class SaleItemForm(forms.Form):
         min_value=1,
         max_digits=10,
         decimal_places=0,
-
         widget=forms.NumberInput(
             attrs={
                 'class': 'form-control',
@@ -92,7 +87,6 @@ class PaymentForm(forms.Form):
 
     method = forms.ChoiceField(
         choices=Payment.Method.choices,
-
         widget=forms.Select(
             attrs={
                 'class': 'form-select',
@@ -104,7 +98,6 @@ class PaymentForm(forms.Form):
         min_value=0.01,
         max_digits=12,
         decimal_places=2,
-
         widget=forms.NumberInput(
             attrs={
                 'class': 'form-control',
@@ -118,7 +111,6 @@ class PaymentForm(forms.Form):
     reference_number = forms.CharField(
         required=False,
         max_length=100,
-
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
@@ -129,7 +121,6 @@ class PaymentForm(forms.Form):
 
     notes = forms.CharField(
         required=False,
-
         widget=forms.Textarea(
             attrs={
                 'class': 'form-control',
@@ -144,7 +135,6 @@ class CustomerForm(forms.ModelForm):
 
     class Meta:
         model = Customer
-
         fields = [
             'name',
             'phone',
@@ -160,21 +150,18 @@ class CustomerForm(forms.ModelForm):
                     'placeholder': 'Customer name',
                 }
             ),
-
             'phone': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Phone number',
                 }
             ),
-
             'email': forms.EmailInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Email address',
                 }
             ),
-
             'address': forms.Textarea(
                 attrs={
                     'class': 'form-control',
@@ -182,7 +169,6 @@ class CustomerForm(forms.ModelForm):
                     'placeholder': 'Customer address',
                 }
             ),
-
             'notes': forms.Textarea(
                 attrs={
                     'class': 'form-control',
@@ -201,7 +187,6 @@ class SpecialOrderForm(forms.ModelForm):
         min_value=0,
         max_digits=12,
         decimal_places=2,
-
         widget=forms.NumberInput(
             attrs={
                 'class': 'form-control',
@@ -212,9 +197,30 @@ class SpecialOrderForm(forms.ModelForm):
         ),
     )
 
+    deposit_method = forms.ChoiceField(
+        required=False,
+        choices=Payment.Method.choices,
+        initial=Payment.Method.CASH,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select',
+            }
+        ),
+    )
+
+    deposit_reference_number = forms.CharField(
+        required=False,
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Reference number (optional)',
+            }
+        ),
+    )
+
     class Meta:
         model = SpecialOrder
-
         fields = [
             'event_type',
             'event_date',
@@ -229,21 +235,18 @@ class SpecialOrderForm(forms.ModelForm):
                     'class': 'form-select',
                 }
             ),
-
             'event_date': forms.DateInput(
                 attrs={
                     'class': 'form-control',
                     'type': 'date',
                 }
             ),
-
             'pickup_time': forms.TimeInput(
                 attrs={
                     'class': 'form-control',
                     'type': 'time',
                 }
             ),
-
             'notes': forms.Textarea(
                 attrs={
                     'class': 'form-control',
@@ -253,6 +256,22 @@ class SpecialOrderForm(forms.ModelForm):
             ),
         }
 
+    def clean(self):
+        cleaned_data = super().clean()
+
+        deposit_amount = (
+            cleaned_data.get('deposit_amount') or 0
+        )
+        deposit_method = cleaned_data.get('deposit_method')
+
+        if deposit_amount > 0 and not deposit_method:
+            self.add_error(
+                'deposit_method',
+                'Please select a payment method for the deposit.',
+            )
+
+        return cleaned_data
+
 
 class SpecialOrderItemForm(forms.Form):
 
@@ -260,9 +279,7 @@ class SpecialOrderItemForm(forms.Form):
         queryset=Product.objects.filter(
             is_available=True
         ).order_by('name'),
-
         empty_label="Select Product",
-
         widget=forms.Select(
             attrs={
                 'class': 'form-select special-order-product',
@@ -274,7 +291,6 @@ class SpecialOrderItemForm(forms.Form):
         min_value=0.01,
         max_digits=10,
         decimal_places=2,
-
         widget=forms.NumberInput(
             attrs={
                 'class': 'form-control special-order-quantity',
@@ -287,7 +303,6 @@ class SpecialOrderItemForm(forms.Form):
 
     customization = forms.CharField(
         required=False,
-
         widget=forms.Textarea(
             attrs={
                 'class': 'form-control special-order-customization',
@@ -304,7 +319,6 @@ class RecipeForm(forms.ModelForm):
 
     class Meta:
         model = Recipe
-
         fields = [
             'product',
             'description',
@@ -316,7 +330,6 @@ class RecipeForm(forms.ModelForm):
                     'class': 'form-select',
                 }
             ),
-
             'description': forms.Textarea(
                 attrs={
                     'class': 'form-control',
@@ -329,7 +342,6 @@ class RecipeForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-
         super().__init__(*args, **kwargs)
 
         self.fields['product'].queryset = Product.objects.filter(
@@ -338,15 +350,14 @@ class RecipeForm(forms.ModelForm):
 
         self.fields['product'].empty_label = "Select Product"
 
+
 class RecipeIngredientForm(forms.Form):
 
     ingredient = forms.ModelChoiceField(
         queryset=Ingredient.objects.filter(
             is_active=True
         ).order_by('name'),
-
         empty_label="Select Ingredient",
-
         widget=forms.Select(
             attrs={
                 'class': 'form-select recipe-ingredient',
@@ -358,7 +369,6 @@ class RecipeIngredientForm(forms.Form):
         min_value=0.001,
         max_digits=10,
         decimal_places=3,
-
         widget=forms.NumberInput(
             attrs={
                 'class': 'form-control recipe-quantity',
@@ -368,6 +378,7 @@ class RecipeIngredientForm(forms.Form):
             }
         ),
     )
+
 
 User = get_user_model()
 
@@ -401,34 +412,27 @@ class StaffCreateForm(forms.ModelForm):
                     'placeholder': 'Enter username',
                 }
             ),
-
             'first_name': forms.TextInput(
                 attrs={
                     'placeholder': 'Enter first name',
                 }
             ),
-
             'last_name': forms.TextInput(
                 attrs={
                     'placeholder': 'Enter last name',
                 }
             ),
-
             'email': forms.EmailInput(
                 attrs={
                     'placeholder': 'Enter email address',
                 }
             ),
-
             'role': forms.Select(),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Owner creates staff accounts.
-        # Do not allow another Owner to be created
-        # through this staff form.
         self.fields['role'].choices = [
             (
                 User.Role.CASHIER,
@@ -450,7 +454,7 @@ class StaffCreateForm(forms.ModelForm):
             if password != confirm_password:
                 self.add_error(
                     'confirm_password',
-                    'Passwords do not match.'
+                    'Passwords do not match.',
                 )
 
         return cleaned_data
@@ -468,6 +472,8 @@ class StaffCreateForm(forms.ModelForm):
             user.save()
 
         return user
+
+
 class StaffEditForm(forms.ModelForm):
 
     class Meta:
@@ -487,35 +493,28 @@ class StaffEditForm(forms.ModelForm):
                     'placeholder': 'Enter username',
                 }
             ),
-
             'first_name': forms.TextInput(
                 attrs={
                     'placeholder': 'Enter first name',
                 }
             ),
-
             'last_name': forms.TextInput(
                 attrs={
                     'placeholder': 'Enter last name',
                 }
             ),
-
             'email': forms.EmailInput(
                 attrs={
                     'placeholder': 'Enter email address',
                 }
             ),
-
             'role': forms.Select(),
-
             'is_active': forms.CheckboxInput(),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Staff management allows only staff roles.
-        # Owner accounts are not changed through this form.
         self.fields['role'].choices = [
             (
                 User.Role.CASHIER,
@@ -526,6 +525,7 @@ class StaffEditForm(forms.ModelForm):
                 User.Role.PRODUCTION_MANAGER.label,
             ),
         ]
+
 
 class IngredientForm(forms.ModelForm):
 
@@ -547,13 +547,11 @@ class IngredientForm(forms.ModelForm):
                     'placeholder': 'Enter ingredient name',
                 }
             ),
-
             'unit': forms.Select(
                 attrs={
                     'class': 'form-select',
                 }
             ),
-
             'current_stock': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
@@ -562,7 +560,6 @@ class IngredientForm(forms.ModelForm):
                     'placeholder': 'Enter current stock',
                 }
             ),
-
             'minimum_stock': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
@@ -571,7 +568,6 @@ class IngredientForm(forms.ModelForm):
                     'placeholder': 'Enter minimum stock',
                 }
             ),
-
             'cost_per_unit': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
@@ -580,7 +576,6 @@ class IngredientForm(forms.ModelForm):
                     'placeholder': 'Enter cost per unit',
                 }
             ),
-
             'is_active': forms.CheckboxInput(
                 attrs={
                     'class': 'form-check-input',
@@ -588,51 +583,51 @@ class IngredientForm(forms.ModelForm):
             ),
         }
 
+
 class StockMovementForm(forms.ModelForm):
 
     class Meta:
         model = StockMovement
-
         fields = [
-            "ingredient",
-            "movement_type",
-            "quantity",
-            "note",
+            'ingredient',
+            'movement_type',
+            'quantity',
+            'note',
         ]
 
         widgets = {
-            "ingredient": forms.Select(
+            'ingredient': forms.Select(
                 attrs={
-                    "class": "form-select",
+                    'class': 'form-select',
                 }
             ),
-            "movement_type": forms.Select(
+            'movement_type': forms.Select(
                 attrs={
-                    "class": "form-select",
+                    'class': 'form-select',
                 }
             ),
-            "quantity": forms.NumberInput(
+            'quantity': forms.NumberInput(
                 attrs={
-                    "class": "form-control",
-                    "step": "0.001",
-                    "min": "0.001",
-                    "placeholder": "Enter quantity",
+                    'class': 'form-control',
+                    'step': '0.001',
+                    'min': '0.001',
+                    'placeholder': 'Enter quantity',
                 }
             ),
-            "note": forms.Textarea(
+            'note': forms.Textarea(
                 attrs={
-                    "class": "form-control",
-                    "rows": 3,
-                    "placeholder": "Optional note",
+                    'class': 'form-control',
+                    'rows': 3,
+                    'placeholder': 'Optional note',
                 }
             ),
         }
+
 
 class BusinessSettingsForm(forms.ModelForm):
 
     class Meta:
         model = BusinessSettings
-
         fields = [
             'business_name',
             'phone',
@@ -648,21 +643,18 @@ class BusinessSettingsForm(forms.ModelForm):
                     'placeholder': 'Enter bakery name',
                 }
             ),
-
             'phone': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Enter phone number',
                 }
             ),
-
             'email': forms.EmailInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Enter email address',
                 }
             ),
-
             'address': forms.Textarea(
                 attrs={
                     'class': 'form-control',
@@ -670,7 +662,6 @@ class BusinessSettingsForm(forms.ModelForm):
                     'placeholder': 'Enter bakery address',
                 }
             ),
-
             'logo': forms.ClearableFileInput(
                 attrs={
                     'class': 'form-control',

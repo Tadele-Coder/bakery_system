@@ -84,35 +84,37 @@ from .models import (
 )
 
 
+@transaction.atomic
 def deduct_production_stock(production, user):
     """
-    Deduct ingredient stock based on the actual quantities
-    produced in a completed production.
+    Safely deduct ingredient stock for a production.
 
-    This function:
-    - Checks that stock has not already been deducted.
-    - Calculates all required ingredient quantities.
-    - Checks that enough stock is available.
-    - Deducts ingredient stock.
-    - Creates StockMovement records for ingredients used.
-    - Records the user who completed the production.
-    - Marks the production as stock-deducted.
+    Protects against duplicate deductions, checks all required
+    ingredients before changing stock, and records stock movements.
     """
+
+    # Lock the production record so concurrent requests cannot
+    # independently process the same production.
+    production = Production.objects.select_for_update().get(
+        pk=production.pk
+    )
 
     if production.stock_deducted:
         return
 
-    # ---------------------------------------------------------
-    # First pass:
-    # Calculate all required ingredients.
-    # ---------------------------------------------------------
+    if production.status != Production.Status.IN_PROGRESS:
+        raise ValidationError(
+            "Only in-progress production can deduct ingredient stock."
+        )
 
-    required_ingredients = {}
+    items = list(
+        production.items.select_related("product").all()
+    )
 
-    for item in production.items.select_related(
-        "product"
-    ).all():
+    required_quantities = {}
 
+    # Calculate the total quantity required for each ingredient.
+    for item in items:
         actual_quantity = item.actual_quantity
 
         if actual_quantity <= 0:
@@ -120,47 +122,56 @@ def deduct_production_stock(production, user):
 
         try:
             recipe = item.product.recipe
-
         except Recipe.DoesNotExist:
             raise ValidationError(
                 f"{item.product.name} does not have a recipe. "
-                f"Please create a recipe before completing this production."
+                "Create a recipe before completing production."
             )
 
-        for recipe_item in recipe.ingredients.select_related(
+        recipe_items = recipe.ingredients.select_related(
             "ingredient"
-        ).all():
+        ).all()
 
-            ingredient = recipe_item.ingredient
-
-            required_quantity = (
-                recipe_item.quantity * actual_quantity
+        if not recipe_items.exists():
+            raise ValidationError(
+                f"The recipe for {item.product.name} has no ingredients."
             )
 
-            if ingredient.id not in required_ingredients:
+        for recipe_item in recipe_items:
+            ingredient_id = recipe_item.ingredient_id
+            quantity = recipe_item.quantity * actual_quantity
 
-                required_ingredients[ingredient.id] = {
-                    "ingredient": ingredient,
-                    "quantity": required_quantity,
-                }
+            required_quantities[ingredient_id] = (
+                required_quantities.get(
+                    ingredient_id,
+                    Decimal("0.000"),
+                ) + quantity
+            )
 
-            else:
+    if not required_quantities:
+        raise ValidationError(
+            "No ingredient quantities were calculated for this production."
+        )
 
-                required_ingredients[
-                    ingredient.id
-                ]["quantity"] += required_quantity
+    # Lock all required ingredients in a consistent order.
+    # This helps prevent concurrent stock deductions from overspending stock.
+    ingredients = {
+        ingredient.pk: ingredient
+        for ingredient in Ingredient.objects.select_for_update()
+        .filter(pk__in=required_quantities.keys())
+        .order_by("pk")
+    }
 
-    # ---------------------------------------------------------
-    # Check stock before changing anything.
-    # ---------------------------------------------------------
+    if len(ingredients) != len(required_quantities):
+        raise ValidationError(
+            "One or more required ingredients could not be found."
+        )
 
-    for data in required_ingredients.values():
-
-        ingredient = data["ingredient"]
-        required_quantity = data["quantity"]
+    # Validate every ingredient before changing any stock.
+    for ingredient_id, required_quantity in required_quantities.items():
+        ingredient = ingredients[ingredient_id]
 
         if ingredient.current_stock < required_quantity:
-
             raise ValidationError(
                 f"Insufficient stock for {ingredient.name}. "
                 f"Available: {ingredient.current_stock} "
@@ -169,72 +180,42 @@ def deduct_production_stock(production, user):
                 f"{ingredient.get_unit_display()}."
             )
 
-    # ---------------------------------------------------------
-    # Build a description of the products produced.
-    # ---------------------------------------------------------
-
-    production_items = []
-
-    for item in production.items.select_related("product").all():
-
-        if item.actual_quantity > 0:
-
-            production_items.append(
-                f"{item.product.name} ({item.actual_quantity})"
-            )
-
-    if production_items:
-
-        production_description = ", ".join(
-            production_items
-        )
-
-    else:
-
-        production_description = "Production"
-
-    # ---------------------------------------------------------
-    # Second pass:
-    # Deduct stock and create movement records.
-    # ---------------------------------------------------------
-
-    for data in required_ingredients.values():
-
-        ingredient = data["ingredient"]
-        required_quantity = data["quantity"]
-
-        ingredient.current_stock -= required_quantity
-
-        ingredient.save(
-            update_fields=[
-                "current_stock",
-                "updated_at",
-            ]
-        )
-
-        StockMovement.objects.create(
-        ingredient=ingredient,
-        production=production,
-        movement_type=StockMovement.MovementType.USED,
-        quantity=required_quantity,
-        note=(
-            f"Used for Production #{production.id} - "
-            f"{production_description}"
-        ),
-        created_by=user,
+    production_description = ", ".join(
+        f"{item.product.name} ({item.actual_quantity})"
+        for item in items
+        if item.actual_quantity > 0
     )
 
-    # ---------------------------------------------------------
-    # Mark production as stock deducted.
-    # ---------------------------------------------------------
+    # Deduct stock and create movement records atomically.
+    movements = []
+
+    for ingredient_id, required_quantity in required_quantities.items():
+        ingredient = ingredients[ingredient_id]
+
+        ingredient.current_stock -= required_quantity
+        ingredient.save(
+            update_fields=["current_stock", "updated_at"]
+        )
+
+        movements.append(
+            StockMovement(
+                ingredient=ingredient,
+                production=production,
+                movement_type=StockMovement.MovementType.USED,
+                quantity=required_quantity,
+                note=(
+                    f"Used for Production #{production.id} - "
+                    f"{production_description}"
+                ),
+                created_by=user,
+            )
+        )
+
+    StockMovement.objects.bulk_create(movements)
 
     production.stock_deducted = True
-
     production.save(
-        update_fields=[
-            "stock_deducted",
-            "updated_at",
-        ]
+        update_fields=["stock_deducted", "updated_at"]
     )
 
 def home(request):
@@ -292,6 +273,7 @@ def dashboard(request):
 
     return redirect('home')
 
+
 def owner_dashboard(request):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -301,27 +283,89 @@ def owner_dashboard(request):
 
     today = timezone.localdate()
 
-    outstanding_payment_total = 0
+    # ---------------------------------------------------------
+    # OUTSTANDING BALANCES FROM REGULAR SALES
+    # ---------------------------------------------------------
 
-    outstanding_sales = Sale.objects.filter(
-        payment_status__in=[
-            Sale.PaymentStatus.UNPAID,
-            Sale.PaymentStatus.PARTIAL,
-        ]
+    outstanding_sales = Sale.objects.exclude(
+        payment_status=Sale.PaymentStatus.PAID
     ).prefetch_related('payments')
+
+    outstanding_sales_amount = Decimal('0.00')
 
     for sale in outstanding_sales:
         paid_amount = sum(
-            payment.amount
-            for payment in sale.payments.all()
+            (
+                payment.amount
+                for payment in sale.payments.all()
+                if payment.status == Payment.Status.PAID
+            ),
+            Decimal('0.00')
         )
 
-        outstanding_payment_total += (
-            sale.total_amount - paid_amount
-        )
+        remaining_amount = sale.total_amount - paid_amount
+
+        if remaining_amount > 0:
+            outstanding_sales_amount += remaining_amount
 
     # ---------------------------------------------------------
-    # Ingredient Stock Summary
+    # OUTSTANDING BALANCES FROM SPECIAL ORDERS
+    # ---------------------------------------------------------
+
+    special_orders = SpecialOrder.objects.exclude(
+        status=SpecialOrder.Status.CANCELLED
+    ).prefetch_related('payments')
+
+    outstanding_special_orders_amount = Decimal('0.00')
+
+    for special_order in special_orders:
+        paid_payments = [
+            payment
+            for payment in special_order.payments.all()
+            if payment.status == Payment.Status.PAID
+        ]
+
+        paid_amount = sum(
+            (payment.amount for payment in paid_payments),
+            Decimal('0.00')
+        )
+
+        # Check whether the deposit has already been recorded
+        # as a separate paid payment.
+        deposit_payment_recorded = any(
+            (payment.notes or '').startswith(
+                f"Deposit for special order "
+                f"{special_order.order_number}"
+            )
+            for payment in paid_payments
+        )
+
+        # Include saved deposits that do not have a separate
+        # payment transaction, without counting them twice.
+        if (
+            special_order.deposit_amount > 0
+            and not deposit_payment_recorded
+        ):
+            paid_amount += special_order.deposit_amount
+
+        remaining_amount = (
+            special_order.total_amount - paid_amount
+        )
+
+        if remaining_amount > 0:
+            outstanding_special_orders_amount += remaining_amount
+
+    # ---------------------------------------------------------
+    # COMBINED OUTSTANDING BALANCE
+    # ---------------------------------------------------------
+
+    outstanding_payment_total = (
+        outstanding_sales_amount
+        + outstanding_special_orders_amount
+    )
+
+    # ---------------------------------------------------------
+    # INGREDIENT STOCK SUMMARY
     # ---------------------------------------------------------
 
     active_ingredients = Ingredient.objects.filter(
@@ -338,6 +382,10 @@ def owner_dashboard(request):
     out_of_stock_count = active_ingredients.filter(
         current_stock__lte=0
     ).count()
+
+    # ---------------------------------------------------------
+    # DASHBOARD CONTEXT
+    # ---------------------------------------------------------
 
     context = {
         'product_count': Product.objects.filter(
@@ -365,6 +413,7 @@ def owner_dashboard(request):
         'bekapp/owner_dashboard.html',
         context
     )
+
 
 def production_dashboard(request):
 
@@ -710,19 +759,19 @@ def production_start(request, production_id):
     )
 
 
-def production_complete(request, production_id):
 
+def production_complete(request, production_id):
     if not request.user.is_authenticated:
         return redirect("login")
 
     if request.user.role != "PRODUCTION_MANAGER":
         return redirect("dashboard")
 
-    production = Production.objects.prefetch_related(
+    production = Production.objects.select_related(
+        "special_order"
+    ).prefetch_related(
         "items__product__recipe__ingredients__ingredient"
-    ).get(
-        id=production_id
-    )
+    ).get(id=production_id)
 
     if production.status != Production.Status.IN_PROGRESS:
         return redirect(
@@ -731,64 +780,59 @@ def production_complete(request, production_id):
         )
 
     if request.method == "POST":
-
         try:
-
             with transaction.atomic():
 
-                # -------------------------------------------------
-                # Validate and update actual production quantities
-                # -------------------------------------------------
+                # Lock and refresh the production record.
+                production = Production.objects.select_for_update().get(
+                    pk=production_id
+                )
 
-                for item in production.items.all():
+                if production.status != Production.Status.IN_PROGRESS:
+                    raise ValidationError(
+                        "This production is no longer in progress."
+                    )
 
+                items = list(
+                    production.items.select_related("product").all()
+                )
+
+                # Validate and save actual production quantities.
+                for item in items:
                     actual_quantity = request.POST.get(
                         f"actual_quantity_{item.id}"
                     )
 
                     item_notes = request.POST.get(
-                        f"item_notes_{item.id}",
-                        "",
+                        f"item_notes_{item.id}", ""
                     ).strip()
 
-                    # Actual quantity is required.
                     if actual_quantity in (None, ""):
-
                         raise ValidationError(
-                            f"Please enter the actual quantity for "
-                            f"{item.product.name}."
+                            f"Please enter the actual quantity "
+                            f"for {item.product.name}."
                         )
 
-                    # Convert to Decimal for reliable validation.
                     from decimal import Decimal, InvalidOperation
 
                     try:
-
-                        actual_quantity = Decimal(
-                            actual_quantity
-                        )
-
+                        actual_quantity = Decimal(actual_quantity)
                     except (InvalidOperation, ValueError):
-
                         raise ValidationError(
                             f"Invalid actual quantity for "
                             f"{item.product.name}."
                         )
 
-                    # Quantity cannot be negative.
-                    if actual_quantity < 0:
-
+                    if not actual_quantity.is_finite():
                         raise ValidationError(
-                            f"Actual quantity for "
-                            f"{item.product.name} cannot be negative."
+                            f"Invalid actual quantity for "
+                            f"{item.product.name}."
                         )
 
-                    # Quantity must be greater than zero.
                     if actual_quantity <= 0:
-
                         raise ValidationError(
-                            f"Actual quantity for "
-                            f"{item.product.name} must be greater than zero."
+                            f"Actual quantity for {item.product.name} "
+                            f"must be greater than zero."
                         )
 
                     item.actual_quantity = actual_quantity
@@ -801,19 +845,10 @@ def production_complete(request, production_id):
                         ]
                     )
 
-                # -------------------------------------------------
-                # Deduct ingredient stock
-                # -------------------------------------------------
+                # Deduct ingredient stock safely.
+                deduct_production_stock(production, request.user)
 
-                deduct_production_stock(
-                    production,
-                    request.user,
-                )
-
-                # -------------------------------------------------
-                # Complete production
-                # -------------------------------------------------
-
+                # Mark production as completed.
                 production.status = Production.Status.COMPLETED
                 production.completed_at = timezone.now()
 
@@ -825,12 +860,36 @@ def production_complete(request, production_id):
                     ]
                 )
 
+                # Automatically mark the linked special order READY.
+                if production.special_order_id:
+                    special_order = (
+                        SpecialOrder.objects.select_for_update().get(
+                            pk=production.special_order_id
+                        )
+                    )
+
+                    if (
+                        special_order.status
+                        == SpecialOrder.Status.IN_PRODUCTION
+                    ):
+                        special_order.status = (
+                            SpecialOrder.Status.READY
+                        )
+
+                        special_order.save(
+                            update_fields=[
+                                "status",
+                                "updated_at",
+                            ]
+                        )
+
             return redirect(
                 "production_detail",
                 production_id=production.id,
             )
 
         except ValidationError as error:
+            production.refresh_from_db()
 
             return render(
                 request,
@@ -848,6 +907,7 @@ def production_complete(request, production_id):
             "production": production,
         },
     )
+
 
 def production_cancel(request, production_id):
     if not request.user.is_authenticated:
@@ -914,6 +974,7 @@ def production_detail(request, production_id):
         }
     )
 
+
 def cashier_dashboard(request):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -923,33 +984,91 @@ def cashier_dashboard(request):
 
     today = timezone.localdate()
 
+    # Today's sales
     today_sales_count = Sale.objects.filter(
         sale_date__date=today
     ).count()
 
+    # Today's payments
     today_payments = Payment.objects.filter(
         payment_date__date=today
     )
 
     today_payment_count = today_payments.count()
 
+    # Payments successfully received today
     completed_payment_count = Payment.objects.filter(
-    payment_date__date=today,
-    status=Payment.Status.PAID
+        payment_date__date=today,
+        status=Payment.Status.PAID
     ).count()
-    outstanding_amount = sum(
-        (
-            sale.total_amount -
-            sum(
+
+    # Outstanding balances from regular sales
+    outstanding_sales = Sale.objects.exclude(
+        payment_status=Sale.PaymentStatus.PAID
+    ).prefetch_related('payments')
+
+    outstanding_sales_amount = Decimal('0.00')
+
+    for sale in outstanding_sales:
+        paid_amount = sum(
+            (
                 payment.amount
-                for payment in sale.payments.filter(
-                    status=Payment.Status.PAID
-                )
+                for payment in sale.payments.all()
+                if payment.status == Payment.Status.PAID
+            ),
+            Decimal('0.00')
+        )
+
+        remaining_amount = sale.total_amount - paid_amount
+
+        if remaining_amount > 0:
+            outstanding_sales_amount += remaining_amount
+
+    # Outstanding balances from special orders
+    special_orders = SpecialOrder.objects.exclude(
+        status=SpecialOrder.Status.CANCELLED
+    ).prefetch_related('payments')
+
+    outstanding_special_orders_amount = Decimal('0.00')
+
+    for special_order in special_orders:
+        paid_payments = [
+            payment
+            for payment in special_order.payments.all()
+            if payment.status == Payment.Status.PAID
+        ]
+
+        paid_amount = sum(
+            (payment.amount for payment in paid_payments),
+            Decimal('0.00')
+        )
+
+        # Support older orders whose deposit was saved on the order
+        # but was not recorded as a separate Payment transaction.
+        deposit_payment_recorded = any(
+            (payment.notes or '').startswith(
+                f"Deposit for special order {special_order.order_number}"
             )
+            for payment in paid_payments
         )
-        for sale in Sale.objects.exclude(
-            payment_status=Sale.PaymentStatus.PAID
+
+        if (
+            special_order.deposit_amount > 0
+            and not deposit_payment_recorded
+        ):
+            paid_amount += special_order.deposit_amount
+
+        remaining_amount = (
+            special_order.total_amount - paid_amount
         )
+
+        if remaining_amount > 0:
+            outstanding_special_orders_amount += remaining_amount
+
+    # Combined outstanding balance
+    outstanding_amount = (
+        outstanding_sales_amount
+        + outstanding_special_orders_amount
     )
 
     context = {
@@ -964,6 +1083,7 @@ def cashier_dashboard(request):
         'bekapp/cashier_dashboard.html',
         context
     )
+
 
 def sale_create(request):
 
@@ -1327,6 +1447,7 @@ def payment_create(request, sale_id):
         }
     )
 
+
 def payment_list(request):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -1339,6 +1460,7 @@ def payment_list(request):
 
     payments = Payment.objects.select_related(
         'sale',
+        'special_order',
         'recorded_by',
     ).all()
 
@@ -1367,6 +1489,7 @@ def payment_list(request):
         }
     )
 
+
 def special_order_list(request):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -1387,18 +1510,17 @@ def special_order_list(request):
         }
     )
 
+
 def payment_history(request):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    if request.user.role not in [
-        'OWNER',
-        'CASHIER'
-    ]:
+    if request.user.role not in ['OWNER', 'CASHIER']:
         return redirect('dashboard')
 
     payments = Payment.objects.select_related(
         'sale',
+        'special_order',
         'recorded_by',
     ).order_by(
         '-payment_date'
@@ -1412,15 +1534,20 @@ def payment_history(request):
         }
     )
 
+
 def outstanding_payments(request):
     if not request.user.is_authenticated:
         return redirect('login')
 
     if request.user.role not in [
         'OWNER',
-        'CASHIER'
+        'CASHIER',
     ]:
         return redirect('dashboard')
+
+    # ==========================================
+    # REGULAR SALES OUTSTANDING PAYMENTS
+    # ==========================================
 
     sales = Sale.objects.prefetch_related(
         'payments'
@@ -1434,10 +1561,12 @@ def outstanding_payments(request):
 
     for sale in sales:
         paid_amount = sum(
-            payment.amount
-            for payment in sale.payments.filter(
-                status=Payment.Status.PAID
-            )
+            (
+                payment.amount
+                for payment in sale.payments.all()
+                if payment.status == Payment.Status.PAID
+            ),
+            Decimal('0.00'),
         )
 
         remaining_amount = sale.total_amount - paid_amount
@@ -1449,13 +1578,77 @@ def outstanding_payments(request):
                 'remaining_amount': remaining_amount,
             })
 
+    # ==========================================
+    # SPECIAL ORDER OUTSTANDING PAYMENTS
+    # ==========================================
+
+    special_orders = SpecialOrder.objects.exclude(
+        status=SpecialOrder.Status.CANCELLED
+    ).select_related(
+        'customer',
+        'created_by',
+    ).prefetch_related(
+        'payments'
+    ).order_by(
+        '-created_at'
+    )
+
+    outstanding_special_orders = []
+
+    for special_order in special_orders:
+        payments = list(special_order.payments.all())
+
+        paid_payments = [
+            payment
+            for payment in payments
+            if payment.status == Payment.Status.PAID
+        ]
+
+        paid_amount = sum(
+            (
+                payment.amount
+                for payment in paid_payments
+            ),
+            Decimal('0.00'),
+        )
+
+        # Support older orders whose deposit was stored on the
+        # order but not yet recorded as a Payment.
+        deposit_payment_recorded = any(
+            payment.notes.startswith(
+                f"Deposit for special order {special_order.order_number}"
+            )
+            for payment in paid_payments
+        )
+
+        if (
+            special_order.deposit_amount > 0
+            and not deposit_payment_recorded
+        ):
+            paid_amount += special_order.deposit_amount
+
+        remaining_amount = (
+            special_order.total_amount - paid_amount
+        )
+
+        if remaining_amount > 0:
+            outstanding_special_orders.append({
+                'special_order': special_order,
+                'paid_amount': paid_amount,
+                'remaining_amount': remaining_amount,
+            })
+
     return render(
         request,
         'bekapp/outstanding_payments.html',
         {
             'outstanding_sales': outstanding_sales,
+            'outstanding_special_orders': (
+                outstanding_special_orders
+            ),
         }
     )
+
 
 def sale_list(request):
     if not request.user.is_authenticated:
@@ -1579,107 +1772,220 @@ def special_order_confirm(request, special_order_id):
         special_order_id=special_order.id
     )
 
-
 def special_order_start_production(request, special_order_id):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    if request.user.role not in [
-        'OWNER',
-        'PRODUCTION_MANAGER'
-    ]:
+    if request.user.role not in ['OWNER', 'PRODUCTION_MANAGER']:
         return redirect('dashboard')
 
-    special_order = SpecialOrder.objects.get(
-        id=special_order_id
-    )
-
-    if special_order.status != SpecialOrder.Status.CONFIRMED:
+    if request.method != 'POST':
         return redirect(
             'special_order_detail',
-            special_order_id=special_order.id
+            special_order_id=special_order_id,
         )
 
-    special_order.status = SpecialOrder.Status.IN_PRODUCTION
-    special_order.save(update_fields=['status', 'updated_at'])
+    with transaction.atomic():
+        special_order = SpecialOrder.objects.select_for_update().get(
+            id=special_order_id
+        )
+
+        if special_order.status != SpecialOrder.Status.CONFIRMED:
+            return redirect(
+                'special_order_detail',
+                special_order_id=special_order.id,
+            )
+
+        # Reuse an existing linked production record if one exists.
+        production = Production.objects.filter(
+            special_order=special_order
+        ).first()
+
+        if production is None:
+            order_items = list(special_order.items.select_related('product'))
+
+            if not order_items:
+                raise ValidationError(
+                    "Cannot start production because this special order "
+                    "has no items."
+                )
+
+            production = Production.objects.create(
+                production_date=timezone.localdate(),
+                status=Production.Status.IN_PROGRESS,
+                special_order=special_order,
+                created_by=request.user,
+                started_at=timezone.now(),
+                notes=f"Production for special order "
+                      f"{special_order.order_number}",
+            )
+
+            for order_item in order_items:
+                ProductionItem.objects.create(
+                    production=production,
+                    product=order_item.product,
+                    planned_quantity=order_item.quantity,
+                    actual_quantity=0,
+                    notes=order_item.customization,
+                )
+
+        else:
+            # Do not restart completed, cancelled, or already
+            # in-progress production.
+            if production.status != Production.Status.PLANNED:
+                return redirect(
+                    'special_order_detail',
+                    special_order_id=special_order.id,
+                )
+
+            production.status = Production.Status.IN_PROGRESS
+            production.started_at = timezone.now()
+            production.save(
+                update_fields=[
+                    'status',
+                    'started_at',
+                    'updated_at',
+                ]
+            )
+
+        special_order.status = SpecialOrder.Status.IN_PRODUCTION
+        special_order.save(update_fields=['status', 'updated_at'])
 
     return redirect(
-        'special_order_detail',
-        special_order_id=special_order.id
+        'production_detail',
+        production_id=production.id,
     )
+
 
 def special_order_mark_ready(request, special_order_id):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    if request.user.role not in [
-        'OWNER',
-        'PRODUCTION_MANAGER'
-    ]:
+    if request.user.role not in ['OWNER', 'PRODUCTION_MANAGER']:
         return redirect('dashboard')
+
+    if request.method != 'POST':
+        return redirect(
+            'special_order_detail',
+            special_order_id=special_order_id,
+        )
 
     special_order = SpecialOrder.objects.get(
         id=special_order_id
     )
 
+    # Production completion automatically marks the order READY.
+    # Never allow this view to bypass production completion.
     if special_order.status != SpecialOrder.Status.IN_PRODUCTION:
         return redirect(
             'special_order_detail',
-            special_order_id=special_order.id
+            special_order_id=special_order.id,
         )
 
-    if request.method == 'POST':
+    production = Production.objects.filter(
+        special_order=special_order
+    ).first()
 
-        special_order.status = SpecialOrder.Status.READY
-
-        special_order.save(
-            update_fields=[
-                'status',
-                'updated_at',
-            ]
+    if (
+        production is None
+        or production.status != Production.Status.COMPLETED
+        or not production.stock_deducted
+    ):
+        return redirect(
+            'special_order_detail',
+            special_order_id=special_order.id,
         )
+
+    special_order.status = SpecialOrder.Status.READY
+    special_order.save(
+        update_fields=['status', 'updated_at']
+    )
 
     return redirect(
         'special_order_detail',
-        special_order_id=special_order.id
+        special_order_id=special_order.id,
     )
+
 
 
 def special_order_complete(request, special_order_id):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    if request.user.role not in [
-        'OWNER',
-        'CASHIER'
-    ]:
+    if request.user.role not in ['OWNER', 'CASHIER']:
         return redirect('dashboard')
 
-    special_order = SpecialOrder.objects.get(
-        id=special_order_id
-    )
-
-    if special_order.status != SpecialOrder.Status.READY:
+    if request.method != 'POST':
         return redirect(
             'special_order_detail',
-            special_order_id=special_order.id
+            special_order_id=special_order_id
         )
 
-    if request.method == 'POST':
+    with transaction.atomic():
+        special_order = get_object_or_404(
+            SpecialOrder.objects.select_for_update(),
+            id=special_order_id
+        )
+
+        # Only Ready orders can be completed.
+        if special_order.status != SpecialOrder.Status.READY:
+            return redirect(
+                'special_order_detail',
+                special_order_id=special_order.id
+            )
+
+        # Calculate actual successful payments.
+        paid_payments = list(
+            Payment.objects.filter(
+                special_order=special_order,
+                status=Payment.Status.PAID
+            )
+        )
+
+        paid_amount = sum(
+            (payment.amount for payment in paid_payments),
+            Decimal('0.00')
+        )
+
+        # Include a legacy deposit only if its payment record is missing.
+        deposit_note = (
+            f"Deposit for special order {special_order.order_number}"
+        )
+
+        deposit_recorded = any(
+            (payment.notes or '').startswith(deposit_note)
+            for payment in paid_payments
+        )
+
+        if (
+            special_order.deposit_amount > 0
+            and not deposit_recorded
+        ):
+            paid_amount += special_order.deposit_amount
+
+        remaining_amount = max(
+            Decimal('0.00'),
+            special_order.total_amount - paid_amount
+        )
+
+        # Never complete an order with an outstanding balance.
+        if remaining_amount > 0:
+            return redirect(
+                'special_order_detail',
+                special_order_id=special_order.id
+            )
 
         special_order.status = SpecialOrder.Status.COMPLETED
 
         special_order.save(
-            update_fields=[
-                'status',
-                'updated_at',
-            ]
+            update_fields=['status', 'updated_at']
         )
 
     return redirect(
         'special_order_detail',
         special_order_id=special_order.id
     )
+
 
 def special_order_create(request):
     if not request.user.is_authenticated:
@@ -1688,7 +1994,7 @@ def special_order_create(request):
     if request.user.role not in [
         'OWNER',
         'CASHIER',
-        'PRODUCTION_MANAGER'
+        'PRODUCTION_MANAGER',
     ]:
         return redirect('dashboard')
 
@@ -1697,7 +2003,6 @@ def special_order_create(request):
     ).order_by('name')
 
     if request.method == 'POST':
-
         customer_form = CustomerForm(request.POST)
         order_form = SpecialOrderForm(request.POST)
 
@@ -1706,16 +2011,11 @@ def special_order_create(request):
         customizations = request.POST.getlist('customization')
 
         if customer_form.is_valid() and order_form.is_valid():
-
             item_data = []
             total_amount = Decimal('0.00')
 
             for index, product_id in enumerate(product_ids):
-
-                if not product_id:
-                    continue
-
-                if index >= len(quantities):
+                if not product_id or index >= len(quantities):
                     continue
 
                 quantity_value = quantities[index]
@@ -1728,22 +2028,25 @@ def special_order_create(request):
                 except (InvalidOperation, TypeError):
                     continue
 
-                if quantity <= 0:
+                if not quantity.is_finite() or quantity <= 0:
                     continue
 
                 try:
                     product = Product.objects.get(
                         id=product_id,
-                        is_available=True
+                        is_available=True,
                     )
-                except Product.DoesNotExist:
+                except (
+                    Product.DoesNotExist,
+                    ValueError,
+                    TypeError,
+                ):
                     continue
 
                 unit_price = product.price
                 total_price = unit_price * quantity
 
                 customization = ''
-
                 if index < len(customizations):
                     customization = customizations[index].strip()
 
@@ -1760,46 +2063,47 @@ def special_order_create(request):
             if not item_data:
                 order_form.add_error(
                     None,
-                    'Please add at least one product to the special order.'
+                    'Please add at least one valid product to the special order.',
                 )
 
             else:
-                deposit_amount = order_form.cleaned_data.get(
-                    'deposit_amount'
-                ) or Decimal('0.00')
+                deposit_amount = (
+                    order_form.cleaned_data.get('deposit_amount')
+                    or Decimal('0.00')
+                )
 
                 if deposit_amount > total_amount:
                     order_form.add_error(
                         'deposit_amount',
-                        'Deposit cannot be greater than the order total.'
+                        'Deposit cannot be greater than the order total.',
                     )
 
                 else:
                     with transaction.atomic():
-
                         customer = customer_form.save()
 
-                        special_order = order_form.save(
-                            commit=False
-                        )
-
+                        special_order = order_form.save(commit=False)
                         special_order.customer = customer
                         special_order.created_by = request.user
+                        special_order.total_amount = total_amount
 
-                        last_order = SpecialOrder.objects.order_by(
-                            '-id'
-                        ).first()
+                        # Generate a unique order number safely.
+                        last_order = (
+                            SpecialOrder.objects
+                            .select_for_update()
+                            .order_by('-id')
+                            .first()
+                        )
 
-                        if last_order:
-                            next_number = last_order.id + 1
-                        else:
-                            next_number = 1
+                        next_number = (
+                            last_order.id + 1
+                            if last_order
+                            else 1
+                        )
 
                         special_order.order_number = (
                             f"ORD-{next_number:04d}"
                         )
-
-                        special_order.total_amount = total_amount
 
                         special_order.save()
 
@@ -1813,9 +2117,30 @@ def special_order_create(request):
                                 customization=item['customization'],
                             )
 
+                        # Record the deposit as an actual payment.
+                        if deposit_amount > 0:
+                            Payment.objects.create(
+                                special_order=special_order,
+                                method=order_form.cleaned_data[
+                                    'deposit_method'
+                                ],
+                                amount=deposit_amount,
+                                reference_number=(
+                                    order_form.cleaned_data.get(
+                                        'deposit_reference_number'
+                                    ) or ''
+                                ).strip(),
+                                status=Payment.Status.PAID,
+                                notes=(
+                                    f"Deposit for special order "
+                                    f"{special_order.order_number}"
+                                ),
+                                recorded_by=request.user,
+                            )
+
                     return redirect(
                         'special_order_detail',
-                        special_order_id=special_order.id
+                        special_order_id=special_order.id,
                     )
 
     else:
@@ -1829,8 +2154,10 @@ def special_order_create(request):
             'customer_form': customer_form,
             'order_form': order_form,
             'products': products,
-        }
+        },
     )
+
+
 
 def special_order_detail(request, special_order_id):
     if not request.user.is_authenticated:
@@ -1843,18 +2170,164 @@ def special_order_detail(request, special_order_id):
     ]:
         return redirect('dashboard')
 
-    special_order = SpecialOrder.objects.select_related(
-        'customer',
-        'created_by'
-    ).prefetch_related(
-        'items__product'
-    ).get(
+    special_order = get_object_or_404(
+        SpecialOrder.objects.select_related(
+            'customer',
+            'created_by'
+        ).prefetch_related(
+            'items__product',
+            'payments',
+        ),
         id=special_order_id
     )
 
-    remaining_amount = (
-        special_order.total_amount
-        - special_order.deposit_amount
+    def calculate_paid_amount(order):
+        paid_payments = [
+            payment
+            for payment in order.payments.all()
+            if payment.status == Payment.Status.PAID
+        ]
+
+        paid = sum(
+            (payment.amount for payment in paid_payments),
+            Decimal('0.00')
+        )
+
+        # Support older orders with a deposit but no deposit Payment record.
+        deposit_recorded = any(
+            (payment.notes or '').startswith(
+                f"Deposit for special order {order.order_number}"
+            )
+            for payment in paid_payments
+        )
+
+        if order.deposit_amount > 0 and not deposit_recorded:
+            paid += order.deposit_amount
+
+        return paid
+
+    paid_amount = calculate_paid_amount(special_order)
+
+    remaining_amount = max(
+        Decimal('0.00'),
+        special_order.total_amount - paid_amount
+    )
+
+    payment_error = None
+
+    if request.method == 'POST' and 'record_special_order_payment' in request.POST:
+        if request.user.role not in ['OWNER', 'CASHIER']:
+            return redirect('dashboard')
+
+        if special_order.status != SpecialOrder.Status.READY:
+            payment_error = 'Payment can only be collected for orders marked Ready.'
+
+        elif remaining_amount <= 0:
+            payment_error = 'This order has already been fully paid.'
+
+        else:
+            amount_text = request.POST.get('payment_amount', '').strip()
+            method = request.POST.get('payment_method', '').strip()
+            reference_number = request.POST.get(
+                'reference_number', ''
+            ).strip()
+
+            try:
+                amount = Decimal(amount_text)
+            except (InvalidOperation, TypeError, ValueError):
+                amount = Decimal('0.00')
+
+            valid_methods = dict(Payment.Method.choices)
+
+            if not amount.is_finite() or amount <= 0:
+                payment_error = 'Enter a valid payment amount greater than zero.'
+
+            elif amount > remaining_amount:
+                payment_error = (
+                    f'Payment cannot exceed the remaining balance of '
+                    f'{remaining_amount:.2f} ETB.'
+                )
+
+            elif method not in valid_methods:
+                payment_error = 'Please select a valid payment method.'
+
+            else:
+                with transaction.atomic():
+                    locked_order = SpecialOrder.objects.select_for_update().get(
+                        pk=special_order.pk
+                    )
+
+                    existing_paid_payments = list(
+                        locked_order.payments.filter(
+                            status=Payment.Status.PAID
+                        )
+                    )
+
+                    current_paid = sum(
+                        (p.amount for p in existing_paid_payments),
+                        Decimal('0.00')
+                    )
+
+                    deposit_recorded = any(
+                        (p.notes or '').startswith(
+                            f"Deposit for special order "
+                            f"{locked_order.order_number}"
+                        )
+                        for p in existing_paid_payments
+                    )
+
+                    if (
+                        locked_order.deposit_amount > 0
+                        and not deposit_recorded
+                    ):
+                        current_paid += locked_order.deposit_amount
+
+                    current_balance = max(
+                        Decimal('0.00'),
+                        locked_order.total_amount - current_paid
+                    )
+
+                    if locked_order.status != SpecialOrder.Status.READY:
+                        payment_error = (
+                            'This order is no longer Ready for payment.'
+                        )
+
+                    elif current_balance <= 0:
+                        payment_error = 'This order has already been fully paid.'
+
+                    elif amount > current_balance:
+                        payment_error = (
+                            f'The remaining balance is now '
+                            f'{current_balance:.2f} ETB. Please check the amount.'
+                        )
+
+                    else:
+                        Payment.objects.create(
+                            special_order=locked_order,
+                            method=method,
+                            amount=amount,
+                            reference_number=reference_number,
+                            status=Payment.Status.PAID,
+                            notes=(
+                                f"Payment for special order "
+                                f"{locked_order.order_number}"
+                            ),
+                            recorded_by=request.user,
+                        )
+
+                if not payment_error:
+                    return redirect(
+                        'special_order_detail',
+                        special_order_id=special_order.pk
+                    )
+
+    # Recalculate after processing a POST.
+    special_order.refresh_from_db()
+    paid_amount = calculate_paid_amount(special_order)
+
+    remaining_amount = max(
+        Decimal('0.00'),
+        special_order.total_amount - paid_amount
     )
 
     return render(
@@ -1862,9 +2335,14 @@ def special_order_detail(request, special_order_id):
         'bekapp/special_order_detail.html',
         {
             'special_order': special_order,
+            'paid_amount': paid_amount,
             'remaining_amount': remaining_amount,
+            'payments': special_order.payments.all(),
+            'payment_methods': Payment.Method.choices,
+            'payment_error': payment_error,
         }
     )
+
 
 def recipe_list(request):
     if not request.user.is_authenticated:

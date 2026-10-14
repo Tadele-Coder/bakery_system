@@ -1,3 +1,4 @@
+
 {% extends 'bekapp/base.html' %}
 {% load static %}
 
@@ -41,7 +42,6 @@ Payments | Bakery Management
 
         </div>
 
-
         <div class="payment-table-card">
 
             {% if payments %}
@@ -53,7 +53,7 @@ Payments | Bakery Management
                         <thead>
                             <tr>
                                 <th>Date</th>
-                                <th>Sale</th>
+                                <th>Sale / Order</th>
                                 <th>Cashier</th>
                                 <th>Method</th>
                                 <th>Amount</th>
@@ -74,12 +74,22 @@ Payments | Bakery Management
 
                                     <td>
                                         <span class="payment-sale-number">
-                                            {{ payment.sale.sale_number }}
+                                            {% if payment.sale %}
+                                                {{ payment.sale.sale_number }}
+                                            {% elif payment.special_order %}
+                                                {{ payment.special_order.order_number }}
+                                            {% else %}
+                                                —
+                                            {% endif %}
                                         </span>
                                     </td>
 
                                     <td>
-                                        {{ payment.recorded_by.username }}
+                                        {% if payment.recorded_by %}
+                                            {{ payment.recorded_by.username }}
+                                        {% else %}
+                                            —
+                                        {% endif %}
                                     </td>
 
                                     <td>
@@ -139,7 +149,3 @@ Payments | Bakery Management
 </section>
 
 {% endblock %}
-
-
-
-

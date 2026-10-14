@@ -26,12 +26,14 @@ Outstanding Payments | Bakery Management
                     <h1>Outstanding Payments</h1>
 
                     <p>
-                        View sales with unpaid or partially paid balances.
+                        View sales and special orders with unpaid or partially paid balances.
                     </p>
                 </div>
 
                 <a
-                    href="{% url 'cashier_dashboard' %}"
+                   
+                    href="{% if request.user.role == 'OWNER' %}{% url 'owner_dashboard' %}{% elif request.user.role == 'CASHIER' %}{% url 'cashier_dashboard' %}{% else %}{% url 'dashboard' %}{% endif %}"
+
                     class="outstanding-back-button"
                 >
                     <i class="fas fa-arrow-left"></i>
@@ -43,7 +45,11 @@ Outstanding Payments | Bakery Management
         </div>
 
 
+        <!-- REGULAR SALES -->
+
         <div class="outstanding-payments-card">
+
+            <h2>Outstanding Sales</h2>
 
             {% if outstanding_sales %}
 
@@ -80,16 +86,16 @@ Outstanding Payments | Bakery Management
                                     </td>
 
                                     <td>
-                                        {{ item.sale.total_amount }} ETB
+                                        {{ item.sale.total_amount|floatformat:2 }} ETB
                                     </td>
 
                                     <td>
-                                        {{ item.paid_amount }} ETB
+                                        {{ item.paid_amount|floatformat:2 }} ETB
                                     </td>
 
                                     <td>
                                         <span class="outstanding-amount">
-                                            {{ item.remaining_amount }} ETB
+                                            {{ item.remaining_amount|floatformat:2 }} ETB
                                         </span>
                                     </td>
 
@@ -138,10 +144,138 @@ Outstanding Payments | Bakery Management
 
                     <i class="fas fa-circle-check"></i>
 
-                    <h3>No Outstanding Payments</h3>
+                    <h3>No Outstanding Sales</h3>
 
                     <p>
-                        All sales have been fully paid.
+                        All regular sales have been fully paid.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- SPECIAL ORDERS -->
+
+        <div class="outstanding-payments-card">
+
+            <h2>Outstanding Special Orders</h2>
+
+            {% if outstanding_special_orders %}
+
+                <div class="outstanding-table-wrapper">
+
+                    <table class="outstanding-table">
+
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Order Number</th>
+                                <th>Customer</th>
+                                <th>Event Date</th>
+                                <th>Total</th>
+                                <th>Paid</th>
+                                <th>Balance</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for item in outstanding_special_orders %}
+
+                                <tr>
+
+                                    <td>
+                                        {{ item.special_order.created_at|date:"Y-m-d H:i" }}
+                                    </td>
+
+                                    <td>
+                                        <span class="outstanding-sale-number">
+                                            {{ item.special_order.order_number }}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        {{ item.special_order.customer }}
+                                    </td>
+
+                                    <td>
+                                        {{ item.special_order.event_date|date:"Y-m-d" }}
+                                    </td>
+
+                                    <td>
+                                        {{ item.special_order.total_amount|floatformat:2 }} ETB
+                                    </td>
+
+                                    <td>
+                                        {{ item.paid_amount|floatformat:2 }} ETB
+                                    </td>
+
+                                    <td>
+                                        <span class="outstanding-amount">
+                                            {{ item.remaining_amount|floatformat:2 }} ETB
+                                        </span>
+                                    </td>
+
+                                    <td>
+
+                                        {% if item.special_order.status == 'CANCELLED' %}
+
+                                            <span class="outstanding-status unpaid">
+                                                Cancelled
+                                            </span>
+
+                                        {% elif item.paid_amount > 0 %}
+
+                                            <span class="outstanding-status partial">
+                                                Partially Paid
+                                            </span>
+
+                                        {% else %}
+
+                                            <span class="outstanding-status unpaid">
+                                                Unpaid
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+                                    <td>
+
+                                        <a
+                                            href="{% url 'special_order_detail' special_order_id=item.special_order.id %}"
+                                            class="outstanding-action-button"
+                                        >
+                                            View Order
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="outstanding-empty">
+
+                    <i class="fas fa-circle-check"></i>
+
+                    <h3>No Outstanding Special Orders</h3>
+
+                    <p>
+                        All special orders have been fully paid.
                     </p>
 
                 </div>

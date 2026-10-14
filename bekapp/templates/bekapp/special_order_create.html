@@ -1,3 +1,4 @@
+
 {% extends 'bekapp/base.html' %}
 {% load static %}
 
@@ -16,7 +17,6 @@ New Special Order | Bakery Management
 
 <div class="container special-orders-page">
 
-
     <!-- PAGE HEADER -->
 
     <div class="special-orders-header">
@@ -31,11 +31,9 @@ New Special Order | Bakery Management
 
     </div>
 
-
     <form method="post" id="special-order-form">
 
         {% csrf_token %}
-
 
         <!-- =====================================================
              CUSTOMER INFORMATION
@@ -51,11 +49,9 @@ New Special Order | Bakery Management
 
             </div>
 
-
             <div class="card-body">
 
                 <div class="row g-3">
-
 
                     <!-- CUSTOMER NAME -->
 
@@ -75,7 +71,6 @@ New Special Order | Bakery Management
 
                     </div>
 
-
                     <!-- PHONE -->
 
                     <div class="col-md-6">
@@ -93,7 +88,6 @@ New Special Order | Bakery Management
                         {% endif %}
 
                     </div>
-
 
                     <!-- EMAIL -->
 
@@ -113,7 +107,6 @@ New Special Order | Bakery Management
 
                     </div>
 
-
                     <!-- ADDRESS -->
 
                     <div class="col-md-6">
@@ -131,7 +124,6 @@ New Special Order | Bakery Management
                         {% endif %}
 
                     </div>
-
 
                     <!-- CUSTOMER NOTES -->
 
@@ -151,14 +143,11 @@ New Special Order | Bakery Management
 
                     </div>
 
-
                 </div>
 
             </div>
 
         </div>
-
-
 
         <!-- =====================================================
              ORDER INFORMATION
@@ -174,11 +163,9 @@ New Special Order | Bakery Management
 
             </div>
 
-
             <div class="card-body">
 
                 <div class="row g-3">
-
 
                     <!-- EVENT TYPE -->
 
@@ -198,7 +185,6 @@ New Special Order | Bakery Management
 
                     </div>
 
-
                     <!-- EVENT DATE -->
 
                     <div class="col-md-6">
@@ -216,7 +202,6 @@ New Special Order | Bakery Management
                         {% endif %}
 
                     </div>
-
 
                     <!-- PICKUP TIME -->
 
@@ -236,8 +221,7 @@ New Special Order | Bakery Management
 
                     </div>
 
-
-                    <!-- DEPOSIT -->
+                    <!-- DEPOSIT AMOUNT -->
 
                     <div class="col-md-6">
 
@@ -255,6 +239,41 @@ New Special Order | Bakery Management
 
                     </div>
 
+                    <!-- DEPOSIT PAYMENT METHOD -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Deposit Payment Method
+                        </label>
+
+                        {{ order_form.deposit_method }}
+
+                        {% if order_form.deposit_method.errors %}
+                            <div class="field-error">
+                                {{ order_form.deposit_method.errors|striptags }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                    <!-- DEPOSIT REFERENCE NUMBER -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Deposit Reference Number
+                        </label>
+
+                        {{ order_form.deposit_reference_number }}
+
+                        {% if order_form.deposit_reference_number.errors %}
+                            <div class="field-error">
+                                {{ order_form.deposit_reference_number.errors|striptags }}
+                            </div>
+                        {% endif %}
+
+                    </div>
 
                     <!-- ORDER NOTES -->
 
@@ -274,7 +293,6 @@ New Special Order | Bakery Management
 
                     </div>
 
-
                     <!-- NON FIELD ERRORS -->
 
                     {% if order_form.non_field_errors %}
@@ -282,23 +300,18 @@ New Special Order | Bakery Management
                         <div class="col-12">
 
                             <div class="alert alert-danger mb-0">
-
                                 {{ order_form.non_field_errors }}
-
                             </div>
 
                         </div>
 
                     {% endif %}
 
-
                 </div>
 
             </div>
 
         </div>
-
-
 
         <!-- =====================================================
              ORDER PRODUCTS
@@ -314,18 +327,15 @@ New Special Order | Bakery Management
 
             </div>
 
-
             <div class="card-body">
 
                 <div id="special-order-items">
-
 
                     <!-- PRODUCT ROW -->
 
                     <div class="special-order-item-row">
 
                         <div class="row g-3 align-items-end">
-
 
                             <!-- PRODUCT -->
 
@@ -359,7 +369,6 @@ New Special Order | Bakery Management
 
                             </div>
 
-
                             <!-- QUANTITY -->
 
                             <div class="col-lg-2 col-md-6">
@@ -380,7 +389,6 @@ New Special Order | Bakery Management
 
                             </div>
 
-
                             <!-- UNIT PRICE -->
 
                             <div class="col-lg-2 col-md-6">
@@ -397,7 +405,6 @@ New Special Order | Bakery Management
                                 >
 
                             </div>
-
 
                             <!-- TOTAL -->
 
@@ -416,7 +423,6 @@ New Special Order | Bakery Management
 
                             </div>
 
-
                             <!-- REMOVE -->
 
                             <div class="col-lg-2 col-md-6">
@@ -429,7 +435,6 @@ New Special Order | Bakery Management
                                 </button>
 
                             </div>
-
 
                             <!-- CUSTOMIZATION -->
 
@@ -448,13 +453,11 @@ New Special Order | Bakery Management
 
                             </div>
 
-
                         </div>
 
                     </div>
 
                 </div>
-
 
                 <!-- ADD PRODUCT -->
 
@@ -468,7 +471,6 @@ New Special Order | Bakery Management
                     </button>
 
                 </div>
-
 
                 <!-- ORDER TOTAL -->
 
@@ -495,12 +497,9 @@ New Special Order | Bakery Management
 
                 </div>
 
-
             </div>
 
         </div>
-
-
 
         <!-- =====================================================
              ACTIONS
@@ -515,7 +514,6 @@ New Special Order | Bakery Management
                 Save Special Order
             </button>
 
-
             <a
                 href="{% url 'special_order_list' %}"
                 class="bakery-btn bakery-btn-secondary"
@@ -525,18 +523,14 @@ New Special Order | Bakery Management
 
         </div>
 
-
     </form>
-
 
 </div>
 
 {% endblock %}
-
 
 {% block extra_js %}
 
 <script src="{% static 'bekapp/js/special-order-create.js' %}"></script>
 
 {% endblock %}
-
